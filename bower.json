@@ -1,0 +1,24 @@
+{
+  "name": "threefourth",
+  "description": "Vocal Training Tool",
+  "main": "server.js",
+  "authors": [
+    "Jae Shin",
+    "Joann Im",
+    "Jeff Leu",
+    "Frank Lee"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/franklee77/threefourth",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "react": "^15.2.1"
+  }
+}

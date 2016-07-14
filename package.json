@@ -1,0 +1,36 @@
+{
+  "name": "threefourth",
+  "version": "0.0.1",
+  "description": "Vocal Training Tool",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "babel client --out-dir client/compiled --presets=es2015,react --ignore=node_modules,lib,compiled,server --source-maps inline --watch",
+    "start": "nodemon --ignore node_modules server/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/franklee77/threefourth.git"
+  },
+  "author": "Jae Shin, Joann Im, Jeff Leu, Frank Lee",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/franklee77/threefourth/issues"
+  },
+  "homepage": "https://github.com/franklee77/threefourth#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "cors": "^2.7.1",
+    "express": "^4.14.0",
+    "live-server": "^1.0.0",
+    "morgan": "^1.7.0",
+    "mysql": "^2.11.1",
+    "nodemon": "^1.9.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.10.1",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.11.1",
+    "grunt": "^1.0.1"
+  }
+}
