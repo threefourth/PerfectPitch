@@ -1,18 +1,31 @@
 class App extends React.Component {
   constructor(props) {
-  	super(props)
+  	super(props);
+
+  	this.state = {
+  	  songs: this.props.songs,
+  	  selectedSong: this.props.songs[0]
+  	}
   }
 
-  onChooseSongClick() {
-    console.log('Just chose a song!');	
+  onChooseSongClick(event) {
+    var title = event.target.textContent;
+    var that = this;
+    console.log('this.state.songs is', this.state.songs);
+    this.state.songs.forEach(function(song, index) {
+      if (song.title === title) {
+        that.setState({
+          selectedSong: that.props.songs[index]
+        })
+      }
+    });
+    console.log('this.state.selectedSong is', this.state.selectedSong);
   }
 
   render() {
   	return (
       <div>
-        <h1>App is Rendering</h1>
-        <h2>This should be our Library</h2>
-        <PlayList songs={this.props.songs} onChooseSongClick={this.onChooseSongClick.bind(this)}/>
+        <PlayList songs={this.props.songs} onChooseSongClick={this.onChooseSongClick.bind(this)} selectedSong={this.state.selectedSong}/>
       </div>
   	)
   }
