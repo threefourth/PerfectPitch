@@ -4,7 +4,8 @@ class App extends React.Component {
 
   	this.state = {
   	  songs: this.props.songs,
-  	  selectedSong: this.props.songs[0]
+  	  selectedSong: this.props.songs[0],
+  	  score: 100
   	}
   }
 
@@ -25,7 +26,7 @@ class App extends React.Component {
   render() {
   	return (
       <div>
-        <Main selectedSong={this.state.selectedSong}/>
+        <Main selectedSong={this.state.selectedSong} score={this.state.score}/>
         <PlayList songs={this.props.songs} onChooseSongClick={this.onChooseSongClick.bind(this)} selectedSong={this.state.selectedSong}/>
       </div>
   	)

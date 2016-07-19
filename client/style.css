@@ -49,3 +49,22 @@ body {
   float:right;
   overflow-x: scroll;
 }
+
+#scoreboard {
+  position: absolute;
+  z-index: 1;
+  height: 50px;
+  width: 400px;
+  top: 650px;
+  left: 550px;
+  display: block;
+  background-color: #333333;
+  color: white;
+  font-family: "Montserrat";
+  border-radius: 25px;
+}
+
+#score {
+  text-align: center;
+  vertical-align: middle;
+}
