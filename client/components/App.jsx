@@ -25,6 +25,7 @@ class App extends React.Component {
   render() {
   	return (
       <div>
+        <Main selectedSong={this.state.selectedSong}/>
         <PlayList songs={this.props.songs} onChooseSongClick={this.onChooseSongClick.bind(this)} selectedSong={this.state.selectedSong}/>
       </div>
   	)
