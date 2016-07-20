@@ -34,6 +34,7 @@ var DEBUGCANVAS = null;
 var graphCanvas = null;
 var mediaStreamSource = null;
 var localStream = null; // Used when stopping microphone input
+var updatePitchID = null; // Used to stop the updateGraph interval
 var noteArray = [];
 var detectorElem, 
     canvasElem,
@@ -44,67 +45,9 @@ var detectorElem,
     detuneElem,
     detuneAmount;
 
-/* Below code has been moved to PitchVisualizer component's
-   componentDidMount function
-
-// window.onload = function() {
-
-//   audioContext = new AudioContext();
-
-//   // corresponds to a 5kHz signal
-//   // MAX_SIZE = Math.max(4, Math.floor(audioContext.sampleRate / 5000));  
-
-//   detectorElem = document.getElementById( 'detector' );
-//   canvasElem = document.getElementById( 'output' );
-//   DEBUGCANVAS = document.getElementById( 'waveform' );
-//   graphCanvas = document.getElementById( 'pitchGraph' );
-
-//   if (DEBUGCANVAS) {
-//     waveCanvas = DEBUGCANVAS.getContext('2d');
-//     waveCanvas.strokeStyle = 'black';
-//     waveCanvas.lineWidth = 1;
-//   }
-
-//   // pitch graph canvas
-//   if (graphCanvas) {
-//     noteCanvas = graphCanvas.getContext('2d');
-//     noteCanvas.strokeStyle = 'black';
-//     noteCanvas.lineWidth = 1;
-//   }
-
-//   pitchElem = document.getElementById( 'pitch' );
-//   noteElem = document.getElementById( 'note' );
-//   detuneElem = document.getElementById( 'detune' );
-//   detuneAmount = document.getElementById( 'detune_amt' );
-
-//   // detectorElem.ondragenter = function () { 
-//   //   this.classList.add('droptarget'); 
-//   //   return false; 
-//   // };
-//   // detectorElem.ondragleave = function () { 
-//   //   this.classList.remove('droptarget'); 
-//   //   return false; 
-//   // };
-//   // detectorElem.ondrop = function (e) {
-//   //   this.classList.remove('droptarget');
-//   //   e.preventDefault();
-//   //   theBuffer = null;
-
-//   //   var reader = new FileReader();
-//   //   reader.onload = function (event) {
-//   //     audioContext.decodeAudioData( event.target.result, function(buffer) {
-//   //       theBuffer = buffer;
-//   //     }, function() { alert('error loading!'); } ); 
-//   //   };
-//   //   reader.onerror = function (event) {
-//   //     alert('Error: ' + reader.error );
-//   //   }; 
-//   //   reader.readAsArrayBuffer(e.dataTransfer.files[0]);
-//   //   return false;
-//   // };
-// };
-
-  Above has been moved to PitchVisualizer's ComponentDidMount
+/* 
+  Code that was previously in window.onload was moved to PitchVisualizer
+  component's componentDidMount function
 */
 
 var error = function() {
@@ -195,7 +138,7 @@ var getUserAudio = function() {
 
         isPlaying = true;
 
-        setInterval(updatePitch, setIntervalTimeRate);
+        updatePitchID = setInterval(updatePitch, setIntervalTimeRate);
       });
   
   } else if (navigator.webkitGetUserMedia) {
@@ -211,7 +154,7 @@ var getUserAudio = function() {
 
       isPlaying = true;
 
-      setInterval(updatePitch, setIntervalTimeRate);
+      updatePitchID = setInterval(updatePitch, setIntervalTimeRate);
 
     }, function(error) { console.log(error); });
 

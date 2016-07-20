@@ -2,6 +2,9 @@ class PitchVisualizer extends React.Component {
 
   componentDidMount() {
 
+    // Initializes the variables that the pitch detector and visualizer
+    // will need to use (see scripts/pitchDetector.js)
+
     // corresponds to a 5kHz signal
     // MAX_SIZE = Math.max(4, Math.floor(audioContext.sampleRate / 5000));  
     audioContext = new AudioContext();
@@ -29,7 +32,29 @@ class PitchVisualizer extends React.Component {
     detuneElem = document.getElementById( 'detune' );
     detuneAmount = document.getElementById( 'detune_amt' );
 
-    getUserAudio();
+  }
+
+  componentWillUnmount() {
+    this.stopUserAudio();
+  }
+
+  stopUserAudio() {
+    console.log('Stopping user input');
+    
+    localStream.getAudioTracks()[0].stop( 0 );
+    localStream = null;
+    clearInterval(updatePitchID);
+  }
+
+  toggleLiveInput() {
+    console.log('Toggling audio input');
+    console.log(localStream);
+
+    if (localStream === null) {
+      getUserAudio();
+    } else {
+      this.stopUserAudio();
+    }
 
   }
 
@@ -46,7 +71,7 @@ class PitchVisualizer extends React.Component {
         <br></br>
         <br></br>
 
-        <button>Use Live Input</button>
+        <button onClick={this.toggleLiveInput.bind(this)}>Use Live Input</button>
 
         <canvas id="pitchGraph" width="2560" height="256"></canvas>
         <canvas id="waveform" width="512" height="256"></canvas>
