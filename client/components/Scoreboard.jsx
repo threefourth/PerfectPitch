@@ -1,6 +1,6 @@
 var ScoreBoard = (props) => (
   <div id="scoreboard">
-    <h2 id="score">Score: {props.score}</h2>
+    <span id="score">Score: {props.score}</span>
   </div>
 );
 
