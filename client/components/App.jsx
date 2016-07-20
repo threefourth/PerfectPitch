@@ -6,7 +6,7 @@ class App extends React.Component {
   	  songs: this.props.songs,
   	  selectedSong: this.props.songs[0],
   	  score: 100,
-      userInput: false
+      userInput: true
   	}
   }
 

@@ -5,7 +5,8 @@ var Main = (props) => {
     console.log('Displaying music video for song');
     typeVisual = <SongPlayer selectedAudio={props.selectedSong.audio}/>;
   } else {
-    typeVisual = null;
+    console.log('Displaying pitch visualizer');
+    typeVisual = <PitchVisualizer />;
   }
 
   return (
