@@ -6,7 +6,7 @@ class App extends React.Component {
   	  songs: this.props.songs,
   	  selectedSong: this.props.songs[0],
   	  score: 100,
-      userInput: true
+      userInput: false
   	}
   }
 
@@ -19,6 +19,16 @@ class App extends React.Component {
         that.setState({
           selectedSong: that.props.songs[index]
         })
+      }
+
+      if (title === 'Your Voice') {
+        that.setState({
+          userInput: true
+        });
+      } else {
+        that.setState({
+          userInput: false
+        });
       }
     });
     console.log('this.state.selectedSong is', this.state.selectedSong);

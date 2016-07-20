@@ -1,5 +1,8 @@
 var PitchVisualizer = (props) => (
-  <canvas id="pitchGraph" width="500" height="500"></canvas>
+  <div>
+    <canvas id="pitchGraph" width="500" height="500"></canvas>
+  </div>
+  
 );
 
 window.PitchVisualizer = PitchVisualizer;
