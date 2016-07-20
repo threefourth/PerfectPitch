@@ -36,102 +36,79 @@ var mediaStreamSource = null;
 var localStream = null; // Used when stopping microphone input
 var noteArray = [];
 var detectorElem, 
-  canvasElem,
-  waveCanvas,
-  noteCanvas,
-  pitchElem,
-  noteElem,
-  detuneElem,
-  detuneAmount;
+    canvasElem,
+    waveCanvas,
+    noteCanvas,
+    pitchElem,
+    noteElem,
+    detuneElem,
+    detuneAmount;
 
-window.onload = function() {
+/* Below code has been moved to PitchVisualizer component's
+   componentDidMount function
 
-  audioContext = new AudioContext();
+// window.onload = function() {
 
-  // corresponds to a 5kHz signal
-  // MAX_SIZE = Math.max(4, Math.floor(audioContext.sampleRate / 5000));  
+//   audioContext = new AudioContext();
 
-  detectorElem = document.getElementById( 'detector' );
-  canvasElem = document.getElementById( 'output' );
-  DEBUGCANVAS = document.getElementById( 'waveform' );
-  graphCanvas = document.getElementById( 'pitchGraph' );
+//   // corresponds to a 5kHz signal
+//   // MAX_SIZE = Math.max(4, Math.floor(audioContext.sampleRate / 5000));  
 
-  if (DEBUGCANVAS) {
-    waveCanvas = DEBUGCANVAS.getContext('2d');
-    waveCanvas.strokeStyle = 'black';
-    waveCanvas.lineWidth = 1;
-  }
+//   detectorElem = document.getElementById( 'detector' );
+//   canvasElem = document.getElementById( 'output' );
+//   DEBUGCANVAS = document.getElementById( 'waveform' );
+//   graphCanvas = document.getElementById( 'pitchGraph' );
 
-  // pitch graph canvas
-  if (graphCanvas) {
-    noteCanvas = graphCanvas.getContext('2d');
-    noteCanvas.strokeStyle = 'black';
-    noteCanvas.lineWidth = 1;
-  }
+//   if (DEBUGCANVAS) {
+//     waveCanvas = DEBUGCANVAS.getContext('2d');
+//     waveCanvas.strokeStyle = 'black';
+//     waveCanvas.lineWidth = 1;
+//   }
 
-  pitchElem = document.getElementById( 'pitch' );
-  noteElem = document.getElementById( 'note' );
-  detuneElem = document.getElementById( 'detune' );
-  detuneAmount = document.getElementById( 'detune_amt' );
+//   // pitch graph canvas
+//   if (graphCanvas) {
+//     noteCanvas = graphCanvas.getContext('2d');
+//     noteCanvas.strokeStyle = 'black';
+//     noteCanvas.lineWidth = 1;
+//   }
 
-  // detectorElem.ondragenter = function () { 
-  //   this.classList.add('droptarget'); 
-  //   return false; 
-  // };
-  // detectorElem.ondragleave = function () { 
-  //   this.classList.remove('droptarget'); 
-  //   return false; 
-  // };
-  // detectorElem.ondrop = function (e) {
-  //   this.classList.remove('droptarget');
-  //   e.preventDefault();
-  //   theBuffer = null;
+//   pitchElem = document.getElementById( 'pitch' );
+//   noteElem = document.getElementById( 'note' );
+//   detuneElem = document.getElementById( 'detune' );
+//   detuneAmount = document.getElementById( 'detune_amt' );
 
-  //   var reader = new FileReader();
-  //   reader.onload = function (event) {
-  //     audioContext.decodeAudioData( event.target.result, function(buffer) {
-  //       theBuffer = buffer;
-  //     }, function() { alert('error loading!'); } ); 
-  //   };
-  //   reader.onerror = function (event) {
-  //     alert('Error: ' + reader.error );
-  //   }; 
-  //   reader.readAsArrayBuffer(e.dataTransfer.files[0]);
-  //   return false;
-  // };
-};
+//   // detectorElem.ondragenter = function () { 
+//   //   this.classList.add('droptarget'); 
+//   //   return false; 
+//   // };
+//   // detectorElem.ondragleave = function () { 
+//   //   this.classList.remove('droptarget'); 
+//   //   return false; 
+//   // };
+//   // detectorElem.ondrop = function (e) {
+//   //   this.classList.remove('droptarget');
+//   //   e.preventDefault();
+//   //   theBuffer = null;
+
+//   //   var reader = new FileReader();
+//   //   reader.onload = function (event) {
+//   //     audioContext.decodeAudioData( event.target.result, function(buffer) {
+//   //       theBuffer = buffer;
+//   //     }, function() { alert('error loading!'); } ); 
+//   //   };
+//   //   reader.onerror = function (event) {
+//   //     alert('Error: ' + reader.error );
+//   //   }; 
+//   //   reader.readAsArrayBuffer(e.dataTransfer.files[0]);
+//   //   return false;
+//   // };
+// };
+
+  Above has been moved to PitchVisualizer's ComponentDidMount
+*/
 
 var error = function() {
   alert('Stream generation failed.');
-};
-
-var toggleOscillator = function() {
-  if (isPlaying) {
-    //stop playing and return
-    sourceNode.stop( 0 );
-    sourceNode = null;
-    analyser = null;
-    isPlaying = false;
-
-    // if (!window.cancelAnimationFrame) {
-    //   window.cancelAnimationFrame = window.webkitCancelAnimationFrame;
-    // }
-    // window.fjcancelAnimationFrame( rafID );
-    return 'play oscillator';
-  }
-
-  sourceNode = audioContext.createOscillator();
-  analyser = audioContext.createAnalyser();
-  analyser.fftSize = 2048;
-  sourceNode.connect( analyser );
-  analyser.connect( audioContext.destination );
-  sourceNode.start(0);
-  isPlaying = true;
-  isLiveInput = false;
-
-  setInterval(updatePitch, setIntervalTimeRate);
-
-  return 'stop oscillator';
 };
 
 var toggleLiveInput = function() {
@@ -246,38 +223,38 @@ var getUserAudio = function() {
 
 };
 
-var togglePlayback = function() {
-  if (isPlaying) {
-    //stop playing and return
-    sourceNode.stop( 0 );
-    sourceNode = null;
-    analyser = null;
-    isPlaying = false;
+// var togglePlayback = function() {
+//   if (isPlaying) {
+//     //stop playing and return
+//     sourceNode.stop( 0 );
+//     sourceNode = null;
+//     analyser = null;
+//     isPlaying = false;
 
-    // if (!window.cancelAnimationFrame) {
-    //   window.cancelAnimationFrame = window.webkitCancelAnimationFrame;
-    // }
-    // window.cancelAnimationFrame( rafID );
+//     // if (!window.cancelAnimationFrame) {
+//     //   window.cancelAnimationFrame = window.webkitCancelAnimationFrame;
+//     // }
+//     // window.cancelAnimationFrame( rafID );
     
-    return 'start';
-  }
+//     return 'start';
+//   }
 
-  sourceNode = audioContext.createBufferSource();
-  sourceNode.buffer = theBuffer;
-  sourceNode.loop = true;
+//   sourceNode = audioContext.createBufferSource();
+//   sourceNode.buffer = theBuffer;
+//   sourceNode.loop = true;
 
-  analyser = audioContext.createAnalyser();
-  analyser.fftSize = 2048;
-  sourceNode.connect( analyser );
-  analyser.connect( audioContext.destination );
-  sourceNode.start( 0 );
-  isPlaying = true;
-  isLiveInput = false;
+//   analyser = audioContext.createAnalyser();
+//   analyser.fftSize = 2048;
+//   sourceNode.connect( analyser );
+//   analyser.connect( audioContext.destination );
+//   sourceNode.start( 0 );
+//   isPlaying = true;
+//   isLiveInput = false;
 
-  setInterval(updatePitch, setIntervalTimeRate);
+//   setInterval(updatePitch, setIntervalTimeRate);
 
-  return 'stop';
-};
+//   return 'stop';
+// };
 
 var rafID = null;
 var tracks = null;
@@ -368,6 +345,7 @@ var updatePitch = function( time ) {
   analyser.getFloatTimeDomainData( buf );
   console.log('Buffer: ', buf);
   var ac = autoCorrelate( buf, audioContext.sampleRate );
+  console.log(ac);
   // TODO: Paint confidence meter on canvasElem here.
 
   if (DEBUGCANVAS) {  // This draws the current waveform, useful for debugging

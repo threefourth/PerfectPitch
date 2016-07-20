@@ -23,6 +23,7 @@ img {
   width: 85%;
   height: 100%;
   z-index: -1;
+  display: none;
 }
 
 audio {
@@ -94,9 +95,17 @@ div.vague {
   text-align: left;
 }
 
+#pitchdetector {
+  width: 512px;
+  height: auto;
+  margin: auto;
+  background-color: white;
+  z-index: 1;
+}
+
 #detector { 
   width: 300px; 
-  height: 300px; 
+  height: 300px;
   border: 4px solid gray; 
   border-radius: 8px; 
   text-align: center; 
