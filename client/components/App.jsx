@@ -5,7 +5,8 @@ class App extends React.Component {
   	this.state = {
   	  songs: this.props.songs,
   	  selectedSong: this.props.songs[0],
-  	  score: 100
+  	  score: 100,
+      userInput: false
   	}
   }
 
@@ -26,7 +27,7 @@ class App extends React.Component {
   render() {
   	return (
       <div>
-        <Main selectedSong={this.state.selectedSong} score={this.state.score}/>
+        <Main selectedSong={this.state.selectedSong} score={this.state.score} userInput={this.state.userInput}/>
         <PlayList songs={this.props.songs} onChooseSongClick={this.onChooseSongClick.bind(this)} selectedSong={this.state.selectedSong}/>
       </div>
   	)

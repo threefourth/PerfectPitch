@@ -19,5 +19,12 @@ window.songs = [
   artwork: 'https://upload.wikimedia.org/wikipedia/en/8/8d/Coldplay_-_A_Sky_Full_of_Stars_(Single).png',
   audio: "/../data/ASkyFullOfStars.mp3",
   background: 'https://images4.alphacoders.com/198/198004.jpg'
+},
+{
+  title: 'Your Voice',
+  artist: 'You',
+  artwork: 'https://s-media-cache-ak0.pinimg.com/736x/56/28/85/562885310989965dfa8f8839feaaff92.jpg',
+  audio: null,
+  background: 'http://vignette1.wikia.nocookie.net/epicpixelbattles/images/a/ac/Concert_Stage.PNG/revision/latest?cb=20140816091755'
 }
 ];
