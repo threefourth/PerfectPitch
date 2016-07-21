@@ -1,0 +1,4 @@
+'use strict';
+
+ReactDOM.render(React.createElement(App, { songs: songs }), document.getElementById('app'));
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL2luZGV4LmpzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7O0FBQUEsU0FBUyxNQUFULENBQWdCLG9CQUFDLEdBQUQsSUFBSyxPQUFPLEtBQVosR0FBaEIsRUFBc0MsU0FBUyxjQUFULENBQXdCLEtBQXhCLENBQXRDIiwiZmlsZSI6ImluZGV4LmpzIiwic291cmNlc0NvbnRlbnQiOlsiUmVhY3RET00ucmVuZGVyKDxBcHAgc29uZ3M9e3NvbmdzfS8+LCBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnYXBwJykpOyJdfQ==

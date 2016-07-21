@@ -1,0 +1,28 @@
+'use strict';
+
+window.songs = [{
+  title: 'Say My Name',
+  artist: 'Destiny\'s Child',
+  artwork: 'http://www.getsomeuk.com/wp-content/uploads/2011/12/17703-1024x897.jpg',
+  audio: "/../data/SayMyName.mp3",
+  background: 'http://img.brothersoft.com/screenshots/softimage/d/destinys_child_wallpaper-37209-1234762871.jpeg'
+}, {
+  title: 'All Of Me',
+  artist: 'John Legend',
+  artwork: 'https://s-media-cache-ak0.pinimg.com/564x/a0/fe/10/a0fe10696f7ad59fae13203648efef8b.jpg',
+  audio: "/../data/AllOfMe.mp3",
+  background: 'http://www.hdwallpapersnews.com/wp-content/uploads/2015/04/John_Legend-Desktop-Images.jpg'
+}, {
+  title: 'A Sky Full Of Stars',
+  artist: 'Coldplay',
+  artwork: 'https://upload.wikimedia.org/wikipedia/en/8/8d/Coldplay_-_A_Sky_Full_of_Stars_(Single).png',
+  audio: "/../data/ASkyFullOfStars.mp3",
+  background: 'https://images4.alphacoders.com/198/198004.jpg'
+}, {
+  title: 'Your Voice',
+  artist: 'You',
+  artwork: 'https://s-media-cache-ak0.pinimg.com/736x/56/28/85/562885310989965dfa8f8839feaaff92.jpg',
+  audio: null,
+  background: 'http://vignette1.wikia.nocookie.net/epicpixelbattles/images/a/ac/Concert_Stage.PNG/revision/latest?cb=20140816091755'
+}];
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL2RhdGEvcGxhY2VIb2xkZXJEYXRhLmpzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7O0FBQUEsT0FBTyxLQUFQLEdBQWUsQ0FDZjtBQUNFLFNBQU8sYUFEVDtBQUVFLFVBQVEsa0JBRlY7QUFHRSxXQUFTLHdFQUhYO0FBSUUsU0FBTyx3QkFKVDtBQUtFLGNBQVk7QUFMZCxDQURlLEVBUWY7QUFDRSxTQUFPLFdBRFQ7QUFFRSxVQUFRLGFBRlY7QUFHRSxXQUFTLHlGQUhYO0FBSUUsU0FBTyxzQkFKVDtBQUtFLGNBQVk7QUFMZCxDQVJlLEVBZWY7QUFDRSxTQUFPLHFCQURUO0FBRUUsVUFBUSxVQUZWO0FBR0UsV0FBUyw0RkFIWDtBQUlFLFNBQU8sOEJBSlQ7QUFLRSxjQUFZO0FBTGQsQ0FmZSxFQXNCZjtBQUNFLFNBQU8sWUFEVDtBQUVFLFVBQVEsS0FGVjtBQUdFLFdBQVMseUZBSFg7QUFJRSxTQUFPLElBSlQ7QUFLRSxjQUFZO0FBTGQsQ0F0QmUsQ0FBZiIsImZpbGUiOiJwbGFjZUhvbGRlckRhdGEuanMiLCJzb3VyY2VzQ29udGVudCI6WyJ3aW5kb3cuc29uZ3MgPSBbXG57XG4gIHRpdGxlOiAnU2F5IE15IE5hbWUnLCBcbiAgYXJ0aXN0OiAnRGVzdGlueVxcJ3MgQ2hpbGQnLFxuICBhcnR3b3JrOiAnaHR0cDovL3d3dy5nZXRzb21ldWsuY29tL3dwLWNvbnRlbnQvdXBsb2Fkcy8yMDExLzEyLzE3NzAzLTEwMjR4ODk3LmpwZycsXG4gIGF1ZGlvOiBcIi8uLi9kYXRhL1NheU15TmFtZS5tcDNcIixcbiAgYmFja2dyb3VuZDogJ2h0dHA6Ly9pbWcuYnJvdGhlcnNvZnQuY29tL3NjcmVlbnNob3RzL3NvZnRpbWFnZS9kL2Rlc3RpbnlzX2NoaWxkX3dhbGxwYXBlci0zNzIwOS0xMjM0NzYyODcxLmpwZWcnXG59LFxue1xuICB0aXRsZTogJ0FsbCBPZiBNZScsXG4gIGFydGlzdDogJ0pvaG4gTGVnZW5kJyxcbiAgYXJ0d29yazogJ2h0dHBzOi8vcy1tZWRpYS1jYWNoZS1hazAucGluaW1nLmNvbS81NjR4L2EwL2ZlLzEwL2EwZmUxMDY5NmY3YWQ1OWZhZTEzMjAzNjQ4ZWZlZjhiLmpwZycsXG4gIGF1ZGlvOiBcIi8uLi9kYXRhL0FsbE9mTWUubXAzXCIsXG4gIGJhY2tncm91bmQ6ICdodHRwOi8vd3d3Lmhkd2FsbHBhcGVyc25ld3MuY29tL3dwLWNvbnRlbnQvdXBsb2Fkcy8yMDE1LzA0L0pvaG5fTGVnZW5kLURlc2t0b3AtSW1hZ2VzLmpwZydcbn0sXG57XG4gIHRpdGxlOiAnQSBTa3kgRnVsbCBPZiBTdGFycycsXG4gIGFydGlzdDogJ0NvbGRwbGF5JyxcbiAgYXJ0d29yazogJ2h0dHBzOi8vdXBsb2FkLndpa2ltZWRpYS5vcmcvd2lraXBlZGlhL2VuLzgvOGQvQ29sZHBsYXlfLV9BX1NreV9GdWxsX29mX1N0YXJzXyhTaW5nbGUpLnBuZycsXG4gIGF1ZGlvOiBcIi8uLi9kYXRhL0FTa3lGdWxsT2ZTdGFycy5tcDNcIixcbiAgYmFja2dyb3VuZDogJ2h0dHBzOi8vaW1hZ2VzNC5hbHBoYWNvZGVycy5jb20vMTk4LzE5ODAwNC5qcGcnXG59LFxue1xuICB0aXRsZTogJ1lvdXIgVm9pY2UnLFxuICBhcnRpc3Q6ICdZb3UnLFxuICBhcnR3b3JrOiAnaHR0cHM6Ly9zLW1lZGlhLWNhY2hlLWFrMC5waW5pbWcuY29tLzczNngvNTYvMjgvODUvNTYyODg1MzEwOTg5OTY1ZGZhOGY4ODM5ZmVhYWZmOTIuanBnJyxcbiAgYXVkaW86IG51bGwsXG4gIGJhY2tncm91bmQ6ICdodHRwOi8vdmlnbmV0dGUxLndpa2lhLm5vY29va2llLm5ldC9lcGljcGl4ZWxiYXR0bGVzL2ltYWdlcy9hL2FjL0NvbmNlcnRfU3RhZ2UuUE5HL3JldmlzaW9uL2xhdGVzdD9jYj0yMDE0MDgxNjA5MTc1NSdcbn1cbl07Il19
