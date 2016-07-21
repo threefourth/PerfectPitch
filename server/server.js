@@ -4,7 +4,7 @@ var db = require('./db/db');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 
-var port = 8000;
+var port = process.env.PORT || 8000;
 
 var app = express();
 
@@ -16,7 +16,7 @@ app.use(express.static(__dirname + '/../client'));
 // app.use(express.static(__dirname + '/'));
 
 app.get('/', function(request, response) {
-  response.send('client/index.html');
+  response.send('App is running');
 });
 
 // Database connection
@@ -29,6 +29,6 @@ db.connection.connect(error => {
   console.log('Encountered an error connecting to the database...');
 });
 
-app.listen(port, function() {
-  console.log('Server listening on port ', port);
+app.listen(app.get('port'), function() {
+  console.log('Server listening on port ', app.get('port'));
 });
