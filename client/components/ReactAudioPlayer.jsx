@@ -73,7 +73,7 @@ const ReactAudioPlayer = React.createClass({
     return (
       <audio
         className="react-audio-player"
-        src={'http://159.203.220.20:8000/' + this.props.src}
+        src={this.props.src}
         autoPlay={this.props.autoPlay}
         preload={this.props.preload}
         controls
