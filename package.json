@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/franklee77/threefourth.git"
+    "url": "git+https://github.com/threefourth/threefourth.git"
   },
   "author": "Jae Shin, Joann Im, Jeff Leu, Frank Lee",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/franklee77/threefourth/issues"
+    "url": "https://github.com/threefourth/threefourth/issues"
   },
-  "homepage": "https://github.com/franklee77/threefourth#readme",
+  "homepage": "https://github.com/threefourth/threefourth#readme",
   "dependencies": {
     "body-parser": "^1.15.2",
     "cors": "^2.7.1",

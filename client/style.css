@@ -38,7 +38,7 @@ body {
   background-color: black;
 }
 
-#graph {
+#graph, #pitchdetector {
   width: 700px;
   height: 500px;
   top: 30px;

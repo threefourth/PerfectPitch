@@ -1,8 +1,8 @@
 var Artwork = (props) => (
   <tr>
-   <td>
-     <img src={props.selectedSong.artwork}></img>
-   </td>
+    <td>
+      <img src={props.selectedSong.artwork}></img>
+    </td>
   </tr>
 );
 

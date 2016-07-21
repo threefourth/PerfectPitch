@@ -1,5 +1,3 @@
-
-
 const DEFAULT_LISTEN_INTERVAL = 10000;
 
 const ReactAudioPlayer = React.createClass({

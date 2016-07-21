@@ -1,13 +1,9 @@
 var PlayListEntry = (props) => (
-  <div>
-   {props.songs.map(song =>
-     <tr>
-       <td onClick={props.onChooseSongClick}>
-         {song.title}
-       </td>
-     </tr>
-   )}
-  </div>
+  <tr>
+    <td onClick={props.onChooseSongClick}>
+      {props.song.title}
+    </td>
+  </tr>
 );
 
 window.PlayListEntry = PlayListEntry;

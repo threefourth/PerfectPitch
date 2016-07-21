@@ -1,13 +1,13 @@
 class App extends React.Component {
   constructor(props) {
-  	super(props);
+    super(props);
 
-  	this.state = {
-  	  songs: this.props.songs,
-  	  selectedSong: this.props.songs[0],
-  	  score: 100,
+    this.state = {
+      songs: this.props.songs,
+      selectedSong: this.props.songs[0],
+      score: 100,
       userInput: false
-  	}
+    };
   }
 
   onChooseSongClick(event) {
@@ -18,7 +18,7 @@ class App extends React.Component {
       if (song.title === title) {
         that.setState({
           selectedSong: that.props.songs[index]
-        })
+        });
       }
 
       if (title === 'Your Voice') {
@@ -35,12 +35,12 @@ class App extends React.Component {
   }
 
   render() {
-  	return (
+    return (
       <div>
         <Main selectedSong={this.state.selectedSong} score={this.state.score} userInput={this.state.userInput}/>
         <PlayList songs={this.props.songs} onChooseSongClick={this.onChooseSongClick.bind(this)} selectedSong={this.state.selectedSong}/>
       </div>
-  	)
+    );
   }
 }
 
