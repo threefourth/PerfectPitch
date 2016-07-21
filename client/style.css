@@ -23,7 +23,7 @@ img {
   width: 85%;
   height: 100%;
   z-index: -1;
-  display: none;
+  position: relative;
 }
 
 audio {
@@ -104,6 +104,7 @@ div.vague {
   margin: auto;
   background-color: white;
   z-index: 1;
+  position: absolute;
 }
 
 #detector { 
