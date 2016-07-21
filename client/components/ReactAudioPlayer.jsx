@@ -50,6 +50,13 @@ const ReactAudioPlayer = React.createClass({
   },
 
   componentWillReceiveProps(nextProps) {
+    
+    if (nextProps.src === null) {
+      const audio = this.refs.audio;
+      console.log(audio);
+      audio.src = '';
+    }
+
     if (nextProps.selectedPlayerEvent) {
       const audio = this.refs.audio;
 
