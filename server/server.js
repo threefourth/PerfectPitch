@@ -4,8 +4,6 @@ var db = require('./db/db');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 
-// var port = process.env.PORT || 8000;
-
 var app = express();
 app.set('port', (process.env.PORT || 8000));
 
