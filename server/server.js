@@ -13,7 +13,11 @@ app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/../client'));
-app.use(express.static(__dirname + '/'));
+// app.use(express.static(__dirname + '/'));
+
+app.get('/', function(request, response) {
+  response.render('client/index.html');
+});
 
 // Database connection
 db.connection.connect(error => {
