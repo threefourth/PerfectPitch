@@ -4,16 +4,14 @@ var db = require('./db/db');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 
-var port = 8000;
-
 var app = express();
+app.set('port', (process.env.PORT || 8000));
 
 // Middleware
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/../client'));
-app.use(express.static(__dirname + '/'));
 
 // Database connection
 db.connection.connect(error => {
@@ -25,6 +23,6 @@ db.connection.connect(error => {
   console.log('Encountered an error connecting to the database...');
 });
 
-app.listen(port, function() {
-  console.log('Server listening on port ', port);
+app.listen(app.get('port'), function() {
+  console.log('Server listening on port ', app.get('port'));
 });
