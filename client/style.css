@@ -63,6 +63,9 @@ body {
   color: white;
   font-family: "Montserrat";
   border-radius: 25px;
+  opacity: 0.8;
+  text-align: center;
+  line-height: 50px;
 }
 
 #score {
@@ -131,4 +134,5 @@ div.vague {
 
 .sharp #sharp { 
   display: inline; 
+  font-size: 1.5em;
 }
