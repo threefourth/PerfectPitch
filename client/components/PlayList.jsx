@@ -1,10 +1,16 @@
 var PlayList = (props) => (
   <table>
-    <tr>
-      <th>Library</th>
-    </tr>
-    <PlayListEntry songs={props.songs} onChooseSongClick={props.onChooseSongClick}/>
-    <Artwork selectedSong={props.selectedSong}/>
+    <thead>
+      <tr>
+        <th>Library</th>
+      </tr>
+    </thead>
+    <tbody>
+      {props.songs.map((song, index) =>
+        <PlayListEntry onChooseSongClick={props.onChooseSongClick} key={index} song={song} />
+      )}
+      <Artwork selectedSong={props.selectedSong}/>
+    </tbody>
   </table>
 );
 
