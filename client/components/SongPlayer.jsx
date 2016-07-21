@@ -1,11 +1,10 @@
 var SongPlayer = (props) => (
   <div>
-    <div id="graph">
-    </div>
-  <ReactAudioPlayer
-    src={props.selectedAudio}
-    autoPlay="false"
-  />
+    <PitchVisualizer />
+    <ReactAudioPlayer
+      src={props.selectedAudio}
+      autoPlay="false"
+    />
   </div>
 );
 
