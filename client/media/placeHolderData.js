@@ -21,6 +21,13 @@ window.songs = [
   background: 'https://images4.alphacoders.com/198/198004.jpg'
 },
 {
+  title: 'God Only Knows',
+  artist: 'The Beach Boys',
+  artwork: '',
+  audio: "/../media/TheBeachBoys-GodOnlyKnows-VOCAL.mp3",
+  background: ''
+},
+{
   title: 'Your Voice',
   artist: 'You',
   artwork: 'https://s-media-cache-ak0.pinimg.com/736x/56/28/85/562885310989965dfa8f8839feaaff92.jpg',
