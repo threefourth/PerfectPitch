@@ -3,8 +3,8 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      songs: this.props.songs,
-      selectedSong: this.props.songs[0],
+      songs: window.songs,
+      selectedSong: window.songs[0],
       score: 100,
       userInput: false
     };
@@ -16,7 +16,7 @@ class App extends React.Component {
     this.state.songs.forEach(function(song, index) {
       if (song.title === title) {
         that.setState({
-          selectedSong: that.props.songs[index]
+          selectedSong: that.state.songs[index]
         });
       }
 
@@ -34,9 +34,13 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <Main selectedSong={this.state.selectedSong} score={this.state.score} userInput={this.state.userInput}/>
-        <PlayList songs={this.props.songs} onChooseSongClick={this.onChooseSongClick.bind(this)} selectedSong={this.state.selectedSong}/>
+      <div className="row">
+        <div className="col s4">
+          <PlayList songs={this.state.songs} onChooseSongClick={this.onChooseSongClick.bind(this)} selectedSong={this.state.selectedSong}/>
+        </div>
+        <div className="col s8 offset-s4">
+          <Main selectedSong={this.state.selectedSong} score={this.state.score} userInput={this.state.userInput}/>
+        </div>
       </div>
     );
   }

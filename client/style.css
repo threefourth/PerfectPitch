@@ -1,5 +1,10 @@
 @import url(https://fonts.googleapis.com/css?family=Montserrat);
 
+body {
+  font-family: "Montserrat";
+  background-color: black;
+}
+
 th, td {
   font-size: 20px;
   color: white;
@@ -30,12 +35,8 @@ img {
   z-index: 1;
   float: right;
   position: relative;
-/*  bottom: 200px;
+  bottom: 200px;
   left: 600px;
-*/}
-
-body {
-  background-color: black;
 }
 
 #graph, #pitchdetector {
@@ -139,15 +140,23 @@ div.vague {
 }
 
 #vocals {
-  top: 100px;
+  top: 200px;
   left: 900px;
   position: absolute;
   border: 5px solid blue;
 }
 
 #karaoke {
-  top: 50px;
+  top: 150px;
   left: 900px;
   border: 5px solid red;
   position: absolute;
+}
+
+nav ul a {
+  display: inline;
+}
+
+input {
+  color: white;
 }
