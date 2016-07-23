@@ -1,4 +1,9 @@
-var SongPlayer = (props) => {
+class SongPlayer extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
     if (this.props.selectedVocals) {
       return (
         <div>
@@ -23,6 +28,7 @@ var SongPlayer = (props) => {
           />
         </div>)
     }    
-}
+  }
+};
 
 window.SongPlayer = SongPlayer;
