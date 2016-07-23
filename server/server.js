@@ -1,5 +1,6 @@
 var express = require('express');
-var db = require('./db/db');
+var mongoose = require('mongoose');
+var schemas = require('./db/schemas');
 
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
@@ -14,15 +15,9 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname + '/../client'));
 
 // Database connection
-db.connection.connect(error => {
-  if (!error) {
-    console.log('Successfully connected to the database!');
-    return;
-  } 
+mongoose.connect('mongodb://localhost/threefourths');
 
-  console.log('Encountered an error connecting to the database...');
-});
-
+// Connect to local server
 app.listen(app.get('port'), function() {
   console.log('Server listening on port ', app.get('port'));
 });
