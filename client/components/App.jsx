@@ -8,12 +8,19 @@ class App extends React.Component {
       score: 100,
       userInput: false
     };
+
+  }
+
+  componentDidMount() {
+    //get the audio player that is playing only the vocals 
+    var vocals = document.getElementById("vocals");
+    //sets the volume at 0, so the vocal player starts silent
+    vocals.volume = 0.0;
   }
 
   onChooseSongClick(event) {
     var title = event.target.textContent;
-    var that = this;
-    console.log('this.state.songs is', this.state.songs);
+    var that = this;  
     this.state.songs.forEach(function(song, index) {
       if (song.title === title) {
         that.setState({
@@ -31,7 +38,6 @@ class App extends React.Component {
         });
       }
     });
-    console.log('this.state.selectedSong is', this.state.selectedSong);
   }
 
   render() {

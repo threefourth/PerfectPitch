@@ -28,6 +28,31 @@ window.songs = [
   background: ''
 },
 {
+  title: 'Hotel California', 
+  artist: 'Eagles',
+  artwork: 'http://bestclassicbands.com/wp-content/uploads/2015/11/eagles_hotel_california.jpg',
+  audio: '/../media/HotelCaliforniaInstrumental.mp3',
+  vocals: '/../media/HotelCaliforniaVocals.mp3',
+  background: 'http://static.independent.co.uk/s3fs-public/thumbnails/image/2016/01/19/18/eagles-getty.jpg'
+},
+{
+  title: 'We Are The Champions',
+  artist: 'Queen',
+  artwork: 'https://semiannualpaulmaraplayoffbeardcontest.files.wordpress.com/2013/07/queen.jpg',
+  audio: '/../media/WeAreTheChampionsInstrumental.mp3',
+  vocals: '/../media/WeAreTheChampionsVocal.mp3',
+  background: 'https://images.alphacoders.com/233/233243.jpg'
+
+},
+{
+  title: 'Here Comes The Sun',
+  artist: 'The Beatles',
+  artwork: 'http://cdn.lyrics.songonlyrics.net/wp-content/uploads/2011/01/beatles.jpg',
+  audio: '../media/HereComesTheSunInstrumental.mp3',
+  vocals: '../media/HereComesTheSunVocals.mp3',
+  background: 'http://wallpapercave.com/wp/rKnQqiN.png'
+},
+{
   title: 'Your Voice',
   artist: 'You',
   artwork: 'https://s-media-cache-ak0.pinimg.com/736x/56/28/85/562885310989965dfa8f8839feaaff92.jpg',

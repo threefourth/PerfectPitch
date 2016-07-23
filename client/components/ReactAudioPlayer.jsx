@@ -73,6 +73,7 @@ const ReactAudioPlayer = React.createClass({
     return (
       <audio
         className="react-audio-player"
+        id={this.props.id}
         src={this.props.src}
         autoPlay={this.props.autoPlay}
         preload={this.props.preload}

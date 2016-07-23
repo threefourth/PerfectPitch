@@ -26,13 +26,13 @@ img {
   position: relative;
 }
 
-audio {
-  float: right;
-  position: absolute;
+.react-audio-player {
   z-index: 1;
-  bottom: 200px;
+  float: right;
+  position: relative;
+/*  bottom: 200px;
   left: 600px;
-}
+*/}
 
 body {
   background-color: black;
@@ -136,4 +136,18 @@ div.vague {
 .sharp #sharp { 
   display: inline; 
   font-size: 1.5em;
+}
+
+#vocals {
+  top: 100px;
+  left: 900px;
+  position: absolute;
+  border: 5px solid blue;
+}
+
+#karaoke {
+  top: 50px;
+  left: 900px;
+  border: 5px solid red;
+  position: absolute;
 }
