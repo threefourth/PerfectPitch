@@ -1,10 +1,13 @@
-var mysql = require('mysql');
+var mongoose = require('mongoose');
+var Promise = require('bluebird');
 
-// Create database connection
-var connection = mysql.createConnection({
-  user: 'root',
-  password: '3/4',
-  database: 'threefourths'
+mongoose.Promise = Promise;
+mongoose.connect('mongodb://localhost/threefourth');
+
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error: '));
+db.once('open', function() {
+  console.log('MongoDB connection is now open!');
 });
 
-exports.connection = connection;
+module.exports = db;

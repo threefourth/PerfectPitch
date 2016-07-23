@@ -1,4 +1,6 @@
 var express = require('express');
+
+// MongoDB connection
 var db = require('./db/db');
 
 var morgan = require('morgan');
@@ -15,16 +17,6 @@ app.use(express.static(__dirname + '/../client'));
 
 // Routing
 require('./config/routes')(app, express);
-
-// Database connection
-db.connection.connect(error => {
-  if (!error) {
-    console.log('Successfully connected to the database!');
-    return;
-  } 
-
-  console.log('Encountered an error connecting to the database...');
-});
 
 app.listen(app.get('port'), function() {
   console.log('Server listening on port ', app.get('port'));
