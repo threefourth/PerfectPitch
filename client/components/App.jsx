@@ -3,8 +3,8 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      songs: this.props.songs,
-      selectedSong: this.props.songs[0],
+      songs: window.songs,
+      selectedSong: window.songs[0],
       score: 100,
       userInput: false
     };
@@ -36,7 +36,7 @@ class App extends React.Component {
     return (
       <div>
         <Main selectedSong={this.state.selectedSong} score={this.state.score} userInput={this.state.userInput}/>
-        <PlayList songs={this.props.songs} onChooseSongClick={this.onChooseSongClick.bind(this)} selectedSong={this.state.selectedSong}/>
+        <PlayList songs={this.state.songs} onChooseSongClick={this.onChooseSongClick.bind(this)} selectedSong={this.state.selectedSong}/>
       </div>
     );
   }

@@ -40,8 +40,11 @@ class PitchVisualizer extends React.Component {
 
   stopUserAudio() {
     console.log('Stopping user input');
+
+    if (localStream) {
+      localStream.getAudioTracks()[0].stop( 0 );
+    }
     
-    localStream.getAudioTracks()[0].stop( 0 );
     localStream = null;
     clearInterval(updatePitchID);
   }
