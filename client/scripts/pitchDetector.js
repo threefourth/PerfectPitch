@@ -316,14 +316,14 @@ var updatePitch = function( time ) {
 
   if (ac === -1) {
     detectorElem.className = 'vague';
-    console.log('vague autocorrelation');
+    // console.log('vague autocorrelation');
     pitchElem.innerText = '--';
     noteElem.innerText = '-';
     detuneElem.className = '';
     detuneAmount.innerText = '--';
   } else {
     detectorElem.className = 'confident';
-    console.log('confident autocorrelation');
+    // console.log('confident autocorrelation');
     pitch = ac;
     pitchElem.innerText = Math.round( pitch );
 
@@ -336,7 +336,7 @@ var updatePitch = function( time ) {
     // in order to solve the octave issue
     // we are using the raw note value instead of (note % 12)
     noteArray.push(note);
-    console.log('note array: ', noteArray);
+    // console.log('note array: ', noteArray);
     drawNoteGraph();
 
     var detune = centsOffFromPitch( pitch, note );
