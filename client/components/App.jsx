@@ -8,14 +8,6 @@ class App extends React.Component {
       score: 100,
       userInput: false
     };
-
-  }
-
-  componentDidMount() {
-    //get the audio player that is playing only the vocals 
-    var vocals = document.getElementById("vocals");
-    //sets the volume at 0, so the vocal player starts silent
-    vocals.volume = 0.0;
   }
 
   onChooseSongClick(event) {

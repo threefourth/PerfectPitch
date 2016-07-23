@@ -3,6 +3,9 @@ const DEFAULT_LISTEN_INTERVAL = 10000;
 const ReactAudioPlayer = React.createClass({
   componentDidMount() {
     const audio = this.refs.audio;
+    if (this.props.volume) {
+      audio.volume = this.props.volume;
+    }
 
     audio.addEventListener('error', (e) => {
       this.props.onError && this.props.onError(e);
