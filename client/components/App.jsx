@@ -34,9 +34,13 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <Main selectedSong={this.state.selectedSong} score={this.state.score} userInput={this.state.userInput}/>
-        <PlayList songs={this.state.songs} onChooseSongClick={this.onChooseSongClick.bind(this)} selectedSong={this.state.selectedSong}/>
+      <div className="row">
+        <div className="col s4">
+          <PlayList songs={this.state.songs} onChooseSongClick={this.onChooseSongClick.bind(this)} selectedSong={this.state.selectedSong}/>
+        </div>
+        <div className="col s8 offset-s4">
+          <Main selectedSong={this.state.selectedSong} score={this.state.score} userInput={this.state.userInput}/>
+        </div>
       </div>
     );
   }

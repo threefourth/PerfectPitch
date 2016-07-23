@@ -56,7 +56,7 @@ class Login extends React.Component {
           value={this.state.password}
           onChange={this.handlePasswordChange.bind(this)}
         />
-        <button className="btn waves-effect waves-light" type="submit" name="action">sign in</button>
+        <button className="btn waves-effect waves-light grey darken-3" type="submit" name="action">log in</button>
       </form>
     );
   }

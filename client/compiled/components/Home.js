@@ -24,38 +24,50 @@ var Home = function (_React$Component) {
         "div",
         null,
         React.createElement(
-          "nav",
-          null,
+          "div",
+          { className: "navbar-fixed" },
           React.createElement(
-            "ul",
-            { role: "nav" },
+            "nav",
+            { className: "flow-text grey darken-3 " },
             React.createElement(
-              Link,
-              { to: "/" },
-              "Home"
-            ),
-            React.createElement(
-              Link,
-              { to: "/login" },
-              "Login"
-            ),
-            React.createElement(
-              Link,
-              { to: "/login" },
-              "Logout"
-            ),
-            React.createElement(
-              Link,
-              { to: "/signup" },
-              "Sign Up"
+              "div",
+              { className: "nav-wrapper" },
+              React.createElement(
+                Link,
+                { to: "/" },
+                "Home"
+              ),
+              React.createElement(
+                "ul",
+                { className: "right hide-on-med-and-down" },
+                React.createElement(
+                  Link,
+                  { to: "/login" },
+                  "Login"
+                ),
+                React.createElement(
+                  Link,
+                  { to: "/login" },
+                  "Logout"
+                ),
+                React.createElement(
+                  Link,
+                  { to: "/signup" },
+                  "Sign Up"
+                )
+              )
             )
           )
         ),
-        this.props.children
+        React.createElement(
+          "div",
+          null,
+          this.props.children
+        )
       );
     }
   }]);
 
   return Home;
 }(React.Component);
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL2NvbXBvbmVudHMvSG9tZS5qc3giXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7OztJQUFNLEk7OztBQUNKLGdCQUFhLEtBQWIsRUFBb0I7QUFBQTs7QUFBQSxtRkFDWixLQURZO0FBRW5COzs7OzZCQUVRO0FBQ1AsYUFDRTtBQUFBO0FBQUE7QUFDRTtBQUFBO0FBQUE7QUFDRTtBQUFBO0FBQUEsY0FBSSxNQUFLLEtBQVQ7QUFDRTtBQUFDLGtCQUFEO0FBQUEsZ0JBQU0sSUFBRyxHQUFUO0FBQUE7QUFBQSxhQURGO0FBRUU7QUFBQyxrQkFBRDtBQUFBLGdCQUFNLElBQUcsUUFBVDtBQUFBO0FBQUEsYUFGRjtBQUdFO0FBQUMsa0JBQUQ7QUFBQSxnQkFBTSxJQUFHLFFBQVQ7QUFBQTtBQUFBLGFBSEY7QUFJRTtBQUFDLGtCQUFEO0FBQUEsZ0JBQU0sSUFBRyxTQUFUO0FBQUE7QUFBQTtBQUpGO0FBREYsU0FERjtBQVVHLGFBQUssS0FBTCxDQUFXO0FBVmQsT0FERjtBQWNEOzs7O0VBcEJnQixNQUFNLFMiLCJmaWxlIjoiSG9tZS5qcyIsInNvdXJjZXNDb250ZW50IjpbImNsYXNzIEhvbWUgZXh0ZW5kcyBSZWFjdC5Db21wb25lbnQge1xuICBjb25zdHJ1Y3RvciAocHJvcHMpIHtcbiAgICBzdXBlcihwcm9wcyk7XG4gIH1cblxuICByZW5kZXIoKSB7XG4gICAgcmV0dXJuIChcbiAgICAgIDxkaXY+XG4gICAgICAgIDxuYXY+XG4gICAgICAgICAgPHVsIHJvbGU9XCJuYXZcIj5cbiAgICAgICAgICAgIDxMaW5rIHRvPVwiL1wiPkhvbWU8L0xpbms+XG4gICAgICAgICAgICA8TGluayB0bz1cIi9sb2dpblwiPkxvZ2luPC9MaW5rPlxuICAgICAgICAgICAgPExpbmsgdG89XCIvbG9naW5cIj5Mb2dvdXQ8L0xpbms+XG4gICAgICAgICAgICA8TGluayB0bz1cIi9zaWdudXBcIj5TaWduIFVwPC9MaW5rPlxuICAgICAgICAgIDwvdWw+XG4gICAgICAgIDwvbmF2PlxuXG4gICAgICAgIHt0aGlzLnByb3BzLmNoaWxkcmVufVxuICAgICAgPC9kaXY+XG4gICAgKTtcbiAgfVxufSJdfQ==
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL2NvbXBvbmVudHMvSG9tZS5qc3giXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7OztJQUFNLEk7OztBQUNKLGdCQUFhLEtBQWIsRUFBb0I7QUFBQTs7QUFBQSxtRkFDWixLQURZO0FBRW5COzs7OzZCQUVRO0FBQ1AsYUFDRTtBQUFBO0FBQUE7QUFDRTtBQUFBO0FBQUEsWUFBSyxXQUFVLGNBQWY7QUFDRTtBQUFBO0FBQUEsY0FBSyxXQUFVLDBCQUFmO0FBQ0U7QUFBQTtBQUFBLGdCQUFLLFdBQVUsYUFBZjtBQUNFO0FBQUMsb0JBQUQ7QUFBQSxrQkFBTSxJQUFHLEdBQVQ7QUFBQTtBQUFBLGVBREY7QUFFRTtBQUFBO0FBQUEsa0JBQUksV0FBVSw0QkFBZDtBQUNFO0FBQUMsc0JBQUQ7QUFBQSxvQkFBTSxJQUFHLFFBQVQ7QUFBQTtBQUFBLGlCQURGO0FBRUU7QUFBQyxzQkFBRDtBQUFBLG9CQUFNLElBQUcsUUFBVDtBQUFBO0FBQUEsaUJBRkY7QUFHRTtBQUFDLHNCQUFEO0FBQUEsb0JBQU0sSUFBRyxTQUFUO0FBQUE7QUFBQTtBQUhGO0FBRkY7QUFERjtBQURGLFNBREY7QUFhRTtBQUFBO0FBQUE7QUFDRyxlQUFLLEtBQUwsQ0FBVztBQURkO0FBYkYsT0FERjtBQW1CRDs7OztFQXpCZ0IsTUFBTSxTIiwiZmlsZSI6IkhvbWUuanMiLCJzb3VyY2VzQ29udGVudCI6WyJjbGFzcyBIb21lIGV4dGVuZHMgUmVhY3QuQ29tcG9uZW50IHtcbiAgY29uc3RydWN0b3IgKHByb3BzKSB7XG4gICAgc3VwZXIocHJvcHMpO1xuICB9XG5cbiAgcmVuZGVyKCkge1xuICAgIHJldHVybiAoXG4gICAgICA8ZGl2PlxuICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cIm5hdmJhci1maXhlZFwiPlxuICAgICAgICAgIDxuYXYgY2xhc3NOYW1lPVwiZmxvdy10ZXh0IGdyZXkgZGFya2VuLTMgXCI+XG4gICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cIm5hdi13cmFwcGVyXCI+XG4gICAgICAgICAgICAgIDxMaW5rIHRvPVwiL1wiPkhvbWU8L0xpbms+XG4gICAgICAgICAgICAgIDx1bCBjbGFzc05hbWU9XCJyaWdodCBoaWRlLW9uLW1lZC1hbmQtZG93blwiPlxuICAgICAgICAgICAgICAgIDxMaW5rIHRvPVwiL2xvZ2luXCI+TG9naW48L0xpbms+XG4gICAgICAgICAgICAgICAgPExpbmsgdG89XCIvbG9naW5cIj5Mb2dvdXQ8L0xpbms+XG4gICAgICAgICAgICAgICAgPExpbmsgdG89XCIvc2lnbnVwXCI+U2lnbiBVcDwvTGluaz5cbiAgICAgICAgICAgICAgPC91bD5cbiAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgIDwvbmF2PlxuICAgICAgICA8L2Rpdj5cbiAgICAgICAgPGRpdj5cbiAgICAgICAgICB7dGhpcy5wcm9wcy5jaGlsZHJlbn1cbiAgICAgICAgPC9kaXY+XG4gICAgICA8L2Rpdj5cbiAgICApO1xuICB9XG59Il19

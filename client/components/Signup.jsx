@@ -46,7 +46,7 @@ class Signup extends React.Component {
   render() {
     return (
       <form className="section" onSubmit={this.handleSignup.bind(this)}>
-        <input 
+        <input
           type="text" placeholder="username" 
           value={this.state.username}
           onChange={this.handleUsernameChange.bind(this)}
@@ -56,7 +56,7 @@ class Signup extends React.Component {
           value={this.state.password}
           onChange={this.handlePasswordChange.bind(this)}
         />
-        <button className="btn waves-effect waves-light" type="submit" name="action">sign up</button>
+        <button className="btn waves-effect waves-light grey darken-3" type="submit" name="action">sign up</button>
       </form>
     );
   }
