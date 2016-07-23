@@ -16,7 +16,7 @@ class App extends React.Component {
     this.state.songs.forEach(function(song, index) {
       if (song.title === title) {
         that.setState({
-          selectedSong: that.props.songs[index]
+          selectedSong: that.state.songs[index]
         });
       }
 
