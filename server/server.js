@@ -13,6 +13,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/../client'));
 
+// Routing
+require('./config/routes')(app, express);
+
 // Database connection
 db.connection.connect(error => {
   if (!error) {

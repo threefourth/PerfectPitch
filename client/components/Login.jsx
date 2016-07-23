@@ -45,19 +45,21 @@ class Login extends React.Component {
   
   render() {
     return (
-      <form className="section" onSubmit={this.handleLogin.bind(this)}>
-        <input 
-          type="text" placeholder="username" 
-          value={this.state.username}
-          onChange={this.handleUsernameChange.bind(this)}
-        />
-        <input 
-          type="password" placeholder="password" 
-          value={this.state.password}
-          onChange={this.handlePasswordChange.bind(this)}
-        />
-        <button className="btn waves-effect waves-light grey darken-3" type="submit" name="action">log in</button>
-      </form>
+      <div className="container">
+        <form className="section" onSubmit={this.handleLogin.bind(this)}>
+          <input 
+            type="text" placeholder="username" 
+            value={this.state.username}
+            onChange={this.handleUsernameChange.bind(this)}
+          />
+          <input 
+            type="password" placeholder="password" 
+            value={this.state.password}
+            onChange={this.handlePasswordChange.bind(this)}
+          />
+          <button className="btn waves-effect waves-light grey darken-3" type="submit" name="action">log in</button>
+        </form>
+      </div>
     );
   }
 }
