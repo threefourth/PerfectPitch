@@ -74,6 +74,8 @@ class PitchVisualizer extends React.Component {
             </div>       
           </div>
           <div className='col s12 l4 audioPlayer'>
+            <button type="button" onClick={this.props.onPlay}>Play</button>
+            <button type="button" onClick={this.props.onPause}>Pause</button>
             {this.props.audioPlayer}
             <button className='liveInput' onClick={this.toggleLiveInput.bind(this)}>Use Live Input</button>
           </div>

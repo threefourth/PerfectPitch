@@ -8,25 +8,22 @@ class SongPlayer extends React.Component {
     if (this.props.selectedVocals) {
       audioPlayer = <div><ReactAudioPlayer id={'karaoke'}
             src={this.props.selectedAudio}
-            autoPlay="false"
           />
           <ReactAudioPlayer id={'vocals'}
             src={this.props.selectedVocals}
-            autoPlay="false"
             volume={'0.0'}
           /></div>
       return (
         <div>
-          <PitchVisualizer audioPlayer={audioPlayer} score={this.props.score}/>
+          <PitchVisualizer audioPlayer={audioPlayer} score={this.props.score} onPlay={this.props.onPlay} onPause={this.props.onPause} />
         </div>)
     } else {
       audioPlayer = <div><ReactAudioPlayer id={'karaoke'}
           src={this.props.selectedAudio}
-          autoPlay="false"
         /></div>
       return (
         <div>
-          <PitchVisualizer audioPlayer={audioPlayer} score={this.props.score}/>
+          <PitchVisualizer audioPlayer={audioPlayer} score={this.props.score} onPlay={this.props.onPlay} onPause={this.props.onPause}/>
         </div>)
     }    
   }
