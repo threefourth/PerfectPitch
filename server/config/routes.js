@@ -1,11 +1,15 @@
 var path = require('path');
+var User = require('../models/user');
+var util = require('./util');
 
 module.exports = function(app, express) {
 
   app.post('/signupNewUser', function(req, res) {
     var user = req.body;
+    console.log('req body is: ', req.body);
     User.findOne({username: user.username})
       .then(function(result) {
+        console.log('result is: ', result);
         if (result) {
           res.status(500).send({error: 'user already exists!'});
         } else {
@@ -17,7 +21,7 @@ module.exports = function(app, express) {
       });
   });
 
-  app.post('/signinUser', function(req, res) {
+  app.post('/loginUser', function(req, res) {
     var user = req.body;
     User.findOne({username: user.username})
       .then(function(result) {
@@ -28,14 +32,17 @@ module.exports = function(app, express) {
               if (match) {
                 util.createSession(req, res, result);
               } else {
-                res.status(500).send({error: 'user already exists!'});
+                alert("Wrong username or password!");
+                res.status(500).send({error: 'wrong username or password'});
               }
             })
             .catch(function(err) {
-              console.log('error in comparePasswords');
+              console.log('---err is: ', err);
+              console.log('error in comparing passwords');
               res.status(500).send({error: 'error in comparing passwords'});
             });
         } else {
+          alert("That username does not exist!");
           res.status(500).send({error: 'user does not exist'});
         }
       });

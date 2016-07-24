@@ -16,10 +16,13 @@ var UserSchema = mongoose.Schema({
 
 UserSchema.methods.comparePasswords = function(inputPassword) {
   var user = this;
+  console.log('user: ', user);
   return new Promise(function(resolve, reject) {
     bcrypt.compare(inputPassword, user.password, function(err, result) {
+      console.log("result: ", result);
+      console.log("err is: ", err);
       if (err) {
-        console.log('err');
+        console.log('-----err-----');
         reject(err);
       } else {
         resolve(result);

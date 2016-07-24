@@ -38,6 +38,7 @@ class Signup extends React.Component {
         }.bind(this),
         error: function(data) {
           alert('User already exists! Please sign in');
+          browserHistory.push('/login');
         }
       });
     }
