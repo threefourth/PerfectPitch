@@ -6,7 +6,6 @@ module.exports = function(app, express) {
 
   app.post('/signupNewUser', function(req, res) {
     var user = req.body;
-    console.log('req body is: ', req.body);
     User.findOne({username: user.username})
       .then(function(result) {
         console.log('result is: ', result);
@@ -25,7 +24,6 @@ module.exports = function(app, express) {
     var user = req.body;
     User.findOne({username: user.username})
       .then(function(result) {
-        console.log('result is: ', result);
         if (result) {
           result.comparePasswords(user.password)
             .then(function(match) {
@@ -37,8 +35,7 @@ module.exports = function(app, express) {
               }
             })
             .catch(function(err) {
-              console.log('---err is: ', err);
-              console.log('error in comparing passwords');
+              console.log('error in comparing passwords: ', err);
               res.status(500).send({error: 'error in comparing passwords'});
             });
         } else {

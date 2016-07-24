@@ -63,3 +63,7 @@ audio {
 #karaokeInput, #vocalsInput {
   margin-top: 50px;
 }
+
+nav ul a {
+  display: inline;
+}
