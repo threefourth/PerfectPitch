@@ -74,10 +74,9 @@ class PitchVisualizer extends React.Component {
             </div>       
           </div>
           <div className='col s12 l4 audioPlayer'>
-            <button type="button" onClick={this.props.onPlay}>Play</button>
-            <button type="button" onClick={this.props.onPause}>Pause</button>
+            <button type="button" onClick= {() => {this.props.onPlay(); this.toggleLiveInput.apply(this)}}>Play</button>
+            <button type="button" onClick={() => {this.props.onPause(); this.toggleLiveInput.apply(this)}}>Pause</button>
             {this.props.audioPlayer}
-            <button className='liveInput' onClick={this.toggleLiveInput.bind(this)}>Use Live Input</button>
           </div>
           <div className="col s12 l4 overflow">
             <canvas id="waveform" width="512" height="290"></canvas>
