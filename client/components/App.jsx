@@ -54,6 +54,21 @@ class App extends React.Component {
     }
   }
 
+  onStop(event) {
+    console.log('stopping!!!!')
+    var vocals = document.getElementById('vocals');
+    var karaoke = document.getElementById('karaoke');
+    
+    if (vocals) {
+      vocals.pause(); karaoke.pause();
+      vocals.currentTime = 0;
+      karaoke.currentTime = 0;
+    } else {
+      karaoke.pause();
+      karaoke.currentTime = 0;
+    }
+  }
+
   render() {
     return (
       <div className="row">
@@ -61,7 +76,7 @@ class App extends React.Component {
           <PlayList songs={this.state.songs} onChooseSongClick={this.onChooseSongClick.bind(this)} selectedSong={this.state.selectedSong}/>
         </div>
         <div className="col l10" style={{background: 'url(' + this.state.selectedSong.background + ') center / cover', height: '720px' }} >
-          <Main selectedSong={this.state.selectedSong} score={this.state.score} userInput={this.state.userInput} onPlay={this.onPlay.bind(this)} onPause={this.onPause.bind(this)} />
+          <Main selectedSong={this.state.selectedSong} score={this.state.score} userInput={this.state.userInput} onPlay={this.onPlay.bind(this)} onPause={this.onPause.bind(this)} onStop={this.onStop.bind(this)}/>
         </div>
       </div>
     );
