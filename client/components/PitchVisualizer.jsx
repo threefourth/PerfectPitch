@@ -30,12 +30,13 @@ class PitchVisualizer extends React.Component {
     detuneAmount = document.getElementById( 'detune_amt' );
 
     // Attach the SVG element for d3 visualizer
-    var svgWidth = 1000;
+    var svgWidth = 800;
     var svgHeight = 256;
 
     var pitchGraph = d3.select('.pitchGraph').append('svg')
       .attr('width', svgWidth)
-      .attr('height', svgHeight);
+      .attr('height', svgHeight)
+      .attr('class', 'songGraph');
 
     var drawSongGraph = function ( data ) {
 
@@ -94,13 +95,47 @@ class PitchVisualizer extends React.Component {
       this.stopUserAudio();
     }
 
+    var that = this;
+    var svgWidth = 800;
+    var svgHeight = 256;
+
+    var userPitchGraph = d3.select('.songGraph');
+
+    var drawUserGraph = function( data ) {
+
+      var xScale = d3.scaleLinear()
+        .domain( [0, that.props.selectedData.length] )
+        .range( [0, svgWidth] );
+      var yScale = d3.scaleLinear()
+        .domain( [0, 150] )
+        .range( [svgHeight, 0] );
+
+      var notes = userPitchGraph.selectAll('circle')
+        .data(data, function(d) {
+          return d.id;
+        });
+
+      // ENTER
+      notes.enter()
+        .append('circle')
+        .attr('cx', function(d) {
+          return xScale(d.id);
+        })
+        .attr('cy', function(d) {
+          return yScale(d.value);
+        })
+        .attr('r', 2)
+        .attr('fill', 'red');
+    };
+
     setInterval(function() {
       updatePitch();
     }, setIntervalTimeRate);
 
     setInterval(function() {
       getAvgNote();
-      console.log ( avgNoteArray );
+      // console.log ( avgNoteArray );
+      drawUserGraph( avgNoteArray );
     }, 1000);
 
   }
