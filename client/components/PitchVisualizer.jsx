@@ -17,7 +17,6 @@ class PitchVisualizer extends React.Component {
     detectorElem = document.getElementById( 'detector' );
     canvasElem = document.getElementById( 'output' );
     DEBUGCANVAS = document.getElementById( 'waveform' );
-    graphCanvas = document.getElementById( 'pitchGraph' );
 
     if (DEBUGCANVAS) {
       waveCanvas = DEBUGCANVAS.getContext('2d');
@@ -25,18 +24,49 @@ class PitchVisualizer extends React.Component {
       waveCanvas.lineWidth = 1;
     }
 
-    // pitch graph canvas
-    if (graphCanvas) {
-      noteCanvas = graphCanvas.getContext('2d');
-      noteCanvas.strokeStyle = 'black';
-      noteCanvas.lineWidth = 1;
-    }
-
     pitchElem = document.getElementById( 'pitch' );
     noteElem = document.getElementById( 'note' );
     detuneElem = document.getElementById( 'detune' );
     detuneAmount = document.getElementById( 'detune_amt' );
 
+    // Attach the SVG element for d3 visualizer
+    var svgWidth = 1000;
+    var svgHeight = 256;
+
+    var pitchGraph = d3.select('.pitchGraph').append('svg')
+      .attr('width', svgWidth)
+      .attr('height', svgHeight);
+
+    var drawSongGraph = function ( data ) {
+
+      var xScale = d3.scaleLinear()
+        .domain( [0, data.length] )
+        .range( [0, svgWidth] );
+      var yScale = d3.scaleLinear()
+        .domain( [0, 150] )
+        .range( [svgHeight, 0] );
+
+      var notes = pitchGraph.selectAll('rect')
+        .data( data );
+
+      // ENTER
+      notes.enter()
+        .append('rect')
+        .attr('x', function(d, i) {
+          return xScale(i);
+        })
+        .attr('y', function(d) {
+          return yScale(d.value);
+        })
+        .attr('width', svgWidth / data.length)
+        .attr('height', 10)
+        .attr('fill', '#50C8FF')
+        .attr('id', function(d) {
+          return d.id;
+        });
+    };
+    console.log(this.props.selectedData);
+    drawSongGraph( this.props.selectedData );
   }
 
   componentWillUnmount() {
@@ -93,8 +123,7 @@ class PitchVisualizer extends React.Component {
 
         <div className="row">
           <div className="col l12 s12">
-            <div className="overflow">
-            <canvas id="pitchGraph" width="2560" height="256"></canvas>
+            <div className="overflow pitchGraph">
             </div>
           </div>
         </div>
