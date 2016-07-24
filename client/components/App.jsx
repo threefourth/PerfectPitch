@@ -36,7 +36,7 @@ class App extends React.Component {
     return (
       <div className="row">
         <div className="col l2">
-          <PlayList songs={this.props.songs} onChooseSongClick={this.onChooseSongClick.bind(this)} selectedSong={this.state.selectedSong}/>
+          <PlayList songs={this.state.songs} onChooseSongClick={this.onChooseSongClick.bind(this)} selectedSong={this.state.selectedSong}/>
         </div>
         <div className="col l10" style={{background: 'url(' + this.state.selectedSong.background + ') center / cover', height: '720px' }} >
           <Main selectedSong={this.state.selectedSong} score={this.state.score} userInput={this.state.userInput}/>
