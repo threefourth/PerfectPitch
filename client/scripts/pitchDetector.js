@@ -335,9 +335,14 @@ var updatePitch = function( time ) {
     // 
     // in order to solve the octave issue
     // we are using the raw note value instead of (note % 12)
+
+    if (isNaN(note)) {
+      note = 0;
+    }
+
     noteArray.push(note);
     // console.log('note array: ', noteArray);
-    drawNoteGraph();
+    // drawNoteGraph();
 
     var detune = centsOffFromPitch( pitch, note );
     if (detune === 0 ) {
@@ -369,16 +374,36 @@ var getMax = function(array) {
   return max;
 };
 
+var avgNoteArray = [];
+
 var getAvgNote = function(notes) {
+  
+  // var startIndex = avgNoteArray.length * 60;
+  // var noteSet = noteArray.slice( startIndex, startIndex + 60 );
+
+  var noteSet = noteArray.slice(-60);
+  noteSet = noteSet.filter( function(note) {
+    if (note!== 0) {
+      return note;
+    }
+  });
+
   var sum = 0;
-  notes.forEach(function(note) {
+
+  noteSet.forEach( function(note) {
     sum += note;
   });
-  return Math.round(sum / notes.length);
+
+  var avgNote = {
+    id: avgNoteArray.length,
+    value: Math.round(sum / noteSet.length)
+  };
+
+  console.log( avgNote.value );
+
+  avgNoteArray.push ( avgNote );
 };
 
-var counter = 0;
-var avgNotes = [];
 
 // visualization of notes
 var drawNoteGraph = function() {
