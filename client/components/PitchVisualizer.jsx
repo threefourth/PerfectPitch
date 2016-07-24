@@ -65,7 +65,7 @@ class PitchVisualizer extends React.Component {
           return d.id;
         });
     };
-    console.log(this.props.selectedData);
+    
     drawSongGraph( this.props.selectedData );
   }
 
@@ -94,6 +94,15 @@ class PitchVisualizer extends React.Component {
       this.stopUserAudio();
     }
 
+    setInterval(function() {
+      updatePitch();
+    }, setIntervalTimeRate);
+
+    setInterval(function() {
+      getAvgNote();
+      console.log ( avgNoteArray );
+    }, 1000);
+
   }
 
   render() {
@@ -109,7 +118,7 @@ class PitchVisualizer extends React.Component {
             </div>       
           </div>
           <div className='col s12 l4 audioPlayer'>
-            <a className="btn-floating btn-large waves-effect waves-light teal" onClick= {() => {this.props.onPlay(); getUserAudio.apply(this)}}><i className="material-icons">play_arrow</i></a>
+            <a className="btn-floating btn-large waves-effect waves-light teal" onClick= {() => {this.props.onPlay(); this.toggleLiveInput() }}><i className="material-icons">play_arrow</i></a>
             <a className="btn-floating btn-large waves-effect waves-light teal" onClick={() => {this.props.onPause(); this.stopUserAudio.apply(this)}}><i className="material-icons">pause</i></a>
             <a className="btn-floating btn-large waves-effect waves-light teal" onClick={() => {this.props.onStop(); this.stopUserAudio.apply(this)}}><i className="material-icons">stop</i></a>
             {this.props.audioPlayer}
