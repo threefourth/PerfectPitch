@@ -64,23 +64,42 @@ class PitchVisualizer extends React.Component {
   render() {
     return (
       <div id="pitchdetector">
-        <div id="detector" className="vague">
-          <div className="pitch"><span id="pitch">--</span>Hz</div>
-          <div className="note"><span id="note">--</span></div>   
-          <canvas id="output" width="300" height="42"></canvas>
-          <div id="detune"><span id="detune_amt">--</span><span id="flat">cents &#9837;</span><span id="sharp">cents &#9839;</span></div>
+
+        <div className="row">
+          <div className="col s12 l4">
+            <div id="detector" className="vague">
+              <div className="pitch"><span id="pitch">--</span>Hz</div>
+              <div className="note"><span id="note">--</span></div>   
+              <div id="detune"><span id="detune_amt">--</span><span id="flat">cents &#9837;</span><span id="sharp">cents &#9839;</span></div>
+            </div>       
+          </div>
+          <div className='col s12 l4 audioPlayer'>
+            {this.props.audioPlayer}
+            <button className='liveInput' onClick={this.toggleLiveInput.bind(this)}>Use Live Input</button>
+          </div>
+          <div className="col s12 l4 overflow">
+            <canvas id="waveform" width="512" height="290"></canvas>
+          </div>
         </div>
 
-        <br></br>
-        <br></br>
+        <div className="row">
+          <div className="col l12 s12">
+            <div className="overflow">
+            <canvas id="pitchGraph" width="2560" height="256"></canvas>
+            </div>
+          </div>
+        </div>
+        
+        <div className="row">
+          <div className="col l4 s4 scoreboard offset-l3">
+            <span>Score : {this.props.score}</span>
+          </div>
+        </div>
 
-        <button onClick={this.toggleLiveInput.bind(this)}>Use Live Input</button>
-
-        <canvas id="pitchGraph" width="2560" height="256"></canvas>
-        <canvas id="waveform" width="512" height="256"></canvas>
       </div>
     );
   }
 };
 
 window.PitchVisualizer = PitchVisualizer;
+              // <canvas id="output" ></canvas> below #note

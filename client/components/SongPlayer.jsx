@@ -4,11 +4,9 @@ class SongPlayer extends React.Component {
   }
 
   render() {
+    var audioPlayer;
     if (this.props.selectedVocals) {
-      return (
-        <div>
-          <PitchVisualizer />
-          <ReactAudioPlayer id={'karaoke'}
+      audioPlayer = <div><ReactAudioPlayer id={'karaoke'}
             src={this.props.selectedAudio}
             autoPlay="false"
           />
@@ -16,16 +14,19 @@ class SongPlayer extends React.Component {
             src={this.props.selectedVocals}
             autoPlay="false"
             volume={'0.0'}
-          />
-        </div>)
-    } else {
+          /></div>
       return (
         <div>
-          <PitchVisualizer />
-          <ReactAudioPlayer id={'karaoke'}
-            src={this.props.selectedAudio}
-            autoPlay="false"
-          />
+          <PitchVisualizer audioPlayer={audioPlayer} score={this.props.score}/>
+        </div>)
+    } else {
+      audioPlayer = <div><ReactAudioPlayer id={'karaoke'}
+          src={this.props.selectedAudio}
+          autoPlay="false"
+        /></div>
+      return (
+        <div>
+          <PitchVisualizer audioPlayer={audioPlayer} score={this.props.score}/>
         </div>)
     }    
   }
