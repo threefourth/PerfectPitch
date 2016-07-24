@@ -1,0 +1,52 @@
+#pitchdetector {
+  margin-top: 50px;
+}
+
+#detector {
+
+  background-color: white;
+  opacity: 0.5;
+  text-align: center;
+}
+
+#note {
+  font-size: 164px; 
+}
+
+#pitchGraph {
+  background-color: white;
+  opacity: 0.5;
+}
+
+.overflow {
+  overflow-x: scroll;
+}
+
+#waveform {
+  background-color: white;
+  opacity: 0.5;
+}
+
+.audioPlayer {
+  margin-top: 50px;
+}
+
+.liveInput {
+  margin-top: 60px;
+  margin-left: 80px;
+}
+
+.scoreboard {
+	position: absolute;
+	z-index: 1;
+	display: block;
+	background-color: #333333;
+	color: white;
+	font-family: "Montserrat";
+	border-radius: 25px;
+	opacity: 0.8;
+	text-align: center;
+	line-height: 50px;
+	font-size: 30px;
+	width: 100px;
+}

@@ -35,10 +35,10 @@ class App extends React.Component {
   render() {
     return (
       <div className="row">
-        <div className="col s4">
+        <div className="col l2">
           <PlayList songs={this.state.songs} onChooseSongClick={this.onChooseSongClick.bind(this)} selectedSong={this.state.selectedSong}/>
         </div>
-        <div className="col s8 offset-s4">
+        <div className="col l10" style={{background: 'url(' + this.state.selectedSong.background + ') center / cover', height: '720px' }} >
           <Main selectedSong={this.state.selectedSong} score={this.state.score} userInput={this.state.userInput}/>
         </div>
       </div>
@@ -47,3 +47,5 @@ class App extends React.Component {
 }
 
 window.App = App;
+
+// 'url(' + this.state.selectedSong.background + ') center / cover'

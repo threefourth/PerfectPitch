@@ -11,9 +11,7 @@ var Main = (props) => {
 
   return (
     <div>
-    <img id="background" src={props.selectedSong.background}></img>
-    <SongPlayer selectedAudio={props.selectedSong.audio} selectedVocals={props.selectedSong.vocals} />
-    <ScoreBoard score={props.score}/>
+    <SongPlayer selectedAudio={props.selectedSong.audio} selectedVocals={props.selectedSong.vocals} score={props.score}/>
     </div>
   );
 };
