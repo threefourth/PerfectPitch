@@ -80,14 +80,6 @@ window.songs = [
     background: 'https://images.alphacoders.com/233/233243.jpg'
   },
   {
-    title: 'What\'s My Age Again?',
-    artist: 'Blink 182',
-    artwork: 'https://upload.wikimedia.org/wikipedia/en/thumb/7/76/WhatsMyAgeAgain.jpg/220px-WhatsMyAgeAgain.jpg',
-    audio: '/../media/WhatsMyAgeAgainBlink182Instrumental.mp3',
-    vocals: '/../media/WhatsMyAgeAgainBlink182Vocals.mp3',
-    background: 'https://wallpaperscraft.com/image/blink-182_boys_glasses_t-shirt_hands_1686_1920x1080.jpg'
-  },
-  {
     title: 'Wonderwall',
     artist: 'Oasis',
     artwork: 'http://cdn.images.express.co.uk/img/dynamic/galleries/x701/121820.jpg',
