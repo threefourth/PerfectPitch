@@ -67,3 +67,7 @@ audio {
 nav ul a {
   display: inline;
 }
+
+h3, h5 {
+  text-align: center;
+}

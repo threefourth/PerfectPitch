@@ -13,7 +13,7 @@ class Home extends React.Component {
         console.log('successfully signed out');
       },
       error: function(data) {
-        console.error('failed to sign out');
+        console.log('failed to sign out');
       }
     });
   }
@@ -24,10 +24,11 @@ class Home extends React.Component {
         <div className="navbar-fixed">
           <nav className="flow-text grey darken-3 ">
             <div className="nav-wrapper">
-              <Link to="/">Home</Link>
+              &nbsp; &nbsp; &nbsp;
+              <Link to="/">Perfect Pitch</Link>
               <ul className="right hide-on-med-and-down">
                 <Link to="/login">Login</Link>
-                <a href="/login" onClick={this.handleSignOut.bind(this)}>Logout</a>
+                <a onClick={this.handleSignOut.bind(this)}>Logout</a>
                 <Link to="/signup">Sign Up</Link>
               </ul>
             </div>
