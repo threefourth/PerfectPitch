@@ -18,10 +18,6 @@ UserSchema.methods.comparePasswords = function(inputPassword) {
   var user = this;
   return new Promise(function(resolve, reject) {
     bcrypt.compare(inputPassword, user.password, function(err, result) {
-
-      console.log('user database password: ', user.password);
-      console.log('input password: ', inputPassword);
-      console.log('inside compare bcrypt password');
       if (err) {
         console.log('err');
         reject(err);
