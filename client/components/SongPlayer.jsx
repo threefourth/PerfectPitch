@@ -15,7 +15,7 @@ class SongPlayer extends React.Component {
           /></div>
       return (
         <div>
-          <PitchVisualizer audioPlayer={audioPlayer} score={this.props.score} onPlay={this.props.onPlay} onPause={this.props.onPause} onStop={this.props.onStop}/>
+          <PitchVisualizer audioPlayer={audioPlayer} score={this.props.score} onPlay={this.props.onPlay} onPause={this.props.onPause} onStop={this.props.onStop} onKaraokeVolumeChange={this.props.onKaraokeVolumeChange} onVocalsVolumeChange={this.props.onVocalsVolumeChange}/>
         </div>)
     } else {
       audioPlayer = <div><ReactAudioPlayer id={'karaoke'}
@@ -23,7 +23,7 @@ class SongPlayer extends React.Component {
         /></div>
       return (
         <div>
-          <PitchVisualizer audioPlayer={audioPlayer} score={this.props.score} onPlay={this.props.onPlay} onPause={this.props.onPause} onStop={this.props.onStop}/>
+          <PitchVisualizer audioPlayer={audioPlayer} score={this.props.score} onPlay={this.props.onPlay} onPause={this.props.onPause} onStop={this.props.onStop} onKaraokeVolumeChange={this.props.onKaraokeVolumeChange} onVocalsVolumeChange={this.props.onVocalsVolumeChange}/>
         </div>)
     }    
   }
