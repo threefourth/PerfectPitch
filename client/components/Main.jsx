@@ -11,7 +11,7 @@ var Main = (props) => {
 
   return (
     <div>
-    <SongPlayer selectedAudio={props.selectedSong.audio} selectedVocals={props.selectedSong.vocals} score={props.score}/>
+    <SongPlayer selectedAudio={props.selectedSong.audio} selectedVocals={props.selectedSong.vocals} score={props.score} onPlay={props.onPlay} onPause={props.onPause} onStop={props.onStop} onKaraokeVolumeChange={props.onKaraokeVolumeChange} onVocalsVolumeChange={props.onVocalsVolumeChange} />
     </div>
   );
 };

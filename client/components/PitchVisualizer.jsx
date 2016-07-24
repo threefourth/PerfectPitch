@@ -2,6 +2,11 @@ class PitchVisualizer extends React.Component {
 
   componentDidMount() {
 
+    var karaokeInput = document.getElementById('karaokeInput');
+    karaokeInput.value = 1;
+    var vocalsInput = document.getElementById('vocalsInput');
+    vocalsInput.value = 0;
+
     // Initializes the variables that the pitch detector and visualizer
     // will need to use (see scripts/pitchDetector.js)
 
@@ -64,7 +69,7 @@ class PitchVisualizer extends React.Component {
   render() {
     return (
       <div id="pitchdetector">
-
+      
         <div className="row">
           <div className="col s12 l4">
             <div id="detector" className="vague">
@@ -74,8 +79,12 @@ class PitchVisualizer extends React.Component {
             </div>       
           </div>
           <div className='col s12 l4 audioPlayer'>
+            <a className="btn-floating btn-large waves-effect waves-light teal" onClick= {() => {this.props.onPlay(); getUserAudio.apply(this)}}><i className="material-icons">play_arrow</i></a>
+            <a className="btn-floating btn-large waves-effect waves-light teal" onClick={() => {this.props.onPause(); this.stopUserAudio.apply(this)}}><i className="material-icons">pause</i></a>
+            <a className="btn-floating btn-large waves-effect waves-light teal" onClick={() => {this.props.onStop(); this.stopUserAudio.apply(this)}}><i className="material-icons">stop</i></a>
             {this.props.audioPlayer}
-            <button className='liveInput' onClick={this.toggleLiveInput.bind(this)}>Use Live Input</button>
+            <input type="range" id="karaokeInput" min="0" max="1" step="0.1" onChange={this.props.onKaraokeVolumeChange}/>
+            <input type="range" id="vocalsInput" min="0" max="1" step="0.1" onChange={this.props.onVocalsVolumeChange}/>
           </div>
           <div className="col s12 l4 overflow">
             <canvas id="waveform" width="512" height="290"></canvas>
