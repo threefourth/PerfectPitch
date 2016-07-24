@@ -2,19 +2,6 @@ var path = require('path');
 
 module.exports = function(app, express) {
 
-  app.get('/placesList', function(req, res) {
-    Place.find().then(function(places) {
-      res.send(places);
-    });
-  });
-
-  app.post('/createNewPlace', function(req, res) {
-    var place = req.body;
-    Place.create({name: place.name, time: place.time, menus: place.menus})
-      .then(place => res.status(201).end())
-      .catch(error => res.status(500).send({error: error.message}));
-  });
-
   app.post('/signupNewUser', function(req, res) {
     var user = req.body;
     User.findOne({username: user.username})
