@@ -26,8 +26,6 @@
   the volume of the instrumental. The bottom one: controls the volume of the vocals. The bottom box will have the selected song's singer's
   vocals already graphed out and it will graph the user's vocals in real time. 
 
-  For authentication, we incorporated a login, sign up, and logout feature. Once the user's logged in, they can track the user's progress. 
-
 ## Requirements
 
 - Node 0.10.x
