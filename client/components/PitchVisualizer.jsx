@@ -92,6 +92,8 @@ class PitchVisualizer extends React.Component {
     clearInterval( updatePitchID );
     clearInterval( drawUserGraphID );
 
+    // Refresh user's avgNoteArray
+    avgNoteArray = [];
   }
 
   toggleLiveInput() {
@@ -135,6 +137,10 @@ class PitchVisualizer extends React.Component {
         })
         .attr('r', 2)
         .attr('fill', 'red');
+
+      notes.exit()
+        .exit()
+        .remove();
     };
 
     updatePitchID = setInterval(function() {
