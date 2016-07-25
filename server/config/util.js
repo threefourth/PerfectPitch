@@ -1,15 +1,11 @@
 var isLoggedIn = function(req) {
-  console.log('req.session is: ', req.session);
-  console.log('req.session.user is: ', req.session.user);
   return req.session ? !!req.session.user : false;
 };
 
 var checkUser = function(req, res, next){
   if (!isLoggedIn(req)) {
-    console.log('-----User not logged in-----');
     res.status(500).send({error: 'user not logged in'});
   } else {
-    console.log('-----User is logged in-----');
     next();
   }
 };
