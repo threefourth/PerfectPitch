@@ -4,9 +4,9 @@
 
 ## Team
 
-  - __Product Owner__: teamMember
-  - __Scrum Master__: teamMember
-  - __Development Team Members__: teamMember, teamMember
+  - __Product Owner__: Frank Lee
+  - __Scrum Master__: Jae Shin
+  - __Development Team Members__: Jeff Leu, Joann Im
 
 ## Table of Contents
 
@@ -28,7 +28,7 @@
 
 ## Requirements
 
-- Node 0.10.x
+- Node v6.x
 
 ## Development
 
@@ -47,7 +47,11 @@ Npm start will start the server and connect to mongodb. Npm run compile will com
 
 ### Roadmap
 
-View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
+Our intent was to have the scoreboard constantly updating throughout the duration of the song, so the user can see how well they are singing. 
+We were unable to incorporate this feature because we have the score as a state inside the top-level App component, which re-renders everytime we update the state.
+If you want to incorporate the scoreboard, the score should not be living as a state inside App component. 
+
+View the project roadmap [here](https://github.com/threefourth/threefourth/issues)
 
 
 ## Contributing
