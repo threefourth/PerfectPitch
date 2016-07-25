@@ -30,6 +30,18 @@ Perfect Pitch is a vocal training app that will graph the user's vocals and comp
 
 - Node v6.x
 
+  On the far left of our app, there is a library of songs that the user can train their vocals. Once a song is clicked there will be
+  four main features. The top left box in the main page is the pitch detector and it will tell you what note you are singing. In the
+  top center is the audio controls which has the Play, Pause, and Stop buttons. It also has two volume controls. The top controls: controls
+  the volume of the instrumental. The bottom one: controls the volume of the vocals. The bottom box will have the selected song's singer's
+  vocals already graphed out and it will graph the user's vocals in real time. 
+
+  For authentication, we incorporated a login, sign up, and logout feature. Once the user's logged in, they can track the user's progress. 
+
+## Requirements
+
+- Node 0.10.x
+
 ## Development
 
 ### Installing Dependencies
