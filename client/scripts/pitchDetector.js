@@ -36,6 +36,7 @@ var mediaStreamSource = null;
 var localStream = null; // Used when stopping microphone input
 var updatePitchID = null; // Used to stop the updateGraph interval
 var drawUserGraphID = null; // Used to stop drawing of the user pitch
+var updateSongGraphID = null;
 
 var noteArray = [];
 var detectorElem, 
@@ -342,7 +343,28 @@ var getMax = function(array) {
   return max;
 };
 
-var avgNoteArray = [];
+var avgNoteArray = [
+  // { id: -10,
+  //   value: 0 },
+  // { id: -9,
+  //   value: 0 },
+  // { id: -8,
+  //   value: 0 },
+  // { id: -7,
+  //   value: 0 },
+  // { id: -6,
+  //   value: 0 },
+  // { id: -5,
+  //   value: 0 },
+  // { id: -4,
+  //   value: 0 },
+  // { id: -3,
+  //   value: 0 },
+  // { id: -2,
+  //   value: 0 },
+  // { id: -1,
+  //   value: 0 },                  
+];
 
 var getAvgNote = function( noteArray ) {
   
@@ -350,11 +372,11 @@ var getAvgNote = function( noteArray ) {
   // var noteSet = noteArray.slice( startIndex, startIndex + 60 );
 
   var noteSet = noteArray.slice(-60);
-  // noteSet = noteSet.filter( function(note) {
-  //   if (note!== 0) {
-  //     return note;
-  //   }
-  // });
+  noteSet = noteSet.filter( function(note) {
+    if (note!== 0) {
+      return note;
+    }
+  });
   console.log(noteSet);
   var sum = 0;
 
