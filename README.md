@@ -20,7 +20,14 @@
 
 ## Usage
 
-> Some usage instructions
+```sh
+npm install
+bower install
+mongod
+npm start
+npm run compile
+```
+Npm start will start the server and connect to mongodb. Npm run compile will compile all jsx files to js files. 
 
 ## Requirements
 
