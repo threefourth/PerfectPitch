@@ -13,5 +13,6 @@ ReactDOM.render((
       <Route path="signup" component={Signup}/>
       <Route path="progress" component={Progress}/>
     </Route>
+    <Route path="*" component={NoMatch}/>
   </Router>
 ), document.getElementById('app'));

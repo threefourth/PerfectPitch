@@ -8,7 +8,9 @@ class Progress extends React.Component {
 
   render() {
     return (
-      <h1> Hello {this.props.user.username} ! <h1>
+      <div className="container">
+        <h3> Hello, {this.props.user.username}!</h3>
+      </div>
     );
   }
 }
