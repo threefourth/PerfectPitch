@@ -29,53 +29,54 @@ class PitchVisualizer extends React.Component {
     detuneElem = document.getElementById( 'detune' );
     detuneAmount = document.getElementById( 'detune_amt' );
 
-    // Attach the SVG element for d3 visualizer
-    var svgWidth = 800;
-    var svgHeight = 256;
-
-    var pitchGraph = d3.select('.pitchGraph').append('svg')
+    // Draw the graphs for the first song 
+    pitchGraph = d3.select('.pitchGraph').append('svg')
       .attr('width', svgWidth)
       .attr('height', svgHeight)
       .attr('class', 'songGraph');
 
-    var drawSongGraph = function ( data ) {
-
-      var xScale = d3.scaleLinear()
-        .domain( [0, data.length] )
-        .range( [0, svgWidth] );
-      var yScale = d3.scaleLinear()
-        .domain( [0, 150] )
-        .range( [svgHeight, 0] );
-
-      var notes = pitchGraph.selectAll('rect')
-        .data( data, function(d) {
-          return d.id;
-        } );
-
-      // ENTER
-      notes.enter()
-        .append('rect')
-        .attr('x', function(d, i) {
-          return xScale(i);
-        })
-        .attr('y', function(d) {
-          return yScale(d.value);
-        })
-        .attr('width', svgWidth / data.length)
-        .attr('height', 10)
-        .attr('fill', '#50C8FF')
-        .attr('id', function(d) {
-          return d.id;
-        });
-    };
-    
-    drawSongGraph( this.props.selectedData );
+    this.drawSongGraph( this.props.selectedData );
   }
 
   componentWillUpdate() {
     console.log('Updating PitchVisualizer');
     this.stopUserAudio();
     document.getElementById('.songGraph');
+
+    // Refresh graph
+    d3.selectAll('svg > *').remove();
+    this.drawSongGraph( this.props.selectedData );
+  }
+
+  drawSongGraph( data ) {
+
+    var xScale = d3.scaleLinear()
+      .domain( [0, data.length] )
+      .range( [0, svgWidth] );
+    var yScale = d3.scaleLinear()
+      .domain( [0, 150] )
+      .range( [svgHeight, 0] );
+
+    var notes = pitchGraph.selectAll('rect')
+      .data( data, function(d) {
+        return d.id;
+      } );
+
+    // ENTER
+    notes.enter()
+      .append('rect')
+      .attr('x', function(d, i) {
+        return xScale(i);
+      })
+      .attr('y', function(d) {
+        return yScale(d.value);
+      })
+      .attr('width', svgWidth / data.length)
+      .attr('height', 10)
+      .attr('fill', '#50C8FF')
+      .attr('id', function(d) {
+        return d.id;
+      });
   }
 
   stopUserAudio() {
@@ -86,8 +87,11 @@ class PitchVisualizer extends React.Component {
     }
     
     localStream = null;
+
+    // End pitch detection/visualization processes
     clearInterval( updatePitchID );
     clearInterval( drawUserGraphID );
+
   }
 
   toggleLiveInput() {

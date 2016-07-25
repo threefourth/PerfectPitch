@@ -47,6 +47,14 @@ var detectorElem,
     detuneElem,
     detuneAmount;
 
+// Variables used for the D3 visualizer
+var svgWidth = 800;
+var svgHeight = 256;
+var pitchGraph = d3.select('.pitchGraph').append('svg')
+  .attr('width', svgWidth)
+  .attr('height', svgHeight)
+  .attr('class', 'songGraph');
+
 /* 
   Code that was previously in window.onload was moved to PitchVisualizer
   component's componentDidMount function
