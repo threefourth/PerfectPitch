@@ -16,29 +16,28 @@ Oh, and I also like to write press-releases in what I call "Oprah-speak" for mai
 Once the project moves into development, the press release can be used as a touchstone; a guiding light. The product team can ask themselves, "Are we building what is in the press release?" If they find they're spending time building things that aren't in the press release (overbuilding), they need to ask themselves why. This keeps product development focused on achieving the customer benefits and not building extraneous stuff that takes longer to build, takes resources to maintain, and doesn't provide real customer benefit (at least not enough to warrant inclusion in the press release).
  -->
  
-## Heading ##
-  > Name the product in a way the reader (i.e. your target customers) will understand.
+## Perfect Pitch ##
 
-## Sub-Heading ##
-  > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
+## Description ##
+  For those who want to improve their singing ability while jamming to your favorite song.
 
 ## Summary ##
-  > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+  Want to practice singing before a karaoke night you promised your friends that you would attend but kept pushing it because you don't feel confident with your singing ability? Perfect Pitch will train the user's singing ability to sing on key by selecting a song and singing along with their favorite artists. You can practice singing in your own room without any judgement! A graph will be provided where the user can visualize their vocal path and compare it to the original artist's vocals. Depending on how much help the user needs, they can also change the volume of the artist's vocals and as they become a more confident singer, they can now sing like their idols!
 
 ## Problem ##
-  > Describe the problem your product solves.
-
+  If the user is unsure of their vocal abilities, they can use Perfect Pitch to track their singing progress. 
+  
 ## Solution ##
-  > Describe how your product elegantly solves the problem.
+  Perfect Pitch provides a graph where the user can see their vocal path and compare it to their favorite singer's.
 
 ## Quote from You ##
-  > A quote from a spokesperson in your company.
+  "Perfect Pitch makes you perfect... your pitch!" - Jeff Leu
 
 ## How to Get Started ##
-  > Describe how easy it is to get started.
+  Plug in your mic, pick your favorite song, and start singing!
 
 ## Customer Quote ##
-  > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+  "Before Perfect Pitch my singing was like two cats in heat, but now I sound like Mariah Carey!" - Frank Lee
 
 ## Closing and Call to Action ##
-  > Wrap it up and give pointers where the reader should go next.
+  "Sign up at Perfect Pitch and you can track your progress as you get closer to that perfect pitch!"
