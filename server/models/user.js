@@ -11,19 +11,22 @@ var UserSchema = mongoose.Schema({
   password: {
     type: String,
     required: true
-  }
+  },
+  scores: [{
+    title: String,
+    score: Number 
+  }]
 });
 
 UserSchema.methods.comparePasswords = function(inputPassword) {
   var user = this;
+  console.log('user: ', user);
   return new Promise(function(resolve, reject) {
     bcrypt.compare(inputPassword, user.password, function(err, result) {
-
-      console.log('user database password: ', user.password);
-      console.log('input password: ', inputPassword);
-      console.log('inside compare bcrypt password');
+      console.log("result: ", result);
+      console.log("err is: ", err);
       if (err) {
-        console.log('err');
+        console.log('-----err-----');
         reject(err);
       } else {
         resolve(result);
@@ -49,5 +52,32 @@ UserSchema.pre('save', function(next) {
 });
 
 var User = mongoose.model('User', UserSchema);
+
+User.create({
+  username: 'jae',
+  password: 'jae',
+  scores: [
+    {
+      title: 'God Only Knows',
+      score: 85
+    },
+    {
+      title: '7 Years',
+      score: 73
+    },
+    {
+      title: 'Wonderwall',
+      score: 94
+    },
+    {
+      title: 'Hotel California',
+      score: 89
+    },
+    {
+      title: 'Smells Like Teen Spirit',
+      score: 98
+    }
+  ]
+});
 
 module.exports = User;

@@ -33,11 +33,13 @@ class Signup extends React.Component {
         data: JSON.stringify({username: username, password: password}),
         contentType: 'application/json',
         success: function(data) {
+          this.props.updateStateAfterLogin(data);
           browserHistory.push('/');
           console.log('successfully signed up!');
         }.bind(this),
         error: function(data) {
           alert('User already exists! Please sign in');
+          browserHistory.push('/login');
         }
       });
     }
@@ -46,19 +48,27 @@ class Signup extends React.Component {
   render() {
     return (
       <div className="container">
-        <form className="section" onSubmit={this.handleSignup.bind(this)}>
-          <input
-            type="text" placeholder="username" 
-            value={this.state.username}
-            onChange={this.handleUsernameChange.bind(this)}
-          />
-          <input 
-            type="password" placeholder="password" 
-            value={this.state.password}
-            onChange={this.handlePasswordChange.bind(this)}
-          />
-          <button className="btn waves-effect waves-light grey darken-3" type="submit" name="action">sign up</button>
-        </form>
+        <h3>Welcome to Perfect Pitch!</h3>
+        <h5>by signing up you can track your performance over time</h5>
+        <br></br>
+        <br></br>
+        <div className="row">
+          <div className="col s6 offset-s3">
+            <form className="section" onSubmit={this.handleSignup.bind(this)}>
+              <input
+                type="text" placeholder="username"
+                value={this.state.username}
+                onChange={this.handleUsernameChange.bind(this)}
+              />
+              <input
+                type="password" placeholder="password"
+                value={this.state.password}
+                onChange={this.handlePasswordChange.bind(this)}
+              />
+              <button className="btn waves-effect waves-light grey darken-3" type="submit" name="action">sign up</button>
+            </form>
+          </div>
+        </div>
       </div>
     );
   }

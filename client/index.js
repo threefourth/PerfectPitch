@@ -11,10 +11,8 @@ ReactDOM.render((
       <IndexRoute component={App}/>
       <Route path="login" component={Login}/>
       <Route path="signup" component={Signup}/>
+      <Route path="progress" component={Progress}/>
     </Route>
+    <Route path="*" component={NoMatch}/>
   </Router>
 ), document.getElementById('app'));
-
-
-
-// ReactDOM.render(<App songs={songs}/>, document.getElementById('app'));
