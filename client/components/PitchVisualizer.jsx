@@ -50,8 +50,11 @@ class PitchVisualizer extends React.Component {
 
   drawSongGraph( data ) {
 
+    console.log('Received: ', data);
+
     var xScale = d3.scaleLinear()
       .domain( [0, data.length] )
+      // .domain( [0, 10] )
       .range( [0, svgWidth] );
     var yScale = d3.scaleLinear()
       .domain( [0, 150] )
@@ -72,11 +75,34 @@ class PitchVisualizer extends React.Component {
         return yScale(d.value);
       })
       .attr('width', svgWidth / data.length)
+      // .attr('width', svgWidth / 10)
       .attr('height', 10)
       .attr('fill', '#50C8FF')
       .attr('id', function(d) {
         return d.id;
       });
+
+    // UPDATE
+    notes
+      .transition()
+      .attr('x', function(d, i) {
+        return xScale(i);
+      })
+      .attr('y', function(d) {
+        return yScale(d.value);
+      })
+      .attr('width', svgWidth / data.length)
+      // .attr('width', svgWidth / 10)
+      .attr('height', 10)
+      .attr('fill', '#50C8FF')
+      .attr('id', function(d) {
+        return d.id;
+      });
+
+    // EXIT
+    notes
+      .exit()
+      .remove();
   }
 
   stopUserAudio() {
@@ -106,13 +132,16 @@ class PitchVisualizer extends React.Component {
       this.stopUserAudio();
     }
 
-    var that = this;
+    
     var userPitchGraph = d3.select('.songGraph');
 
     var drawUserGraph = function( data ) {
+      console.log('User ID length: ', data.length);
+      console.log('Last user note id: ', data[data.length-1].id);
 
       var xScale = d3.scaleLinear()
         .domain( [0, that.props.selectedData.length] )
+        // .domain( [0, 10] )
         .range( [0, svgWidth] );
       var yScale = d3.scaleLinear()
         .domain( [0, 150] )
@@ -133,12 +162,40 @@ class PitchVisualizer extends React.Component {
           return yScale(d.value);
         })
         .attr('r', 2)
-        .attr('fill', 'red');
+        .attr('fill', 'yellow')
+        .attr('id', function(d) {
+          return d.id;
+        });
 
-      notes.exit()
+      // UPDATE
+      notes
+        .transition()
+        // .ease(d3.sinEase)
+        .attr('cx', function(d) {
+          return xScale(d.id);
+        })
+        .attr('cy', function(d) {
+          return yScale(d.value);
+        })
+        .attr('r', 2)
+        .attr('fill', 'red')
+        .attr('id', function(d) {
+          return d.id;
+        });
+
+      // EXIT
+      notes
         .exit()
         .remove();
     };
+
+    var that = this;
+    // updateSongGraphID = setInterval(function() {
+
+    //   var data = that.props.selectedData.slice(0 + avgNoteArray.length, 10 + avgNoteArray.length);
+
+    //   that.drawSongGraph( data );
+    // }, 1000);
 
     updatePitchID = setInterval(function() {
       updatePitch();
