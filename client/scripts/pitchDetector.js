@@ -50,7 +50,7 @@ var detectorElem,
     detuneAmount;
 
 // Variables used for the D3 visualizer
-var svgWidth = 800;
+var svgWidth = 5000;
 var svgHeight = 256;
 var pitchGraph;
 

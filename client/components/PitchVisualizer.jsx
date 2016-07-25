@@ -50,13 +50,19 @@ class PitchVisualizer extends React.Component {
       .domain( [0, data.length] )
       .range( [0, svgWidth] );
     var yScale = d3.scaleLinear()
-      .domain( [0, 150] )
+      .domain( [50, 120] )
       .range( [svgHeight, 0] );
 
     var notes = pitchGraph.selectAll('rect')
       .data( data, function(d) {
         return d.id;
       } );
+
+    pitchGraph.append('rect')
+      .attr('width', '100%')
+      .attr('height', '100%')
+      .attr('fill', 'white')
+      .attr('fill-opacity', 0.5);
 
     // ENTER
     notes.enter()
@@ -67,9 +73,9 @@ class PitchVisualizer extends React.Component {
       .attr('y', function(d) {
         return yScale(d.value);
       })
-      .attr('width', svgWidth / data.length)
-      .attr('height', 10)
-      .attr('fill', '#50C8FF')
+      .attr('width', (svgWidth / data.length) * 3)
+      .attr('height', 4)
+      .attr('fill', '#4DB6AC')
       .attr('id', function(d) {
         return d.id;
       });
@@ -83,9 +89,9 @@ class PitchVisualizer extends React.Component {
       .attr('y', function(d) {
         return yScale(d.value);
       })
-      .attr('width', svgWidth / data.length)
-      .attr('height', 10)
-      .attr('fill', '#50C8FF')
+      .attr('width', (svgWidth / data.length) * 3)
+      .attr('height', 4)
+      .attr('fill', '#4DB6AC')
       .attr('id', function(d) {
         return d.id;
       });
@@ -121,30 +127,31 @@ class PitchVisualizer extends React.Component {
 
     var userPitchGraph = d3.select('.songGraph');
 
-    var drawUserGraph = function( data ) {
+    var drawUserGraph = function( data, songData ) {
 
       var xScale = d3.scaleLinear()
         .domain( [0, that.props.selectedData.length] )
         .range( [0, svgWidth] );
       var yScale = d3.scaleLinear()
-        .domain( [0, 150] )
+        .domain( [50, 120] )
         .range( [svgHeight, 0] );
 
-      var notes = userPitchGraph.selectAll('circle')
-        .data(data, function(d) {
+      var notes = userPitchGraph.selectAll('ellipse')
+        .data( data, function( d ) {
           return d.id;
         });
 
       // ENTER
       notes.enter()
-        .append('circle')
+        .append('ellipse')
         .attr('cx', function(d) {
-          return xScale(d.id);
+          return xScale(d.id) + (svgWidth / that.props.selectedData.length);
         })
         .attr('cy', function(d) {
           return yScale(d.value);
         })
-        .attr('r', 2)
+        .attr('rx', (svgWidth / that.props.selectedData.length) * 1.5)
+        .attr('ry', 2)
         .attr('fill', 'yellow')
         .attr('id', function(d) {
           return d.id;
@@ -154,12 +161,13 @@ class PitchVisualizer extends React.Component {
       notes
         .transition()
         .attr('cx', function(d) {
-          return xScale(d.id);
+          return xScale(d.id) + (svgWidth / songData.length);
         })
         .attr('cy', function(d) {
           return yScale(d.value);
         })
-        .attr('r', 2)
+        .attr('rx', (svgWidth / that.props.selectedData.length) * 1.5)
+        .attr('ry', 2)
         .attr('fill', 'red')
         .attr('id', function(d) {
           return d.id;
@@ -170,16 +178,16 @@ class PitchVisualizer extends React.Component {
         .exit()
         .remove();
     };
-
-    var that = this;
     
+    var that = this;
+
     updatePitchID = setInterval(function() {
       updatePitch();
     }, 1000 / 60);
 
     drawUserGraphID = setInterval(function() {
       getAvgNote( noteArray );
-      drawUserGraph( avgNoteArray );
+      drawUserGraph( avgNoteArray, that.props.selectedData );
     }, 1000);
 
   }
