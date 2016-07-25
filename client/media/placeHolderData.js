@@ -8,20 +8,36 @@ window.songs = [
     background: 'http://fullhdpictures.com/wp-content/uploads/2016/04/Lukas-Graham-Wallpapers.jpg'
   },
   {
+    title: 'All the Small Things',
+    artist: 'Blink 182',
+    artwork: 'https://upload.wikimedia.org/wikipedia/en/2/29/Blink-182_-_All_the_Small_Things_cover.jpg',
+    audio: '/../media/AllTheSmallThingsBlink182Instrumental.mp3',
+    vocals: '/../media/AllTheSmallThingsBlink182Vocals.mp3',
+    background: 'http://www.mtv.com/crop-images/2013/09/10/blink182.jpg'
+  },
+  {
+    title: 'Chandelier',
+    artist: 'Sia',
+    artwork: 'https://upload.wikimedia.org/wikipedia/en/3/32/Sia_Chandelier.png',
+    audio: '/../media/ChandelierSiaInstrumental.mp3',
+    vocals: '/../media/ChandelierSiaVocals.mp3',
+    background: 'https://images7.alphacoders.com/308/308880.jpg'
+  },
+  {
+    title: 'Gangnam Style',
+    artist: 'PSY', 
+    artwork: 'https://upload.wikimedia.org/wikipedia/en/a/ad/Gangnam_Style_Official_Cover.png',
+    audio: '/../media/GangnamStylePsyInstrumental.mp3',
+    vocals: '/../media/GangnamStylePsyVocals.mp3',
+    background: 'http://www.hdwallpapers.in/walls/psy_gentleman-wide.jpg'
+  },
+  {
     title: 'God Only Knows',
     artist: 'The Beach Boys',
     artwork: 'https://upload.wikimedia.org/wikipedia/en/e/e0/Beach_boys_god_only_knows.PNG',
     audio: '/../media/GodOnlyKnowsTheBeachBoysInstrumental.mp3',
     vocals: '/../media/GodOnlyKnowsTheBeachBoysVocals.mp3',
     background: 'https://i.ytimg.com/vi/_-pW2OMxlv4/maxresdefault.jpg'
-  },
-  {
-    title: 'Grenade',
-    artist: 'Bruno Mars',
-    artwork: 'https://upload.wikimedia.org/wikipedia/en/3/36/BrunoMarsGrenade.jpg',
-    audio: '/../media/GrenadeBrunoMarsInstrumental.mp3',
-    vocals: '/../media/GrenadeBrunoMarsVocals.mp3',
-    background: 'http://hdwallpaperbackgrounds.net/wp-content/uploads/2015/11/Bruno-Mars-Close-Up-Wallpapers.jpeg'
   },
   {
     title: 'Here Comes The Sun',
@@ -46,6 +62,14 @@ window.songs = [
     audio: '/../media/JustTheWayYouAreBrunoMarsInstrumental.mp3',
     vocals: '/../media/JustTheWayYouAreBrunoMarsVocals.mp3',
     background: 'http://hdwallpaperbackgrounds.net/wp-content/uploads/2015/11/Bruno-Mars-Close-Up-Wallpapers.jpeg'
+  },
+  {
+    title: 'Lithium',
+    artist: 'Evanescence',
+    artwork: 'http://orig11.deviantart.net/2230/f/2012/226/3/1/evanescence___lithium_by_loudtalk-d5b1ej4.png',
+    audio: '/../media/LithiumEvanescenceInstrumental.mp3',
+    vocals: '/../media/LithiumEvanescenceVocals.mp3',
+    background: 'https://images4.alphacoders.com/150/150028.jpg'
   },
   {
     title: 'Smells Like Teen Spirit',
