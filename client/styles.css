@@ -3,7 +3,7 @@
 }
 
 #detector {
-
+  border-radius: 5px;
   background-color: white;
   opacity: 0.5;
   text-align: center;
@@ -23,6 +23,7 @@
 }
 
 #waveform {
+  border-radius: 5px;
   background-color: white;
   opacity: 0.5;
 }
@@ -70,4 +71,12 @@ nav ul a {
 
 h3, h5 {
   text-align: center;
+}
+
+.song-entry {
+  cursor: pointer;
+}
+
+.song-entry:hover {
+  font-weight: 700;
 }
