@@ -36,7 +36,6 @@ var mediaStreamSource = null;
 var localStream = null; // Used when stopping microphone input
 var updatePitchID = null; // Used to stop the updateGraph interval
 var drawUserGraphID = null; // Used to stop drawing of the user pitch
-var updateSongGraphID = null;
 
 var noteArray = [];
 var avgNoteArray = [];

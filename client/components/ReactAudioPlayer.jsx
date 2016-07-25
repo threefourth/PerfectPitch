@@ -35,6 +35,18 @@ const ReactAudioPlayer = React.createClass({
 
     // When the file has finished playing to the end
     audio.addEventListener('ended', (e) => {
+      console.log('Song is over');
+      // Stop pitch detection/visualization
+      clearInterval( updatePitchID );
+      clearInterval( drawUserGraphID );
+
+      // Stop getting user audio input
+      if (localStream) {
+        localStream.getAudioTracks()[0].stop( 0 );
+      }
+    
+    localStream = null;
+
       this.clearListenTrack();
       this.props.onEnd && this.props.onEnd(e);
     });
