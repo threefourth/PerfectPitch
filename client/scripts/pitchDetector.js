@@ -35,6 +35,8 @@ var graphCanvas = null;
 var mediaStreamSource = null;
 var localStream = null; // Used when stopping microphone input
 var updatePitchID = null; // Used to stop the updateGraph interval
+var drawUserGraphID = null; // Used to stop drawing of the user pitch
+
 var noteArray = [];
 var detectorElem, 
     canvasElem,
@@ -54,39 +56,39 @@ var error = function() {
   alert('Stream generation failed.');
 };
 
-var toggleLiveInput = function() {
+// var toggleLiveInput = function() {
   
-  if (isPlaying) {
-    // stop playing and return
-    // sourceNode.stop( 0 );
-    // sourceNode = null;
-    localStream.getAudioTracks()[0].stop( 0 ); // Stops the microphone
-    mediaStreamSource = null; // getUserMedia uses mediaStreamSource instead of sourceNode
-    analyser = null;
-    isPlaying = false;
+//   if (isPlaying) {
+//     // stop playing and return
+//     // sourceNode.stop( 0 );
+//     // sourceNode = null;
+//     localStream.getAudioTracks()[0].stop( 0 ); // Stops the microphone
+//     mediaStreamSource = null; // getUserMedia uses mediaStreamSource instead of sourceNode
+//     analyser = null;
+//     isPlaying = false;
 
-    return 'stop live input';
-    // if (!window.cancelAnimationFrame) {
-    //   window.cancelAnimationFrame = window.webkitCancelAnimationFrame;
-    // }
-    // window.cancelAnimationFrame( rafID );
-  }
-  // getUserMedia({
-  //   'audio': {
-  //     'mandatory': {
-  //       'googEchoCancellation': 'false',
-  //       'googAutoGainControl': 'false',
-  //       'googNoiseSuppression': 'false',
-  //       'googHighpassFilter': 'false'
-  //     },
-  //     'optional': []
-  //   },
-  // }, gotStream);
+//     return 'stop live input';
+//     // if (!window.cancelAnimationFrame) {
+//     //   window.cancelAnimationFrame = window.webkitCancelAnimationFrame;
+//     // }
+//     // window.cancelAnimationFrame( rafID );
+//   }
+//   // getUserMedia({
+//   //   'audio': {
+//   //     'mandatory': {
+//   //       'googEchoCancellation': 'false',
+//   //       'googAutoGainControl': 'false',
+//   //       'googNoiseSuppression': 'false',
+//   //       'googHighpassFilter': 'false'
+//   //     },
+//   //     'optional': []
+//   //   },
+//   // }, gotStream);
   
-  getUserAudio();
+//   getUserAudio();
 
-  return 'using live input!';
-};
+//   return 'using live input!';
+// };
 
 // var gotStream = function(stream) {
 //   // Create an AudioNode from the stream.
@@ -138,8 +140,6 @@ var getUserAudio = function() {
 
         isPlaying = true;
 
-        updatePitch();
-        updatePitchID = setInterval(updatePitch, setIntervalTimeRate);
       });
   
   } else if (navigator.webkitGetUserMedia) {
@@ -154,9 +154,6 @@ var getUserAudio = function() {
       mediaStreamSource.connect( analyser );
 
       isPlaying = true;
-
-      updatePitch();
-      updatePitchID = setInterval(updatePitch, setIntervalTimeRate);
 
     }, function(error) { console.log(error); });
 
