@@ -131,6 +131,6 @@ window.songs = [
     artwork: 'https://s-media-cache-ak0.pinimg.com/736x/56/28/85/562885310989965dfa8f8839feaaff92.jpg',
     audio: null,
     background: 'http://vignette1.wikia.nocookie.net/epicpixelbattles/images/a/ac/Concert_Stage.PNG/revision/latest?cb=20140816091755',
-    data: []
+    data: [] 
   }
 ];
