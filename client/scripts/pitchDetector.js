@@ -39,6 +39,8 @@ var drawUserGraphID = null; // Used to stop drawing of the user pitch
 var updateSongGraphID = null;
 
 var noteArray = [];
+var avgNoteArray = [];
+
 var detectorElem, 
     canvasElem,
     waveCanvas,
@@ -52,75 +54,6 @@ var detectorElem,
 var svgWidth = 800;
 var svgHeight = 256;
 var pitchGraph;
-
-/* 
-  Code that was previously in window.onload was moved to PitchVisualizer
-  component's componentDidMount function
-*/
-
-var error = function() {
-  alert('Stream generation failed.');
-};
-
-// var toggleLiveInput = function() {
-  
-//   if (isPlaying) {
-//     // stop playing and return
-//     // sourceNode.stop( 0 );
-//     // sourceNode = null;
-//     localStream.getAudioTracks()[0].stop( 0 ); // Stops the microphone
-//     mediaStreamSource = null; // getUserMedia uses mediaStreamSource instead of sourceNode
-//     analyser = null;
-//     isPlaying = false;
-
-//     return 'stop live input';
-//     // if (!window.cancelAnimationFrame) {
-//     //   window.cancelAnimationFrame = window.webkitCancelAnimationFrame;
-//     // }
-//     // window.cancelAnimationFrame( rafID );
-//   }
-//   // getUserMedia({
-//   //   'audio': {
-//   //     'mandatory': {
-//   //       'googEchoCancellation': 'false',
-//   //       'googAutoGainControl': 'false',
-//   //       'googNoiseSuppression': 'false',
-//   //       'googHighpassFilter': 'false'
-//   //     },
-//   //     'optional': []
-//   //   },
-//   // }, gotStream);
-  
-//   getUserAudio();
-
-//   return 'using live input!';
-// };
-
-// var gotStream = function(stream) {
-//   // Create an AudioNode from the stream.
-//   mediaStreamSource = audioContext.createMediaStreamSource(stream);
-
-//   // Connect it to the destination.
-//   analyser = audioContext.createAnalyser();
-//   analyser.fftSize = 2048;
-//   mediaStreamSource.connect( analyser );
-  
-//   setInterval(updatePitch, setIntervalTimeRate);
-// };
-// 
-// var getUserMedia = function(dictionary, callback) {
-//   try {
-//     navigator.getUserMedia = 
-//       navigator.getUserMedia ||
-//       navigator.webkitGetUserMedia ||
-//       navigator.mozGetUserMedia;
-
-//     navigator.getUserMedia(dictionary, callback, error);
-//   } catch (e) {
-//     alert('getUserMedia threw exception :' + e);
-//   }
-// };
-
 
 var getUserAudio = function() {
   // The user will be prompted whether he will permit the browser
@@ -252,8 +185,7 @@ var autoCorrelate = function( buf, sampleRate ) {
   //  var best_frequency = sampleRate/bestOffset;
 };
 
-var updatePitch = function( time ) {
-  var cycles = new Array;
+var updatePitch = function() {
   analyser.getFloatTimeDomainData( buf );
   var ac = autoCorrelate( buf, audioContext.sampleRate );
 
@@ -342,29 +274,6 @@ var getMax = function(array) {
   });
   return max;
 };
-
-var avgNoteArray = [
-  // { id: -10,
-  //   value: 0 },
-  // { id: -9,
-  //   value: 0 },
-  // { id: -8,
-  //   value: 0 },
-  // { id: -7,
-  //   value: 0 },
-  // { id: -6,
-  //   value: 0 },
-  // { id: -5,
-  //   value: 0 },
-  // { id: -4,
-  //   value: 0 },
-  // { id: -3,
-  //   value: 0 },
-  // { id: -2,
-  //   value: 0 },
-  // { id: -1,
-  //   value: 0 },                  
-];
 
 var getAvgNote = function( noteArray ) {
   
