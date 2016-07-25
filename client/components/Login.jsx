@@ -33,6 +33,7 @@ class Login extends React.Component {
         data: JSON.stringify({username: username, password: password}),
         contentType: 'application/json',
         success: function(data) {
+          this.props.updateStateAfterLogin(data);
           browserHistory.push('/');
           console.log('successfully logged in!');
         }.bind(this),

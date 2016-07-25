@@ -45,7 +45,7 @@ module.exports = function(app, express) {
       });
   });
 
-  app.get('/signoutUser', function(req, res) {
+  app.get('/signoutUser', util.checkUser, function(req, res) {
     req.session.destroy(function() {
       res.status(200).send({success: 'successfully signed out!'});
     });

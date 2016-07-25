@@ -11,7 +11,11 @@ var UserSchema = mongoose.Schema({
   password: {
     type: String,
     required: true
-  }
+  },
+  scores: [{
+    title: String,
+    score: Number 
+  }]
 });
 
 UserSchema.methods.comparePasswords = function(inputPassword) {
@@ -48,5 +52,24 @@ UserSchema.pre('save', function(next) {
 });
 
 var User = mongoose.model('User', UserSchema);
+
+// User.create({
+//   username: 'jae',
+//   password: 'jae',
+//   scores: [
+//     {
+//       title: 'God Only Knows',
+//       score: 85
+//     },
+//     {
+//       title: '7 Years',
+//       score: 73
+//     },
+//     {
+//       title: 'Wonderwall',
+//       score: 94
+//     }
+//   ]
+// });
 
 module.exports = User;

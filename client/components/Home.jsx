@@ -1,14 +1,23 @@
 class Home extends React.Component {
   constructor (props) {
     super(props);
+    this.state = {
+      isLoggedIn: false,
+      user: {}
+    }
   }
 
   handleSignOut() {
+    var that = this;
     $.ajax({
       url: '/signoutUser', 
       type: 'GET',
       dataType: 'json',
       success: function(data) {
+        that.setState({
+          isLoggedIn: false,
+          user: {}
+        });
         browserHistory.push('/login');
         console.log('successfully signed out');
       },
@@ -18,7 +27,32 @@ class Home extends React.Component {
     });
   }
 
+  updateStateAfterLogin(user) {
+    this.setState({user: user, isLoggedIn: true});
+  }
+
   render() {
+    var child = React.cloneElement(this.props.children, {
+      isLoggedIn: this.state.isLoggedIn,
+      user: this.state.user,
+      updateStateAfterLogin: this.updateStateAfterLogin.bind(this)
+    });
+
+    var toggleNavBar;
+    if (this.state.isLoggedIn) {
+      toggleNavBar = 
+        <ul className="right hide-on-med-and-down">
+          <Link to="/progress">{this.state.user.username}'s Progress</Link>
+          <a onClick={this.handleSignOut.bind(this)}>Logout</a>
+        </ul>
+    } else {
+      toggleNavBar = 
+        <ul className="right hide-on-med-and-down">
+          <Link to="/login">Login</Link>
+          <Link to="/signup">Sign Up</Link>
+        </ul>
+    }
+
     return (
       <div>
         <div className="navbar-fixed">
@@ -26,18 +60,16 @@ class Home extends React.Component {
             <div className="nav-wrapper">
               &nbsp; &nbsp; &nbsp;
               <Link to="/">Perfect Pitch</Link>
-              <ul className="right hide-on-med-and-down">
-                <Link to="/login">Login</Link>
-                <a onClick={this.handleSignOut.bind(this)}>Logout</a>
-                <Link to="/signup">Sign Up</Link>
-              </ul>
+              {toggleNavBar}
             </div>
           </nav>
         </div>
         <div>
-          {this.props.children}
+          {child}
         </div>
       </div>
     );
   }
 }
+
+window.Home = Home;
