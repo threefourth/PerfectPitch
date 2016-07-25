@@ -9,9 +9,7 @@ class PitchVisualizer extends React.Component {
 
     // Initializes the variables that the pitch detector and visualizer
     // will need to use (see scripts/pitchDetector.js)
-
-    // corresponds to a 5kHz signal
-    // MAX_SIZE = Math.max(4, Math.floor(audioContext.sampleRate / 5000));  
+ 
     audioContext = new AudioContext();
 
     detectorElem = document.getElementById( 'detector' );
@@ -54,7 +52,6 @@ class PitchVisualizer extends React.Component {
 
     var xScale = d3.scaleLinear()
       .domain( [0, data.length] )
-      // .domain( [0, 10] )
       .range( [0, svgWidth] );
     var yScale = d3.scaleLinear()
       .domain( [0, 150] )
@@ -75,7 +72,6 @@ class PitchVisualizer extends React.Component {
         return yScale(d.value);
       })
       .attr('width', svgWidth / data.length)
-      // .attr('width', svgWidth / 10)
       .attr('height', 10)
       .attr('fill', '#50C8FF')
       .attr('id', function(d) {
@@ -92,7 +88,6 @@ class PitchVisualizer extends React.Component {
         return yScale(d.value);
       })
       .attr('width', svgWidth / data.length)
-      // .attr('width', svgWidth / 10)
       .attr('height', 10)
       .attr('fill', '#50C8FF')
       .attr('id', function(d) {
@@ -132,7 +127,6 @@ class PitchVisualizer extends React.Component {
       this.stopUserAudio();
     }
 
-    
     var userPitchGraph = d3.select('.songGraph');
 
     var drawUserGraph = function( data ) {
@@ -141,7 +135,6 @@ class PitchVisualizer extends React.Component {
 
       var xScale = d3.scaleLinear()
         .domain( [0, that.props.selectedData.length] )
-        // .domain( [0, 10] )
         .range( [0, svgWidth] );
       var yScale = d3.scaleLinear()
         .domain( [0, 150] )
@@ -253,4 +246,4 @@ class PitchVisualizer extends React.Component {
 };
 
 window.PitchVisualizer = PitchVisualizer;
-              // <canvas id="output" ></canvas> below #note
+

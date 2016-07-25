@@ -1,6 +1,5 @@
 class Home extends React.Component {
   constructor (props) {
-    console.log('------inside Home constructor----');
     super(props);
     this.state = {
       isLoggedIn: false,
@@ -20,9 +19,6 @@ class Home extends React.Component {
             isLoggedIn: true,
             user: data
           });
-          console.log('user was previously logged in');
-        } else {
-          console.log('no user logged in')
         }
       },
       error: function(jqXHR, textStatus, error) {
@@ -43,7 +39,6 @@ class Home extends React.Component {
           user: null
         });
         browserHistory.push('/login');
-        console.log('successfully signed out');
       },
       error: function(data) {
         console.log('failed to sign out');
@@ -97,3 +92,4 @@ class Home extends React.Component {
 }
 
 window.Home = Home;
+

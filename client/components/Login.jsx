@@ -35,7 +35,6 @@ class Login extends React.Component {
         success: function(data) {
           this.props.updateStateAfterLogin(data);
           browserHistory.push('/');
-          console.log('successfully logged in!');
         }.bind(this),
         error: function(data) {
           alert('Incorrect username or password!');
@@ -73,3 +72,4 @@ class Login extends React.Component {
 }
 
 window.Login = Login;
+

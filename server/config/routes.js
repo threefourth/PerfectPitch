@@ -16,7 +16,6 @@ module.exports = function(app, express) {
     var user = req.body;
     User.findOne({username: user.username})
       .then(function(result) {
-        console.log('result is: ', result);
         if (result) {
           res.status(500).send({error: 'user already exists!'});
         } else {
@@ -43,7 +42,6 @@ module.exports = function(app, express) {
               }
             })
             .catch(function(err) {
-              console.log('error in comparing passwords: ', err);
               res.status(500).send({error: 'error in comparing passwords'});
             });
         } else {

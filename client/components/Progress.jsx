@@ -1,9 +1,6 @@
 class Progress extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-
-    };
   }
 
   render() {
@@ -44,3 +41,4 @@ class Progress extends React.Component {
 }
 
 window.Progress = Progress;
+

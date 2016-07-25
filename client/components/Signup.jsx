@@ -35,7 +35,6 @@ class Signup extends React.Component {
         success: function(data) {
           this.props.updateStateAfterLogin(data);
           browserHistory.push('/');
-          console.log('successfully signed up!');
         }.bind(this),
         error: function(data) {
           alert('User already exists! Please sign in');
@@ -75,3 +74,4 @@ class Signup extends React.Component {
 }
 
 window.Signup = Signup;
+

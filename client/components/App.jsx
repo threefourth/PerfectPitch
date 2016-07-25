@@ -98,4 +98,3 @@ class App extends React.Component {
 
 window.App = App;
 
-// 'url(' + this.state.selectedSong.background + ') center / cover'
