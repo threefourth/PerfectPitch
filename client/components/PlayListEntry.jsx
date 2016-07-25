@@ -1,6 +1,6 @@
 var PlayListEntry = (props) => (
   <tr>
-    <td onClick={props.onChooseSongClick}>
+    <td className="song-entry" onClick={props.onChooseSongClick}>
       {props.song.title}
     </td>
   </tr>
