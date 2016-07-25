@@ -1,6 +1,6 @@
-# Project Name
+# Perfect Pitch
 
-> Pithy project description
+Perfect Pitch is a vocal training app that will graph the user's vocals and compare it against their favorite singer's vocals.
 
 ## Team
 
