@@ -55,7 +55,6 @@ class App extends React.Component {
   }
 
   onStop(event) {
-    console.log('stopping!!!!');
     var vocals = document.getElementById('vocals');
     var karaoke = document.getElementById('karaoke');
     

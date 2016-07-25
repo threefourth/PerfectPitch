@@ -68,7 +68,6 @@ var getUserAudio = function() {
     
     navigator.mediaDevices.getUserMedia({audio: true})
       .then(function(mediaStream) {
-        console.log('Getting user audio');
         localStream = mediaStream;
         mediaStreamSource = audioContext.createMediaStreamSource(mediaStream);
 
@@ -83,7 +82,6 @@ var getUserAudio = function() {
   } else if (navigator.webkitGetUserMedia) {
 
     navigator.webkitGetUserMedia({audio: true}, function(mediaStream) {
-      console.log('Getting user audio');
       localStream = mediaStream;
       mediaStreamSource = audioContext.createMediaStreamSource( mediaStream );
 
@@ -103,8 +101,6 @@ var getUserAudio = function() {
 
 };
 
-var rafID = null;
-var tracks = null;
 var buflen = 1024;
 var buf = new Float32Array( buflen );
 
@@ -177,11 +173,9 @@ var autoCorrelate = function( buf, sampleRate ) {
     lastCorrelation = correlation;
   }
   if (bestCorrelation > 0.01) {
-    // console.log('f = ' + sampleRate/bestOffset + 'Hz (rms: ' + rms + ' confidence: ' + bestCorrelation + ')')
     return sampleRate / bestOffset;
   }
   return -1;
-  //  var best_frequency = sampleRate/bestOffset;
 };
 
 var updatePitch = function() {
@@ -214,19 +208,16 @@ var updatePitch = function() {
 
   if (ac === -1) {
     detectorElem.className = 'vague';
-    // console.log('vague autocorrelation');
     pitchElem.innerText = '--';
     noteElem.innerText = '-';
     detuneElem.className = '';
     detuneAmount.innerText = '--';
 
     var note = 0;
-    // console.log('Vague: ', note);
     noteArray.push( note );
 
   } else {
     detectorElem.className = 'confident';
-    // console.log('confident autocorrelation');
     var pitch = ac;
     pitchElem.innerText = Math.round( pitch );
 
@@ -234,20 +225,14 @@ var updatePitch = function() {
     var note = noteFromPitch( pitch );
     noteElem.innerHTML = noteStrings[note % 12];
 
-    // store pitch into noteArray
-    // 
     // in order to solve the octave issue
     // we are using the raw note value instead of (note % 12)
-    // console.log('Updating pitch');
-    // console.log('Confident: ', note);
     if (isNaN(note)) {
       note = 0;
     }
 
+    // store pitch into noteArray
     noteArray.push(note);
-    // console.log(noteArray.length);
-    // console.log('note array: ', noteArray);
-    // drawNoteGraph();
 
     var detune = centsOffFromPitch( pitch, note );
     if (detune === 0 ) {
@@ -264,20 +249,7 @@ var updatePitch = function() {
   }
 };
 
-var getMax = function(array) {
-  var max = array[0];
-  array.forEach(function(el) {
-    if (el > max) {
-      max = el;
-    }
-  });
-  return max;
-};
-
 var getAvgNote = function( noteArray ) {
-  
-  // var startIndex = avgNoteArray.length * 60;
-  // var noteSet = noteArray.slice( startIndex, startIndex + 60 );
 
   var noteSet = noteArray.slice(-60);
   noteSet = noteSet.filter( function(note) {
@@ -285,7 +257,6 @@ var getAvgNote = function( noteArray ) {
       return note;
     }
   });
-  console.log(noteSet);
   var sum = 0;
 
   noteSet.forEach( function(note) {
@@ -301,54 +272,5 @@ var getAvgNote = function( noteArray ) {
     value: Math.round(sum / noteSet.length)
   };
 
-  console.log( avgNote.value );
-
   avgNoteArray.push ( avgNote );
-};
-
-
-// visualization of notes
-var drawNoteGraph = function() {
-  if (!graphCanvas) {
-    return;
-  }
-
-  var factor = 256 / getMax(noteArray);
-
-  noteCanvas.clearRect(0, 0, 2560, 256);
-  noteCanvas.strokeStyle = 'red';
-  noteCanvas.beginPath();
-  noteCanvas.moveTo(0, 0);
-  noteCanvas.lineTo(0, 256);
-  noteCanvas.moveTo(0, 256);
-  noteCanvas.lineTo(2560, 256);
-  noteCanvas.stroke();
-
-  noteCanvas.strokeStyle = 'black';
-  noteCanvas.beginPath();
-
-  var remainder = counter % 60;
-  var seconds = (counter - counter % 60) / 60;
-
-  if (seconds === 0) {
-    avgNotes.push(noteArray[0]);
-  } else if (remainder === 0) {
-    avgNotes.push(getAvgNote(noteArray.slice((seconds - 1) * 60, seconds * 60)));
-  } else {
-    avgNotes.push(getAvgNote(noteArray.slice(seconds * 60)));
-  } 
-
-  console.log('avgNotes is: ', avgNotes);
-  noteCanvas.moveTo(0, 256 - (avgNotes[0]) * factor);
-  for (var i = 1; i < counter + 1; i++) {
-    noteCanvas.lineTo(i, 256 - (avgNotes[i]) * factor);
-  }
-  noteCanvas.stroke();
-
-  // noteCanvas.moveTo(0, 256 - (noteArray[0] + 1) * factor);
-  // for (var i = 5; i < 5 * noteArray.length; i = i + 5) {
-  //   noteCanvas.lineTo(i, 256 - (noteArray[i / 5] + 1) * factor);
-  // }
-
-  counter++;
 };

@@ -37,7 +37,6 @@ class PitchVisualizer extends React.Component {
   }
 
   componentWillUpdate() {
-    console.log('Updating PitchVisualizer');
     this.stopUserAudio();
     document.getElementById('.songGraph');
 
@@ -47,9 +46,6 @@ class PitchVisualizer extends React.Component {
   }
 
   drawSongGraph( data ) {
-
-    console.log('Received: ', data);
-
     var xScale = d3.scaleLinear()
       .domain( [0, data.length] )
       .range( [0, svgWidth] );
@@ -101,8 +97,6 @@ class PitchVisualizer extends React.Component {
   }
 
   stopUserAudio() {
-    console.log('Stopping user input');
-    console.log(localStream);
     if (localStream) {
       localStream.getAudioTracks()[0].stop( 0 );
     }
@@ -118,8 +112,6 @@ class PitchVisualizer extends React.Component {
   }
 
   toggleLiveInput() {
-    console.log('Toggling audio input');
-    console.log(localStream);
 
     if (localStream === null) {
       getUserAudio();
@@ -130,8 +122,6 @@ class PitchVisualizer extends React.Component {
     var userPitchGraph = d3.select('.songGraph');
 
     var drawUserGraph = function( data ) {
-      console.log('User ID length: ', data.length);
-      console.log('Last user note id: ', data[data.length-1].id);
 
       var xScale = d3.scaleLinear()
         .domain( [0, that.props.selectedData.length] )
@@ -163,7 +153,6 @@ class PitchVisualizer extends React.Component {
       // UPDATE
       notes
         .transition()
-        // .ease(d3.sinEase)
         .attr('cx', function(d) {
           return xScale(d.id);
         })
@@ -183,20 +172,13 @@ class PitchVisualizer extends React.Component {
     };
 
     var that = this;
-    // updateSongGraphID = setInterval(function() {
-
-    //   var data = that.props.selectedData.slice(0 + avgNoteArray.length, 10 + avgNoteArray.length);
-
-    //   that.drawSongGraph( data );
-    // }, 1000);
-
+    
     updatePitchID = setInterval(function() {
       updatePitch();
     }, 1000 / 60);
 
     drawUserGraphID = setInterval(function() {
       getAvgNote( noteArray );
-      // console.log ( avgNoteArray );
       drawUserGraph( avgNoteArray );
     }, 1000);
 
