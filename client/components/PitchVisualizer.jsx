@@ -9,9 +9,7 @@ class PitchVisualizer extends React.Component {
 
     // Initializes the variables that the pitch detector and visualizer
     // will need to use (see scripts/pitchDetector.js)
-
-    // corresponds to a 5kHz signal
-    // MAX_SIZE = Math.max(4, Math.floor(audioContext.sampleRate / 5000));  
+ 
     audioContext = new AudioContext();
 
     detectorElem = document.getElementById( 'detector' );
@@ -39,7 +37,6 @@ class PitchVisualizer extends React.Component {
   }
 
   componentWillUpdate() {
-    console.log('Updating PitchVisualizer');
     this.stopUserAudio();
     document.getElementById('.songGraph');
 
@@ -49,12 +46,8 @@ class PitchVisualizer extends React.Component {
   }
 
   drawSongGraph( data ) {
-
-    console.log('Received: ', data);
-
     var xScale = d3.scaleLinear()
       .domain( [0, data.length] )
-      // .domain( [0, 10] )
       .range( [0, svgWidth] );
     var yScale = d3.scaleLinear()
       .domain( [0, 150] )
@@ -75,7 +68,6 @@ class PitchVisualizer extends React.Component {
         return yScale(d.value);
       })
       .attr('width', svgWidth / data.length)
-      // .attr('width', svgWidth / 10)
       .attr('height', 10)
       .attr('fill', '#50C8FF')
       .attr('id', function(d) {
@@ -92,7 +84,6 @@ class PitchVisualizer extends React.Component {
         return yScale(d.value);
       })
       .attr('width', svgWidth / data.length)
-      // .attr('width', svgWidth / 10)
       .attr('height', 10)
       .attr('fill', '#50C8FF')
       .attr('id', function(d) {
@@ -106,8 +97,6 @@ class PitchVisualizer extends React.Component {
   }
 
   stopUserAudio() {
-    console.log('Stopping user input');
-    console.log(localStream);
     if (localStream) {
       localStream.getAudioTracks()[0].stop( 0 );
     }
@@ -123,8 +112,6 @@ class PitchVisualizer extends React.Component {
   }
 
   toggleLiveInput() {
-    console.log('Toggling audio input');
-    console.log(localStream);
 
     if (localStream === null) {
       getUserAudio();
@@ -132,16 +119,12 @@ class PitchVisualizer extends React.Component {
       this.stopUserAudio();
     }
 
-    
     var userPitchGraph = d3.select('.songGraph');
 
     var drawUserGraph = function( data ) {
-      console.log('User ID length: ', data.length);
-      console.log('Last user note id: ', data[data.length-1].id);
 
       var xScale = d3.scaleLinear()
         .domain( [0, that.props.selectedData.length] )
-        // .domain( [0, 10] )
         .range( [0, svgWidth] );
       var yScale = d3.scaleLinear()
         .domain( [0, 150] )
@@ -170,7 +153,6 @@ class PitchVisualizer extends React.Component {
       // UPDATE
       notes
         .transition()
-        // .ease(d3.sinEase)
         .attr('cx', function(d) {
           return xScale(d.id);
         })
@@ -190,20 +172,13 @@ class PitchVisualizer extends React.Component {
     };
 
     var that = this;
-    // updateSongGraphID = setInterval(function() {
-
-    //   var data = that.props.selectedData.slice(0 + avgNoteArray.length, 10 + avgNoteArray.length);
-
-    //   that.drawSongGraph( data );
-    // }, 1000);
-
+    
     updatePitchID = setInterval(function() {
       updatePitch();
     }, 1000 / 60);
 
     drawUserGraphID = setInterval(function() {
       getAvgNote( noteArray );
-      // console.log ( avgNoteArray );
       drawUserGraph( avgNoteArray );
     }, 1000);
 
@@ -253,4 +228,4 @@ class PitchVisualizer extends React.Component {
 };
 
 window.PitchVisualizer = PitchVisualizer;
-              // <canvas id="output" ></canvas> below #note
+
