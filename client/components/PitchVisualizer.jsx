@@ -48,7 +48,9 @@ class PitchVisualizer extends React.Component {
         .range( [svgHeight, 0] );
 
       var notes = pitchGraph.selectAll('rect')
-        .data( data );
+        .data( data, function(d) {
+          return d.id;
+        } );
 
       // ENTER
       notes.enter()
@@ -70,19 +72,22 @@ class PitchVisualizer extends React.Component {
     drawSongGraph( this.props.selectedData );
   }
 
-  componentWillUnmount() {
+  componentWillUpdate() {
+    console.log('Updating PitchVisualizer');
     this.stopUserAudio();
+    document.getElementById('.songGraph');
   }
 
   stopUserAudio() {
     console.log('Stopping user input');
-
+    console.log(localStream);
     if (localStream) {
       localStream.getAudioTracks()[0].stop( 0 );
     }
     
     localStream = null;
-    clearInterval(updatePitchID);
+    clearInterval( updatePitchID );
+    clearInterval( drawUserGraphID );
   }
 
   toggleLiveInput() {
@@ -128,11 +133,11 @@ class PitchVisualizer extends React.Component {
         .attr('fill', 'red');
     };
 
-    setInterval(function() {
+    updatePitchID = setInterval(function() {
       updatePitch();
     }, setIntervalTimeRate);
 
-    setInterval(function() {
+    drawUserGraphID = setInterval(function() {
       getAvgNote();
       // console.log ( avgNoteArray );
       drawUserGraph( avgNoteArray );
