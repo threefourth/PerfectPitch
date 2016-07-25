@@ -23,5 +23,6 @@ var createSession = function(req, res, user) {
 
 module.exports = {
   createSession: createSession,
-  checkUser: checkUser
+  checkUser: checkUser,
+  isLoggedIn: isLoggedIn
 };

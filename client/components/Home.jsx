@@ -1,10 +1,34 @@
 class Home extends React.Component {
   constructor (props) {
+    console.log('------inside Home constructor----');
     super(props);
     this.state = {
       isLoggedIn: false,
       user: {}
     }
+  }
+
+  componentDidMount() {
+    var that = this;
+    $.ajax({
+      url: '/checkUser', 
+      type: 'GET',
+      dataType: 'json',
+      success: function(data) {
+        if (data) {
+          that.setState({
+            isLoggedIn: true,
+            user: data
+          });
+          console.log('user was previously logged in');
+        } else {
+          console.log('no user logged in')
+        }
+      },
+      error: function(jqXHR, textStatus, error) {
+        console.log('failed GET /checkUser: ', error);
+      }
+    });
   }
 
   handleSignOut() {

@@ -4,6 +4,14 @@ var util = require('./util');
 
 module.exports = function(app, express) {
 
+  app.get('/checkUser', function(req, res) {
+    if (util.isLoggedIn(req)) {
+      res.send(req.session.user);
+    } else {
+      res.send(JSON.stringify(null));
+    }
+  })
+
   app.post('/signupNewUser', function(req, res) {
     var user = req.body;
     User.findOne({username: user.username})
