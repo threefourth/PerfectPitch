@@ -35,7 +35,11 @@ var graphCanvas = null;
 var mediaStreamSource = null;
 var localStream = null; // Used when stopping microphone input
 var updatePitchID = null; // Used to stop the updateGraph interval
+var drawUserGraphID = null; // Used to stop drawing of the user pitch
+
 var noteArray = [];
+var avgNoteArray = [];
+
 var detectorElem, 
     canvasElem,
     waveCanvas,
@@ -45,74 +49,10 @@ var detectorElem,
     detuneElem,
     detuneAmount;
 
-/* 
-  Code that was previously in window.onload was moved to PitchVisualizer
-  component's componentDidMount function
-*/
-
-var error = function() {
-  alert('Stream generation failed.');
-};
-
-var toggleLiveInput = function() {
-  
-  if (isPlaying) {
-    // stop playing and return
-    // sourceNode.stop( 0 );
-    // sourceNode = null;
-    localStream.getAudioTracks()[0].stop( 0 ); // Stops the microphone
-    mediaStreamSource = null; // getUserMedia uses mediaStreamSource instead of sourceNode
-    analyser = null;
-    isPlaying = false;
-
-    return 'stop live input';
-    // if (!window.cancelAnimationFrame) {
-    //   window.cancelAnimationFrame = window.webkitCancelAnimationFrame;
-    // }
-    // window.cancelAnimationFrame( rafID );
-  }
-  // getUserMedia({
-  //   'audio': {
-  //     'mandatory': {
-  //       'googEchoCancellation': 'false',
-  //       'googAutoGainControl': 'false',
-  //       'googNoiseSuppression': 'false',
-  //       'googHighpassFilter': 'false'
-  //     },
-  //     'optional': []
-  //   },
-  // }, gotStream);
-  
-  getUserAudio();
-
-  return 'using live input!';
-};
-
-// var gotStream = function(stream) {
-//   // Create an AudioNode from the stream.
-//   mediaStreamSource = audioContext.createMediaStreamSource(stream);
-
-//   // Connect it to the destination.
-//   analyser = audioContext.createAnalyser();
-//   analyser.fftSize = 2048;
-//   mediaStreamSource.connect( analyser );
-  
-//   setInterval(updatePitch, setIntervalTimeRate);
-// };
-// 
-// var getUserMedia = function(dictionary, callback) {
-//   try {
-//     navigator.getUserMedia = 
-//       navigator.getUserMedia ||
-//       navigator.webkitGetUserMedia ||
-//       navigator.mozGetUserMedia;
-
-//     navigator.getUserMedia(dictionary, callback, error);
-//   } catch (e) {
-//     alert('getUserMedia threw exception :' + e);
-//   }
-// };
-
+// Variables used for the D3 visualizer
+var svgWidth = 800;
+var svgHeight = 256;
+var pitchGraph;
 
 var getUserAudio = function() {
   // The user will be prompted whether he will permit the browser
@@ -138,8 +78,6 @@ var getUserAudio = function() {
 
         isPlaying = true;
 
-        updatePitch();
-        updatePitchID = setInterval(updatePitch, setIntervalTimeRate);
       });
   
   } else if (navigator.webkitGetUserMedia) {
@@ -155,9 +93,6 @@ var getUserAudio = function() {
 
       isPlaying = true;
 
-      updatePitch();
-      updatePitchID = setInterval(updatePitch, setIntervalTimeRate);
-
     }, function(error) { console.log(error); });
 
   } else {
@@ -167,39 +102,6 @@ var getUserAudio = function() {
   }
 
 };
-
-// var togglePlayback = function() {
-//   if (isPlaying) {
-//     //stop playing and return
-//     sourceNode.stop( 0 );
-//     sourceNode = null;
-//     analyser = null;
-//     isPlaying = false;
-
-//     // if (!window.cancelAnimationFrame) {
-//     //   window.cancelAnimationFrame = window.webkitCancelAnimationFrame;
-//     // }
-//     // window.cancelAnimationFrame( rafID );
-    
-//     return 'start';
-//   }
-
-//   sourceNode = audioContext.createBufferSource();
-//   sourceNode.buffer = theBuffer;
-//   sourceNode.loop = true;
-
-//   analyser = audioContext.createAnalyser();
-//   analyser.fftSize = 2048;
-//   sourceNode.connect( analyser );
-//   analyser.connect( audioContext.destination );
-//   sourceNode.start( 0 );
-//   isPlaying = true;
-//   isLiveInput = false;
-
-//   setInterval(updatePitch, setIntervalTimeRate);
-
-//   return 'stop';
-// };
 
 var rafID = null;
 var tracks = null;
@@ -282,11 +184,7 @@ var autoCorrelate = function( buf, sampleRate ) {
   //  var best_frequency = sampleRate/bestOffset;
 };
 
-var updatePitch = function( time ) {
-  if (!isPlaying) {
-    return;
-  }
-  var cycles = new Array;
+var updatePitch = function() {
   analyser.getFloatTimeDomainData( buf );
   var ac = autoCorrelate( buf, audioContext.sampleRate );
 
@@ -316,15 +214,20 @@ var updatePitch = function( time ) {
 
   if (ac === -1) {
     detectorElem.className = 'vague';
-    console.log('vague autocorrelation');
+    // console.log('vague autocorrelation');
     pitchElem.innerText = '--';
     noteElem.innerText = '-';
     detuneElem.className = '';
     detuneAmount.innerText = '--';
+
+    var note = 0;
+    // console.log('Vague: ', note);
+    noteArray.push( note );
+
   } else {
     detectorElem.className = 'confident';
-    console.log('confident autocorrelation');
-    pitch = ac;
+    // console.log('confident autocorrelation');
+    var pitch = ac;
     pitchElem.innerText = Math.round( pitch );
 
 
@@ -335,9 +238,16 @@ var updatePitch = function( time ) {
     // 
     // in order to solve the octave issue
     // we are using the raw note value instead of (note % 12)
+    // console.log('Updating pitch');
+    // console.log('Confident: ', note);
+    if (isNaN(note)) {
+      note = 0;
+    }
+
     noteArray.push(note);
-    console.log('note array: ', noteArray);
-    drawNoteGraph();
+    // console.log(noteArray.length);
+    // console.log('note array: ', noteArray);
+    // drawNoteGraph();
 
     var detune = centsOffFromPitch( pitch, note );
     if (detune === 0 ) {
@@ -352,11 +262,6 @@ var updatePitch = function( time ) {
       detuneAmount.innerHTML = Math.abs( detune );
     }
   }
-
-  // if (!window.requestAnimationFrame) {
-  //   window.requestAnimationFrame = window.webkitRequestAnimationFrame;
-  // }
-  // rafID = window.requestAnimationFrame( updatePitch );
 };
 
 var getMax = function(array) {
@@ -369,16 +274,38 @@ var getMax = function(array) {
   return max;
 };
 
-var getAvgNote = function(notes) {
+var getAvgNote = function( noteArray ) {
+  
+  // var startIndex = avgNoteArray.length * 60;
+  // var noteSet = noteArray.slice( startIndex, startIndex + 60 );
+
+  var noteSet = noteArray.slice(-60);
+  noteSet = noteSet.filter( function(note) {
+    if (note!== 0) {
+      return note;
+    }
+  });
+  console.log(noteSet);
   var sum = 0;
-  notes.forEach(function(note) {
+
+  noteSet.forEach( function(note) {
     sum += note;
   });
-  return Math.round(sum / notes.length);
+
+  if (noteSet.length === 0) {
+    noteSet = [0];
+  }
+
+  var avgNote = {
+    id: avgNoteArray.length,
+    value: Math.round(sum / noteSet.length)
+  };
+
+  console.log( avgNote.value );
+
+  avgNoteArray.push ( avgNote );
 };
 
-var counter = 0;
-var avgNotes = [];
 
 // visualization of notes
 var drawNoteGraph = function() {
