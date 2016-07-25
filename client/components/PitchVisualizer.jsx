@@ -107,9 +107,6 @@ class PitchVisualizer extends React.Component {
     }
 
     var that = this;
-    var svgWidth = 800;
-    var svgHeight = 256;
-
     var userPitchGraph = d3.select('.songGraph');
 
     var drawUserGraph = function( data ) {
@@ -145,10 +142,10 @@ class PitchVisualizer extends React.Component {
 
     updatePitchID = setInterval(function() {
       updatePitch();
-    }, setIntervalTimeRate);
+    }, 1000 / 60);
 
     drawUserGraphID = setInterval(function() {
-      getAvgNote();
+      getAvgNote( noteArray );
       // console.log ( avgNoteArray );
       drawUserGraph( avgNoteArray );
     }, 1000);
