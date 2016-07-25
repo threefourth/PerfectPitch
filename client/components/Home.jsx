@@ -4,7 +4,7 @@ class Home extends React.Component {
     super(props);
     this.state = {
       isLoggedIn: false,
-      user: {}
+      user: null
     }
   }
 
@@ -40,7 +40,7 @@ class Home extends React.Component {
       success: function(data) {
         that.setState({
           isLoggedIn: false,
-          user: {}
+          user: null
         });
         browserHistory.push('/login');
         console.log('successfully signed out');

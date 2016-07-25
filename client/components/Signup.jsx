@@ -49,7 +49,7 @@ class Signup extends React.Component {
     return (
       <div className="container">
         <h3>Welcome to Perfect Pitch!</h3>
-        <h5>by signing up you can track your progress at the My Progress tab above</h5>
+        <h5>by signing up you can track your performance over time</h5>
         <br></br>
         <br></br>
         <div className="row">

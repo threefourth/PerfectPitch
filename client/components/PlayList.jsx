@@ -1,5 +1,4 @@
 var PlayList = (props) => {
-console.log(props);
   return (
     <table>
       <thead>
