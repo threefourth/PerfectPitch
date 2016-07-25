@@ -53,31 +53,36 @@ UserSchema.pre('save', function(next) {
 
 var User = mongoose.model('User', UserSchema);
 
-User.create({
-  username: 'jae',
-  password: 'jae',
-  scores: [
-    {
-      title: 'God Only Knows',
-      score: 85
-    },
-    {
-      title: '7 Years',
-      score: 73
-    },
-    {
-      title: 'Wonderwall',
-      score: 94
-    },
-    {
-      title: 'Hotel California',
-      score: 89
-    },
-    {
-      title: 'Smells Like Teen Spirit',
-      score: 98
-    }
-  ]
+// initialize user collection with one instance
+User.findOne({username: 'jae'}, function(err, users) {
+  if (!users) {
+    User.create({
+      username: 'jae',
+      password: 'jae',
+      scores: [
+        {
+          title: 'God Only Knows',
+          score: 85
+        },
+        {
+          title: '7 Years',
+          score: 73
+        },
+        {
+          title: 'Wonderwall',
+          score: 94
+        },
+        {
+          title: 'Hotel California',
+          score: 89
+        },
+        {
+          title: 'Smells Like Teen Spirit',
+          score: 98
+        }
+      ]
+    });
+  }
 });
 
 module.exports = User;
