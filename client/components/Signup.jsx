@@ -1,4 +1,7 @@
-class Signup extends React.Component {
+import React from 'react';
+import {browserHistory} from 'react-router';
+
+export default class Signup extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -72,6 +75,3 @@ class Signup extends React.Component {
     );
   }
 }
-
-window.Signup = Signup;
-
