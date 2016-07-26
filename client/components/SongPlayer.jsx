@@ -1,4 +1,7 @@
-class SongPlayer extends React.Component {
+import React from 'react';
+import PitchVisualizer from './PitchVisualizer';
+
+export default class SongPlayer extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -28,5 +31,3 @@ class SongPlayer extends React.Component {
     }    
   }
 };
-
-window.SongPlayer = SongPlayer;
