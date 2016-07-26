@@ -39,3 +39,6 @@ bower_components/
 .floobit
 .floo
 .flooignore
+
+# script.min.js
+client/scripts/scripts.min.js
