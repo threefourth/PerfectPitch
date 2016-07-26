@@ -1,6 +1,6 @@
 import React from 'react'; 
-import PlayList from './PlayList';
-import Main from './Main';
+import PlayList from './PlayList.jsx';
+import Main from './Main.jsx';
 
 export default class App extends React.Component {
   constructor(props) {

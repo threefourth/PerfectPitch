@@ -1,5 +1,5 @@
 import React from 'react';
-import PitchVisualizer from './PitchVisualizer';
+import PitchVisualizer from './PitchVisualizer.jsx';
 
 export default class SongPlayer extends React.Component {
   constructor(props) {

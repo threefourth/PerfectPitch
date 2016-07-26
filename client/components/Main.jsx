@@ -1,5 +1,5 @@
 import React from 'react';
-import SongPlayer from './SongPlayer';
+import SongPlayer from './SongPlayer.jsx';
 
 var Main = (props) => {
   return (

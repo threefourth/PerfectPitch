@@ -1,6 +1,6 @@
 import React from 'React'; 
-import PlayListEntry from './PlayListEntry';
-import Artwork from './Artwork';
+import PlayListEntry from './PlayListEntry.jsx';
+import Artwork from './Artwork.jsx';
 
 var PlayList = (props) => {
   return (
