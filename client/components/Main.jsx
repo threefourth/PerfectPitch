@@ -1,3 +1,6 @@
+import React from 'react';
+import SongPlayer from './SongPlayer';
+
 var Main = (props) => {
   return (
     <div>
@@ -6,4 +9,5 @@ var Main = (props) => {
   );
 };
 
-window.Main = Main;
+export default Main; 
+// window.Main = Main;

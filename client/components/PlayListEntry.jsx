@@ -1,3 +1,5 @@
+import React from 'react';
+
 var PlayListEntry = (props) => (
   <tr>
     <td className="song-entry" onClick={props.onChooseSongClick}>
@@ -6,4 +8,5 @@ var PlayListEntry = (props) => (
   </tr>
 );
 
-window.PlayListEntry = PlayListEntry;
+export default PlayListEntry;
+// window.PlayListEntry = PlayListEntry;

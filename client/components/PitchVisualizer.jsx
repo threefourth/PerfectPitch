@@ -1,4 +1,6 @@
-class PitchVisualizer extends React.Component {
+import React from 'react';
+
+export default class PitchVisualizer extends React.Component {
 
   componentDidMount() {
 
@@ -235,5 +237,5 @@ class PitchVisualizer extends React.Component {
   }
 };
 
-window.PitchVisualizer = PitchVisualizer;
+// window.PitchVisualizer = PitchVisualizer;
 

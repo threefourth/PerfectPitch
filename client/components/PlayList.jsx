@@ -1,3 +1,7 @@
+import React from 'React'; 
+import PlayListEntry from './PlayListEntry';
+import Artwork from './Artwork';
+
 var PlayList = (props) => {
   return (
     <table>
@@ -16,5 +20,5 @@ var PlayList = (props) => {
   );
 }
 
-
-window.PlayList = PlayList;
+export default PlayList;
+// window.PlayList = PlayList;
