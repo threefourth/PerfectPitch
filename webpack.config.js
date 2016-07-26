@@ -3,7 +3,7 @@ var webpack = require('webpack');
 
 module.exports = {
   context: __dirname,
-  entry: "./client/compiled/index.js",
+  entry: "./client/index.js",
   output: {
     path: __dirname + "/client/scripts",
     filename: "scripts.min.js"
