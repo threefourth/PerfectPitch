@@ -1,3 +1,5 @@
+import React from 'react';
+
 class Home extends React.Component {
   constructor (props) {
     super(props);
@@ -91,5 +93,5 @@ class Home extends React.Component {
   }
 }
 
-window.Home = Home;
+// window.Home = Home;
 

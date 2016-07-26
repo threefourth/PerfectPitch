@@ -1,7 +1,12 @@
-class App extends React.Component {
+import React from 'react'; 
+import PlayList from './PlayList';
+import Main from './Main';
+
+export default class App extends React.Component {
   constructor(props) {
     super(props);
 
+// ========== I am not sure where "window.songs" come from
     this.state = {
       songs: window.songs,
       selectedSong: window.songs[0],
@@ -95,5 +100,5 @@ class App extends React.Component {
   }
 }
 
-window.App = App;
+// window.App = App;
 
