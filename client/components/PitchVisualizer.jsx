@@ -1,4 +1,5 @@
 import React from 'react';
+import AudioContext from '../scripts/pitchDetector.js';
 
 export default class PitchVisualizer extends React.Component {
 
