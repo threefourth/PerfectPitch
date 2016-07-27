@@ -421,6 +421,59 @@ export default class PitchVisualizer extends React.Component {
     //     perfect: perfectCount
     //   });
     // }.bind(this);
+
+      var xScale = d3.scaleLinear()
+        .domain( [0, that.props.selectedData.length] )
+        .range( [0, svgWidth] );
+      var yScale = d3.scaleLinear()
+        .domain( [50, 120] )
+        .range( [svgHeight, 0] );
+
+      var notes = userPitchGraph.selectAll('ellipse')
+        .data( data, function( d ) {
+          return d.id;
+        });
+
+      // ENTER
+      notes.enter()
+        .append('ellipse')
+        .attr('cx', function(d) {
+          return xScale(d.id) + (svgWidth / that.props.selectedData.length);
+        })
+        .attr('cy', function(d) {
+          return yScale(d.value);
+        })
+        .attr('rx', (svgWidth / that.props.selectedData.length) * 1.5)
+        .attr('ry', 2)
+        .attr('fill', 'yellow')
+        .attr('id', function(d) {
+          return d.id;
+        });
+
+      // UPDATE
+      notes
+        .transition()
+        .attr('cx', function(d) {
+          return xScale(d.id) + (svgWidth / songData.length);
+        })
+        .attr('cy', function(d) {
+          return yScale(d.value);
+        })
+        .attr('rx', (svgWidth / that.props.selectedData.length) * 1.5)
+        .attr('ry', 2)
+        .attr('fill', 'red')
+        .attr('id', function(d) {
+          return d.id;
+        });
+
+      // EXIT
+      notes
+        .exit()
+        .remove();
+    };
+
+    var that = this;
+
     // Control interval of both note and wave
     updatePitchID = setInterval(function() {
       updatePitch();
