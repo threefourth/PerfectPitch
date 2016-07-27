@@ -1,5 +1,5 @@
 var express = require('express');
-
+var io = require('socket.io')(app);
 // MongoDB connection
 var db = require('./db/db');
 
@@ -24,6 +24,16 @@ app.use(session({
 // Routing
 require('./config/routes')(app, express);
 
+io.on('connection', function (socket) {
+  //do something on connection
+  // socket.emit();
+  //event listener
+  // socket.on('my other event', function (data) {
+  // });
+  socket.on('disconnect', function () {
+    io.emit('user disconnected');
+  });
+});
 app.listen(app.get('port'), function() {
   console.log('Server listening on port ', app.get('port'));
 });
