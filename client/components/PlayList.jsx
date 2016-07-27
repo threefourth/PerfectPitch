@@ -1,4 +1,4 @@
-import React from 'React'; 
+import React from 'react'; 
 import PlayListEntry from './PlayListEntry.jsx';
 import Artwork from './Artwork.jsx';
 
