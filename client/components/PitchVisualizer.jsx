@@ -9,7 +9,7 @@ export default class PitchVisualizer extends React.Component {
     }
     this.newScore = 0;
     this.newPerfect = 0;
-    
+
   }
 
   componentDidMount() {
@@ -356,6 +356,7 @@ export default class PitchVisualizer extends React.Component {
     };
 
     // var that = this;
+    var that = this;
 
     // var setScore = function(score, perfectCount) {
     //   this.setState({
@@ -559,4 +560,5 @@ export default class PitchVisualizer extends React.Component {
       </div>
     );
   }
+};
 };
