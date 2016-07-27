@@ -6,7 +6,6 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
 
-// ========== I am not sure where "window.songs" come from
     this.state = {
       songs: window.songs,
       selectedSong: window.songs[0],

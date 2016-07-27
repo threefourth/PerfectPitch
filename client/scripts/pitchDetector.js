@@ -22,6 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
 var setIntervalTimeRate = 1000 / 60; // milliseconds
 var audioContext = null;
@@ -273,5 +274,3 @@ var getAvgNote = function( noteArray ) {
 
   avgNoteArray.push ( avgNote );
 };
-
-export default AudioContext;

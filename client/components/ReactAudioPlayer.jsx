@@ -126,3 +126,5 @@ const ReactAudioPlayer = React.createClass({
   },
 });
 
+export default ReactAudioPlayer;
+
