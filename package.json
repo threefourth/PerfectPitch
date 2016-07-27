@@ -4,6 +4,7 @@
   "description": "Vocal Training Tool",
   "main": "server.js",
   "scripts": {
+    "start": "nodemon server/server.js"
     "compile": "babel client --out-dir client/compiled --presets=es2015,react --ignore=node_modules,lib,compiled,server,scripts --source-maps inline --watch"
   },
   "repository": {
