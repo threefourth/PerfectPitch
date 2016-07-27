@@ -1,4 +1,6 @@
-class Progress extends React.Component {
+import React from 'react';
+
+export default class Progress extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -40,5 +42,5 @@ class Progress extends React.Component {
   }
 }
 
-window.Progress = Progress;
+// window.Progress = Progress;
 

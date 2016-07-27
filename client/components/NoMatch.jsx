@@ -1,4 +1,7 @@
-class NoMatch extends React.Component {
+import React from 'react';
+import { browserHistory } from 'react-router';
+
+export default class NoMatch extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -16,4 +19,4 @@ class NoMatch extends React.Component {
   }
 }
 
-window.NoMatch = NoMatch;
+// window.NoMatch = NoMatch;

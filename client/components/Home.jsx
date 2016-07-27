@@ -1,4 +1,7 @@
-class Home extends React.Component {
+import React from 'react';
+import { Link } from 'react-router';
+
+export default class Home extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
@@ -91,5 +94,5 @@ class Home extends React.Component {
   }
 }
 
-window.Home = Home;
+// window.Home = Home;
 
