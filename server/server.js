@@ -28,9 +28,11 @@ app.use(session({
 require('./config/routes')(app, express);
 
 io.on('connection', function (socket) {
-  socket.on('myClick', function (data) {
-        socket.broadcast.emit('myClick', data);
-    });
+  console.log('socket connected!')
+  socket.on('songClicked', function (data) {
+    console.log('event-server recieved!')
+    io.emit('songClick', data);
+  });
   socket.on('disconnect', function () {
     io.emit('user disconnected');
   });

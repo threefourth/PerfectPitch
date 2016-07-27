@@ -1,11 +1,14 @@
-// 
-// $(document).on('click', function(event){
-//     console.log('Something has been clicked!' + event.target);
-//     socket.emit('myClick', {id: event.target});
-// });
+// $(document).ready(function () {
+//   var socket = io('http://localhost:8000');
 //
-// var socket = io.connect('http://localhost');
+//   $(.song-entry).on('click', function(event){
+//       console.log('Something has been clicked!');
+//       console.dir(event.target);
+//       socket.emit('myClick', {id: event.target});
+//   });
 //
-// socket.on('myClick', function (data) {
+//   socket.on('myClick', function (data) {
+//     console.log('event hit other client');
 //     $(data.id).trigger('click');
+//   });
 // });
