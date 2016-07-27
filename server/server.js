@@ -2,7 +2,6 @@ var express = require('express');
 var http = require('http');
 // MongoDB connection
 var db = require('./db/db');
-
 var app = express();
 var server = http.createServer(app);
 var io = require('socket.io').listen(server);
@@ -41,7 +40,4 @@ io.on('connection', function (socket) {
     io.emit('playerNote', data);
   });
 
-  socket.on('disconnect', function () {
-    io.emit('user disconnected');
-  });
 });
