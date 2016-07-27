@@ -52,12 +52,18 @@ io.on('connection', function (socket) {
     socket.broadcast.emit('stopped', event);
   })
 
-  socket.on('disconnect', function () {
-    io.emit('user disconnected');
-    delete clients[socket.id];
-  });
   socket.on('playerData', function (data) {
     io.emit('playerNote', data);
   });
 
+  socket.on('myClick', function (data) {
+        socket.broadcast.emit('myClick', data);
+    });
+  socket.on('disconnect', function () {
+    io.emit('user disconnected');
+    delete clients[socket.id];
+  });
 });
+// app.listen(app.get('port'), function() {
+//   console.log('Server listening on port ', app.get('port'));
+// });
