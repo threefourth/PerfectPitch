@@ -475,7 +475,6 @@ export default class PitchVisualizer extends React.Component {
     };
 
     var that = this;
-
     // var setScore = function(score, perfectCount) {
     //   this.setState({
     //     score: score,
