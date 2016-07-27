@@ -183,10 +183,12 @@ export default class PitchVisualizer extends React.Component {
     
     var that = this;
 
+    // Control interval of both note and wave 
     updatePitchID = setInterval(function() {
       updatePitch();
-    }, 1000 / 60);
+    }, 10000 / 60);
 
+    // Control interval of pitch graph
     drawUserGraphID = setInterval(function() {
       getAvgNote( noteArray );
       drawUserGraph( avgNoteArray, that.props.selectedData );
@@ -236,6 +238,3 @@ export default class PitchVisualizer extends React.Component {
     );
   }
 };
-
-// window.PitchVisualizer = PitchVisualizer;
-
