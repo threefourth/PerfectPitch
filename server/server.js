@@ -1,6 +1,13 @@
 var express = require('express');
 var http = require('http');
+<<<<<<< 8bdb5bc66fa30672418937138e7a25a26679e774
 // MongoDB connection
+=======
+var io = require('socket.io')(app);
+// MongoDB connection
+var http = require('http');
+var http = require('http');
+>>>>>>> Adding Socket functionality
 var db = require('./db/db');
 var app = express();
 var server = http.createServer(app);
@@ -51,21 +58,28 @@ io.on('connection', function (socket) {
     console.log('server song stopped!')
     socket.broadcast.emit('stopped', event);
   })
-  socket.on('onPlay', function(event){
-    socket.broadcast.emit('onPlay', event);
-  });
 
   socket.on('stopped', function (event) {
     console.log('server song stopped!')
     socket.broadcast.emit('stopped', event);
   })
 
-  socket.on('playerData', function (data) {
-    io.emit('playerNote', data);
-  });
-
   socket.on('disconnect', function () {
     io.emit('user disconnected');
     delete clients[socket.id];
   });
+
+  socket.on('playerData', function (data) {
+    io.emit('playerNote', data);
+  });
+
+  socket.on('myClick', function (data) {
+        socket.broadcast.emit('myClick', data);
+    });
+  socket.on('disconnect', function () {
+    io.emit('user disconnected');
+  });
 });
+// app.listen(app.get('port'), function() {
+//   console.log('Server listening on port ', app.get('port'));
+// });
