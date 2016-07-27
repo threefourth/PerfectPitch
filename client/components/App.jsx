@@ -44,27 +44,6 @@ export default class App extends React.Component {
     console.dir(event.target.textContent);
     socket.emit('songClicked', {id: event.target.textContent})
   }
-  onChooseSongClicks(event) {
-    var title = event.target.textContent;
-    var that = this;
-    this.state.songs.forEach(function(song, index) {
-      if (song.title === title) {
-        that.setState({
-          selectedSong: that.state.songs[index]
-        });
-      }
-
-      if (title === 'Your Voice') {
-        that.setState({
-          userInput: true
-        });
-      } else {
-        that.setState({
-          userInput: false
-        });
-      }
-    });
-  }
 
   onPlay(event) {
     var vocals = document.getElementById('vocals');
