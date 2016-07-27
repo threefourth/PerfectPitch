@@ -7,7 +7,7 @@ export default class PitchVisualizer extends React.Component {
       score:0,
       perfect:0
     }
-    this.newScore = 0; 
+    this.newScore = 0;
     this.newPerfect = 0;
   }
 
@@ -23,7 +23,7 @@ export default class PitchVisualizer extends React.Component {
 
     // Initializes the variables that the pitch detector and visualizer
     // will need to use (see scripts/pitchDetector.js)
- 
+
     audioContext = new AudioContext();
 
     detectorElem = document.getElementById( 'detector' );
@@ -41,7 +41,7 @@ export default class PitchVisualizer extends React.Component {
     detuneElem = document.getElementById( 'detune' );
     detuneAmount = document.getElementById( 'detune_amt' );
 
-    // Draw the graphs for the first song 
+    // Draw the graphs for the first song
     pitchGraph = d3.select('.pitchGraph').append('svg')
       .attr('width', svgWidth)
       .attr('height', svgHeight)
@@ -124,7 +124,7 @@ export default class PitchVisualizer extends React.Component {
     if (localStream) {
       localStream.getAudioTracks()[0].stop( 0 );
     }
-    
+
     localStream = null;
 
     // End pitch detection/visualization processes
@@ -232,7 +232,7 @@ export default class PitchVisualizer extends React.Component {
         console.log(this.newScore);
       } else {
         this.newPerfect = 0;
-        console.log(this.newScore) 
+        console.log(this.newScore)
       }
       //this.setState({
         // score: newScore,
@@ -250,15 +250,66 @@ export default class PitchVisualizer extends React.Component {
     }
 
     var drawUserGraph = function( data, songData ) {
-      this.createNotes(data, songData);
     }.bind(this);
 
     // var setScore = function(score, perfectCount) {
     //   this.setState({
-    //     score: score, 
+    //     score: score,
     //     perfect: perfectCount
     //   });
     // }.bind(this);
+
+      var xScale = d3.scaleLinear()
+        .domain( [0, that.props.selectedData.length] )
+        .range( [0, svgWidth] );
+      var yScale = d3.scaleLinear()
+        .domain( [50, 120] )
+        .range( [svgHeight, 0] );
+
+      var notes = userPitchGraph.selectAll('ellipse')
+        .data( data, function( d ) {
+          return d.id;
+        });
+
+      // ENTER
+      notes.enter()
+        .append('ellipse')
+        .attr('cx', function(d) {
+          return xScale(d.id) + (svgWidth / that.props.selectedData.length);
+        })
+        .attr('cy', function(d) {
+          return yScale(d.value);
+        })
+        .attr('rx', (svgWidth / that.props.selectedData.length) * 1.5)
+        .attr('ry', 2)
+        .attr('fill', 'yellow')
+        .attr('id', function(d) {
+          return d.id;
+        });
+
+      // UPDATE
+      notes
+        .transition()
+        .attr('cx', function(d) {
+          return xScale(d.id) + (svgWidth / songData.length);
+        })
+        .attr('cy', function(d) {
+          return yScale(d.value);
+        })
+        .attr('rx', (svgWidth / that.props.selectedData.length) * 1.5)
+        .attr('ry', 2)
+        .attr('fill', 'red')
+        .attr('id', function(d) {
+          return d.id;
+        });
+
+      // EXIT
+      notes
+        .exit()
+        .remove();
+    };
+
+    var that = this;
     // Control interval of both note and wave 
     updatePitchID = setInterval(function() {
       updatePitch();
@@ -278,17 +329,17 @@ export default class PitchVisualizer extends React.Component {
     if (this.props.playSong) { this.toggleLiveInput(); }
     return (
       <div id="pitchdetector">
-      
+
         <div className="row">
           <div className="col s12 l4">
             <div id="detector" className="vague">
               <div className="pitch"><span id="pitch">--</span>Hz</div>
-              <div className="note"><span id="note">--</span></div>   
+              <div className="note"><span id="note">--</span></div>
               <div id="detune"><span id="detune_amt">--</span><span id="flat">cents &#9837;</span><span id="sharp">cents &#9839;</span></div>
-            </div>       
+            </div>
           </div>
           <div className='col s12 l4 audioPlayer'>
-            <a className="btn-floating btn-large waves-effect waves-light teal" 
+            <a className="btn-floating btn-large waves-effect waves-light teal"
                 onClick= {() => {this.props.onPlay(); this.toggleLiveInput() }}>
               <i className="material-icons">play_arrow</i>
             </a>
@@ -309,7 +360,7 @@ export default class PitchVisualizer extends React.Component {
             </div>
           </div>
         </div>
-        
+
         <div className="row">
           <div className="col l4 s4 scoreboard offset-l3">
             <span>Score : { this.state.score }</span>
