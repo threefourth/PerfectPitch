@@ -26,9 +26,14 @@ app.use(session({
 // Routing
 require('./config/routes')(app, express);
 
+var clients = {};
+
+//Socket listeners
 io.on('connection', function (socket) {
   socket.on('songClicked', function (data) {
   console.log('socket connected!')
+
+  console.log(socket.id + ' connected!')
 
   socket.on('songClicked', function (data) {
     console.log('event-server recieved!');
@@ -40,8 +45,13 @@ io.on('connection', function (socket) {
     io.emit('paused');
   })
 
+  socket.on('data', function(data) {
+    socket.broadcast.emit('update', data);
+  });
+
   socket.on('disconnect', function () {
     io.emit('user disconnected');
+    delete clients[socket.id];
   });
   socket.on('onPlay', function(event){
     socket.broadcast.emit('onPlay', event);

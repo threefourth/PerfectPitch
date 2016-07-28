@@ -18,6 +18,7 @@ export default class App extends React.Component {
     var socket = io('http://localhost:8000');
     var status = this.state;
     var that = this;
+
     socket.on('songClick', function(data) {
       // this.onChooseSongClicks(data.id);
       var title = data.id;
@@ -39,19 +40,45 @@ export default class App extends React.Component {
         }
       });
     });
+<<<<<<< 14633b7ca61cfec663d834c5954e68c88dba40cd
     var playSong = this.songPlay.bind(this);
     socket.on('onPlay', function(event){
       playSong(event);
     });
+=======
+
+    socket.on('play', function(data) {
+      console.log('playing...')
+      var vocals = document.getElementById('vocals');
+      var karaoke = document.getElementById('karaoke');
+
+      if (vocals) {
+        vocals.play(); karaoke.play();
+      } else {
+        karaoke.play();
+      }
+    })
+    socket.on('paused', function() {
+      var vocals = document.getElementById('vocals');
+      var karaoke = document.getElementById('karaoke');
+
+      if (vocals) {
+        vocals.pause(); karaoke.pause();
+      } else {
+        karaoke.pause();
+      }
+    })
+>>>>>>> Play and Pause Sockets set up
   }
   songClick(event) {
     var socket = io('http://localhost:8000');
     console.dir(event.target.textContent);
-    socket.emit('songClicked', {id: event.target.textContent})
+    socket.emit('songClicked', {id: event.target.textContent});
   }
 
   onPlay(event) {
     var socket = io('http://localhost:8000');
+<<<<<<< 14633b7ca61cfec663d834c5954e68c88dba40cd
     socket.emit('onPlay', event);
     this.songPlay(event);
   }
@@ -65,17 +92,14 @@ export default class App extends React.Component {
       karaoke.play();
     }
     this.setState({playSong: true});
+=======
+    socket.emit('play', {id: 'play'});
+>>>>>>> Play and Pause Sockets set up
   }
 
   onPause(event) {
-    var vocals = document.getElementById('vocals');
-    var karaoke = document.getElementById('karaoke');
-
-    if (vocals) {
-      vocals.pause(); karaoke.pause();
-    } else {
-      karaoke.pause();
-    }
+    var socket = io('http://localhost:8000');
+    socket.emit('paused');
   }
 
   onStop(event) {
