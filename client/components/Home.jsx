@@ -13,7 +13,7 @@ export default class Home extends React.Component {
   componentDidMount() {
     var that = this;
     $.ajax({
-      url: '/checkUser', 
+      url: '/checkUser',
       type: 'GET',
       dataType: 'json',
       success: function(data) {
@@ -33,7 +33,7 @@ export default class Home extends React.Component {
   handleSignOut() {
     var that = this;
     $.ajax({
-      url: '/signoutUser', 
+      url: '/signoutUser',
       type: 'GET',
       dataType: 'json',
       success: function(data) {
@@ -62,13 +62,13 @@ export default class Home extends React.Component {
 
     var toggleNavBar;
     if (this.state.isLoggedIn) {
-      toggleNavBar = 
+      toggleNavBar =
         <ul className="right hide-on-med-and-down">
           <Link to="/progress">{this.state.user.username}'s Progress</Link>
           <a onClick={this.handleSignOut.bind(this)}>Logout</a>
         </ul>
     } else {
-      toggleNavBar = 
+      toggleNavBar =
         <ul className="right hide-on-med-and-down">
           <Link to="/login">Login</Link>
           <Link to="/signup">Sign Up</Link>
@@ -95,4 +95,3 @@ export default class Home extends React.Component {
 }
 
 // window.Home = Home;
-

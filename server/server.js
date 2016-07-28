@@ -1,14 +1,17 @@
 var express = require('express');
-
-// MongoDB connection
+var http = require('http');
 var db = require('./db/db');
+
+var app = express();
+var server = http.createServer(app);
+var io = require('socket.io').listen(server);
+server.listen(8000);
 
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 
-var app = express();
-app.set('port', (process.env.PORT || 8000));
+// var io = require('socket.io')(app);
 
 // Middleware
 app.use(morgan('dev'));
@@ -24,6 +27,16 @@ app.use(session({
 // Routing
 require('./config/routes')(app, express);
 
-app.listen(app.get('port'), function() {
-  console.log('Server listening on port ', app.get('port'));
+io.on('connection', function (socket) {
+  console.log('socket connected!')
+  socket.on('songClicked', function (data) {
+    console.log('event-server recieved!')
+    io.emit('songClick', data);
+  });
+  socket.on('disconnect', function () {
+    io.emit('user disconnected');
+  });
 });
+// app.listen(app.get('port'), function() {
+//   console.log('Server listening on port ', app.get('port'));
+// });
