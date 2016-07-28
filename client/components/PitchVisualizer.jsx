@@ -9,6 +9,7 @@ export default class PitchVisualizer extends React.Component {
     }
     this.newScore = 0;
     this.newPerfect = 0;
+    
   }
 
   componentDidMount() {
