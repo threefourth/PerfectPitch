@@ -48,7 +48,7 @@ export default class App extends React.Component {
   songClick(event) {
     var socket = io('http://localhost:8000');
     console.dir(event.target.textContent);
-    socket.emit('songClicked', {id: event.target.textContent});
+    socket.emit('songClicked', {id: event.target.textContent})
   }
 
   onPlay(event) {
@@ -71,6 +71,15 @@ export default class App extends React.Component {
   onPause(event) {
     var socket = io('http://localhost:8000');
     socket.emit('paused');
+
+    var vocals = document.getElementById('vocals');
+    var karaoke = document.getElementById('karaoke');
+
+    if (vocals) {
+      vocals.pause(); karaoke.pause();
+    } else {
+      karaoke.pause();
+    }
   }
 
   onStop(event) {

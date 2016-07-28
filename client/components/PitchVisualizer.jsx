@@ -415,12 +415,13 @@ export default class PitchVisualizer extends React.Component {
 
     var that = this;
     // Control interval of both note and wave
-=======
-=======
-
->>>>>>> Reset for rebase
+    // var setScore = function(score, perfectCount) {
+    //   this.setState({
+    //     score: score,
+    //     perfect: perfectCount
+    //   });
+    // }.bind(this);
     // Control interval of both note and wave
->>>>>>> Play and Pause Sockets set up
     updatePitchID = setInterval(function() {
       updatePitch();
     }, 10000 / 60);
