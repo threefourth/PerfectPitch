@@ -50,7 +50,6 @@ export default class App extends React.Component {
       pauseSong(event);
     })
     socket.on('stopped', function(event) {
-      console.log('client stop song listener!')
       stopSong(event);
     })
   }
@@ -76,6 +75,7 @@ export default class App extends React.Component {
     }
     this.setState({playSong: true});
   }
+
   onPause(event) {
     var socket = io('http://localhost:8000');
     socket.emit('paused', event);
@@ -93,15 +93,14 @@ export default class App extends React.Component {
     }
     this.setState({playSong: false});
   }
+
   onStop(event) {
-    console.log('emitted song stopped!')
     var socket = io('http://localhost:8000');
     socket.emit('stopped', event);
     this.songStop(event);
   }
 
   songStop(event) {
-    console.log('stopping song!')
     var vocals = document.getElementById('vocals');
     var karaoke = document.getElementById('karaoke');
 

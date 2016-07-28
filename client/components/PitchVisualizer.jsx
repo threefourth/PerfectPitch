@@ -250,13 +250,6 @@ export default class PitchVisualizer extends React.Component {
       this.stopUserAudio();
     }
 
-
-    var userPitchGraph = d3.select('.songGraph');
-
-    var newScore = 0;
-    var newPerfect = 0;
-
-
     var drawUserGraph = function( data, songData ) {
     }.bind(this);
 
@@ -493,26 +486,14 @@ export default class PitchVisualizer extends React.Component {
       drawUserGraph( avgNoteArray, this.props.selectedData );
       this.updateScoreBoard(avgNoteArray, this.props.selectedData);
     }.bind(this), 2000);
-      drawUserGraph( avgNoteArray, that.props.selectedData );
-      // that.setScore(newScore, newPerfect);
-    }, 2000);
-
-  }
-
-  setScore (newScore, newCount) {
-      this.setState({
-        score: newScore,
-        perfect: newCount
-      });
   }
 
   render() {
     if (this.props.playSong) {
       this.toggleLiveInput();
     } else {
-      this.stopUserAudio.apply(this)
+      this.stopUserAudio.apply(this);
     }
-
     return (
       <div id="pitchdetector">
 
@@ -542,10 +523,8 @@ export default class PitchVisualizer extends React.Component {
 
         <div className="row">
           <div className="col l12 s12">
-            {/* <img src="" id="receiver"></img>
-            <video autoPlay="true" id="client"></video>
-            <canvas id="preview"></canvas>
-            <div id="log"></div> */}
+            <div className="overflow pitchGraph">
+            </div>
           </div>
         </div>
 
@@ -558,5 +537,4 @@ export default class PitchVisualizer extends React.Component {
       </div>
     );
   }
-};
 };
