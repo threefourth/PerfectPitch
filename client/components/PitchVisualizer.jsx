@@ -164,13 +164,18 @@ export default class PitchVisualizer extends React.Component {
         });
       if( otherNote.size() ) {
         var difference = Math.abs(otherNote.attr('y') - yScale(data[data.length - 1].value));
-        if ( difference < 100 ) {
+        if ( difference < 30 ) {
           console.log('Perfect');
           newScore += 3 + newPerfect * 1;
-          newPerfect++; 
+          newPerfect++;
+          console.log(newScore);
         } else {
           newPerfect = 0; 
         }
+        //this.setState({
+          // score: newScore,
+          // perfect: newPerfect
+        // })
       }
 
       // var lineFunction = d3.svg.line()
@@ -237,12 +242,12 @@ export default class PitchVisualizer extends React.Component {
     
     var that = this;
 
-    var setScore = function(score, perfectCount) {
-      that.setState({
-        score: score, 
-        perfect: perfectCount
-      })
-    }
+    // var setScore = function(score, perfectCount) {
+    //   this.setState({
+    //     score: score, 
+    //     perfect: perfectCount
+    //   });
+    // }.bind(this);
     // Control interval of both note and wave 
     updatePitchID = setInterval(function() {
       updatePitch();
@@ -252,11 +257,17 @@ export default class PitchVisualizer extends React.Component {
     drawUserGraphID = setInterval(function() {
       getAvgNote( noteArray );
       drawUserGraph( avgNoteArray, that.props.selectedData );
-      setScore(newScore, newPerfect);
+      // that.setScore(newScore, newPerfect);
     }, 2000);
 
   }
 
+  setScore (newScore, newCount) {
+      this.setState({
+        score: newScore, 
+        perfect: newCount
+      });
+  }
 
   render() {
     if (this.props.playSong) { this.toggleLiveInput(); }
