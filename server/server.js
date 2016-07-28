@@ -39,6 +39,9 @@ io.on('connection', function (socket) {
   socket.on('onPlay', function(event){
     socket.broadcast.emit('onPlay', event);
   });
+  socket.on('playerData', function (data) {
+    io.emit('playerNote', data);
+  });
 });
 // app.listen(app.get('port'), function() {
 //   console.log('Server listening on port ', app.get('port'));
