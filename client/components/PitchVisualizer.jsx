@@ -140,6 +140,10 @@ export default class PitchVisualizer extends React.Component {
 
     var userPitchGraph = d3.select('.songGraph');
 
+    var newScore = 0; 
+    var newPerfect = 0;
+
+
     var drawUserGraph = function( data, songData ) {
       var xScale = d3.scaleLinear()
         .domain( [0, that.props.selectedData.length] )
@@ -159,13 +163,19 @@ export default class PitchVisualizer extends React.Component {
           return Math.floor(xScale(d.id) + (svgWidth / that.props.selectedData.length)) === currentX;
         });
       if( otherNote.size() ) {
-        var add = 0;
         var difference = Math.abs(otherNote.attr('y') - yScale(data[data.length - 1].value));
-        if ( difference < 20 ) {
+        if ( difference < 30 ) {
           console.log('Perfect');
+          newScore += 3 + newPerfect * 1;
+          newPerfect++;
+          console.log(newScore);
         } else {
-          console.log('SOOO BADDDD');
+          newPerfect = 0; 
         }
+        //this.setState({
+          // score: newScore,
+          // perfect: newPerfect
+        // })
       }
 
       // var lineFunction = d3.svg.line()
@@ -232,6 +242,12 @@ export default class PitchVisualizer extends React.Component {
     
     var that = this;
 
+    // var setScore = function(score, perfectCount) {
+    //   this.setState({
+    //     score: score, 
+    //     perfect: perfectCount
+    //   });
+    // }.bind(this);
     // Control interval of both note and wave 
     updatePitchID = setInterval(function() {
       updatePitch();
@@ -241,10 +257,17 @@ export default class PitchVisualizer extends React.Component {
     drawUserGraphID = setInterval(function() {
       getAvgNote( noteArray );
       drawUserGraph( avgNoteArray, that.props.selectedData );
+      // that.setScore(newScore, newPerfect);
     }, 2000);
 
   }
 
+  setScore (newScore, newCount) {
+      this.setState({
+        score: newScore, 
+        perfect: newCount
+      });
+  }
 
   render() {
     if (this.props.playSong) { this.toggleLiveInput(); }
@@ -284,7 +307,7 @@ export default class PitchVisualizer extends React.Component {
         
         <div className="row">
           <div className="col l4 s4 scoreboard offset-l3">
-            <span>Score : {this.props.score}</span>
+            <span>Score : { this.state.score }</span>
           </div>
         </div>
 
