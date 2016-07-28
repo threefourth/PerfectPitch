@@ -1,11 +1,13 @@
 import React from 'react';
+import Score from './Score.jsx';
 
 export default class PitchVisualizer extends React.Component {
   constructor() {
     super();
     this.state = {
       score:0,
-      perfect:0
+      perfect:0,
+      playing: false
     }
     this.newScore = 0;
     this.newPerfect = 0;
@@ -245,7 +247,7 @@ export default class PitchVisualizer extends React.Component {
   }
 
   toggleLiveInput() {
-
+    console.log('toggleLiveInput is called');
     if (localStream === null) {
       getUserAudio();
     } else {
@@ -259,8 +261,117 @@ export default class PitchVisualizer extends React.Component {
     updatePitchID = setInterval(function() {
       updatePitch();
     }, 10000 / 60);
+    
+    // Control interval of both note and wave 
+    drawUserGraphID = setInterval(function() {
+      getAvgNote( noteArray );
+      this.drawUserGraph( avgNoteArray, that.props.selectedData );
+      // that.setScore(newScore, newPerfect);
+    }, 2000);
 
-    // Control interval of pitch graph
+  }
+
+  drawUserGraph ( data, songData ) {
+    var that = this;
+    var userPitchGraph = d3.select('.songGraph');
+    var newScore = 0; 
+    var newPerfect = 0;
+    var xScale = d3.scaleLinear()
+      .domain( [0, that.props.selectedData.length] )
+      .range( [0, svgWidth] );
+    var yScale = d3.scaleLinear()
+      .domain( [50, 120] )
+      .range( [svgHeight, 0] );
+
+    var notes = userPitchGraph.selectAll('image .user')
+      .data( data, function( d ) {
+        return d.id;
+      });
+
+    var currentX = Math.floor(xScale(data[data.length - 1].id) + (svgWidth / that.props.selectedData.length));
+    var otherNote = userPitchGraph.selectAll('image')
+      .filter(function(d) {
+        return Math.floor(xScale(d.id) + (svgWidth / that.props.selectedData.length)) === currentX;
+      });
+    if( otherNote.size() ) {
+      var difference = Math.abs(otherNote.attr('y') - yScale(data[data.length - 1].value));
+      if ( difference < 30 ) {
+        newScore = newScore + 3 + newPerfect * 1;
+        newPerfect++;
+      } else {
+        newPerfect = 0; 
+      }
+    }
+
+      // var lineFunction = d3.svg.line()
+      //  .x(function(d) { return xScale(d.id) + (svgWidth / that.props.selectedData.length); })
+      //  .y(function(d) { return yScale(d.value); })
+      //  .interpolate("linear");
+
+      // ENTER
+      // userPitchGraph
+      //   .append('path')
+      //   .attr("d", lineFunction(data))
+      //   .attr("stroke", "blue")
+      //   .attr("stroke-width", 2)
+      //   .attr("fill", "none")
+    notes
+        .enter()
+        .append('image')
+        .attr("xlink:href", "../note.svg")
+        .attr("class", "user")
+        .attr('x', function(d) {
+          return Math.floor(xScale(d.id) + (svgWidth / that.props.selectedData.length));
+        })
+        .attr('y', function(d) {
+          return yScale(d.value);
+        })
+        // .attr('rx', (svgWidth / that.props.selectedData.length) * 1.5)
+        // .attr('r', 5)
+        // .attr('fill', 'yellow')
+        .attr('height', 50)
+        .attr('width', 50)
+        .attr('id', function(d) {
+          return d.id;
+        });
+
+      // UPDATE
+      //   .attr("d", lineFunction(d))
+      //   .attr("stroke", "blue")
+      //   .attr("stroke-width", 2)
+      //   .attr("fill", "none")
+      notes
+        .transition()
+        .attr("xlink:href", "../note.svg")
+        .attr("class", "user")
+        .attr('x', function(d) {
+          return Math.floor(xScale(d.id) + (svgWidth / songData.length));
+        })
+        .attr('y', function(d) {
+          return yScale(d.value);
+        })
+        .attr('height', 50)
+        .attr('width', 50)
+        // .attr('rx', (svgWidth / that.props.selectedData.length) * 1.5)
+        // .attr('r', 5)
+        // .attr('fill', 'red')
+        .attr('id', function(d) {
+          return d.id;
+        });
+
+      // EXIT
+      notes
+        .exit()
+        .remove();
+  
+    return newScore;
+
+  };
+
+  // Control interval of pitch graph
+  setIntervalDrawUserGraphID(callback, result) { 
+    var that = this;
+    var result = result || 0;
     drawUserGraphID = setInterval(function() {
       var socket = io('http://localhost:8000');
       getAvgNote( noteArray );
@@ -270,6 +381,7 @@ export default class PitchVisualizer extends React.Component {
     }.bind(this), 2000);
   }
 
+
   render() {
     if (this.props.playSong) {
       this.toggleLiveInput();
@@ -278,7 +390,6 @@ export default class PitchVisualizer extends React.Component {
     }
     return (
       <div id="pitchdetector">
-
         <div className="row">
           <div className="col s12 l4">
             <div id="detector" className="vague">
@@ -288,8 +399,8 @@ export default class PitchVisualizer extends React.Component {
             </div>
           </div>
           <div className='col s12 l4 audioPlayer'>
-            <a className="btn-floating btn-large waves-effect waves-light teal"
-                onClick= {() => {this.props.onPlay(); this.toggleLiveInput() }}>
+            <a className="btn-floating btn-large waves-effect waves-light teal" 
+                onClick= {() => {this.props.onPlay(); this.toggleLiveInput()}}>
               <i className="material-icons">play_arrow</i>
             </a>
             <a className="btn-floating btn-large waves-effect waves-light teal" onClick={() => {this.props.onPause(); this.stopUserAudio.apply(this)}}><i className="material-icons">pause</i></a>
@@ -309,14 +420,10 @@ export default class PitchVisualizer extends React.Component {
             </div>
           </div>
         </div>
-
         <div className="row">
-          <div className="col l4 s4 scoreboard offset-l3">
-            <span>Score : { this.state.score }</span>
-          </div>
+          <Score setIntervalDrawUserGraphID={this.setIntervalDrawUserGraphID.bind(this)} />
         </div>
-
       </div>
     );
   }
-};
+}
