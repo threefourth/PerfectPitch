@@ -256,7 +256,6 @@ export default class PitchVisualizer extends React.Component {
       this.createNotes(data, songData, player);
     }.bind(this);
 
-    // Control interval of both note and wave 
     updatePitchID = setInterval(function() {
       updatePitch();
     }, 10000 / 60);
