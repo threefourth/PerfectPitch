@@ -39,6 +39,10 @@ io.on('connection', function (socket) {
     io.emit('songClick', data);
   });
 
+  socket.on('paused', function () {
+    console.log('Song Paused!');
+    io.emit('paused');
+  })
   socket.on('disconnect', function () {
     io.emit('user disconnected');
     delete clients[socket.id];
@@ -46,10 +50,6 @@ io.on('connection', function (socket) {
   socket.on('onPlay', function(event){
     socket.broadcast.emit('onPlay', event);
   });
-
-  socket.on('paused', function (event) {
-    socket.broadcast.emit('paused', event);
-  })
 
   socket.on('stopped', function (event) {
     console.log('server song stopped!')
@@ -65,6 +65,3 @@ io.on('connection', function (socket) {
     delete clients[socket.id];
   });
 });
-// app.listen(app.get('port'), function() {
-//   console.log('Server listening on port ', app.get('port'));
-// });
