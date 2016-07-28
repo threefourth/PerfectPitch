@@ -249,6 +249,13 @@ export default class PitchVisualizer extends React.Component {
       this.stopUserAudio();
     }
 
+
+    var userPitchGraph = d3.select('.songGraph');
+
+    var newScore = 0;
+    var newPerfect = 0;
+
+
     var drawUserGraph = function( data, songData ) {
     }.bind(this);
 
@@ -355,7 +362,6 @@ export default class PitchVisualizer extends React.Component {
     //     perfect: perfectCount
     //   });
     // }.bind(this);
-<<<<<<< def9818b4f6680e4e6fc6646c8bfdeb43c8076b9
 
       var xScale = d3.scaleLinear()
         .domain( [0, that.props.selectedData.length] )
@@ -408,8 +414,11 @@ export default class PitchVisualizer extends React.Component {
     };
 
     var that = this;
-    // Control interval of both note and wave 
+    // Control interval of both note and wave
 =======
+=======
+
+>>>>>>> Reset for rebase
     // Control interval of both note and wave
 >>>>>>> Play and Pause Sockets set up
     updatePitchID = setInterval(function() {
@@ -424,6 +433,17 @@ export default class PitchVisualizer extends React.Component {
       drawUserGraph( avgNoteArray, this.props.selectedData );
       this.updateScoreBoard(avgNoteArray, this.props.selectedData);
     }.bind(this), 2000);
+      drawUserGraph( avgNoteArray, that.props.selectedData );
+      // that.setScore(newScore, newPerfect);
+    }, 2000);
+
+  }
+
+  setScore (newScore, newCount) {
+      this.setState({
+        score: newScore,
+        perfect: newCount
+      });
   }
 
   render() {
