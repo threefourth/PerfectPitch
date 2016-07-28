@@ -28,8 +28,18 @@ require('./config/routes')(app, express);
 
 io.on('connection', function (socket) {
   socket.on('songClicked', function (data) {
+  console.log('socket connected!')
+
+  socket.on('songClicked', function (data) {
+    console.log('event-server recieved!');
     io.emit('songClick', data);
   });
+
+  socket.on('paused', function () {
+    console.log('Song Paused!');
+    io.emit('paused');
+  })
+
   socket.on('disconnect', function () {
     io.emit('user disconnected');
   });
