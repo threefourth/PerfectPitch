@@ -18,6 +18,9 @@ export default class App extends React.Component {
     var socket = io('http://localhost:8000');
     var status = this.state;
     var that = this;
+    var playSong = this.songPlay.bind(this);
+    var pauseSong = this.songPause.bind(this);
+    var stopSong = this.songStop.bind(this);
 
     socket.on('songClick', function(data) {
       var title = data.id;
@@ -39,14 +42,19 @@ export default class App extends React.Component {
         }
       });
     });
-    var playSong = this.songPlay.bind(this);
-    socket.on('onPlay', function(event){
+    socket.on('onPlay', function(event) {
       playSong(event);
     });
+    socket.on('paused', function(event) {
+      pauseSong(event);
+    })
+    socket.on('stopped', function(event) {
+      console.log('client stop song listener!')
+      stopSong(event);
+    })
   }
   songClick(event) {
     var socket = io('http://localhost:8000');
-    console.dir(event.target.textContent);
     socket.emit('songClicked', {id: event.target.textContent})
   }
 
@@ -66,11 +74,12 @@ export default class App extends React.Component {
     }
     this.setState({playSong: true});
   }
-
   onPause(event) {
     var socket = io('http://localhost:8000');
-    socket.emit('paused');
-
+    socket.emit('paused', event);
+    this.songPause(event);
+  }
+  songPause(event) {
     var vocals = document.getElementById('vocals');
     var karaoke = document.getElementById('karaoke');
 
@@ -79,9 +88,17 @@ export default class App extends React.Component {
     } else {
       karaoke.pause();
     }
+    this.setState({playSong: false});
+  }
+  onStop(event) {
+    console.log('emitted song stopped!')
+    var socket = io('http://localhost:8000');
+    socket.emit('stopped', event);
+    this.songStop(event);
   }
 
-  onStop(event) {
+  songStop(event) {
+    console.log('stopping song!')
     var vocals = document.getElementById('vocals');
     var karaoke = document.getElementById('karaoke');
 
@@ -93,6 +110,7 @@ export default class App extends React.Component {
       karaoke.pause();
       karaoke.currentTime = 0;
     }
+    this.setState({playSong: false});
   }
 
   onKaraokeVolumeChange(event) {
@@ -123,7 +141,8 @@ export default class App extends React.Component {
                 onStop={this.onStop.bind(this)}
                 KaraokeVolumeChange={this.onKaraokeVolumeChange.bind(this)}
                 onVocalsVolumeChange={this.onVocalsVolumeChange}
-                playSong={this.state.playSong} />
+                playSong={this.state.playSong}
+                />
         </div>
       </div>
     );

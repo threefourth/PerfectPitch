@@ -40,14 +40,18 @@ io.on('connection', function (socket) {
     io.emit('songClick', data);
   });
 
-  socket.on('paused', function () {
-    console.log('Song Paused!');
-    io.emit('paused');
+  socket.on('onPlay', function(event){
+    socket.broadcast.emit('onPlay', event);
+  });
+
+  socket.on('paused', function (event) {
+    socket.broadcast.emit('paused', event);
   })
 
-  // socket.on('data', function(data) {
-  //   socket.broadcast.emit('update', data);
-  // });
+  socket.on('stopped', function (event) {
+    console.log('server song stopped!')
+    socket.broadcast.emit('stopped', event);
+  })
 
   socket.on('disconnect', function () {
     io.emit('user disconnected');

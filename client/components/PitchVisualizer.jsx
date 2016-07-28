@@ -448,7 +448,12 @@ export default class PitchVisualizer extends React.Component {
   }
 
   render() {
-    if (this.props.playSong) { this.toggleLiveInput(); }
+    if (this.props.playSong) {
+      this.toggleLiveInput();
+    } else {
+      this.stopUserAudio.apply(this)
+    }
+
     return (
       <div id="pitchdetector">
 

@@ -9,20 +9,21 @@ export default class Main extends React.Component {
   render() {
 	  return (
 	    <div>
-	    <SongPlayer selectedAudio={this.props.selectedSong.audio} 
-	    						selectedVocals={this.props.selectedSong.vocals} 
-	    						selectedData={this.props.selectedSong.data} 
-	    						score={this.props.score} 
-	    						onPlay={this.props.onPlay} 
-	    						onPause={this.props.onPause} 
-	    						onStop={this.props.onStop} 
-	    						onKaraokeVolumeChange={this.props.onKaraokeVolumeChange} 
-	    						onVocalsVolumeChange={this.props.onVocalsVolumeChange} 
-	    						playSong={this.props.playSong} />
+	    <SongPlayer selectedAudio={this.props.selectedSong.audio}
+	    						selectedVocals={this.props.selectedSong.vocals}
+	    						selectedData={this.props.selectedSong.data}
+	    						score={this.props.score}
+	    						onPlay={this.props.onPlay}
+	    						onPause={this.props.onPause}
+	    						onStop={this.props.onStop}
+	    						onKaraokeVolumeChange={this.props.onKaraokeVolumeChange}
+	    						onVocalsVolumeChange={this.props.onVocalsVolumeChange}
+	    						playSong={this.props.playSong} 
+                  />
 	    </div>
 	  );
 	}
 };
 
-//export default Main; 
+//export default Main;
 // window.Main = Main;
