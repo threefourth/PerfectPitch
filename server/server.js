@@ -45,13 +45,13 @@ io.on('connection', function (socket) {
     io.emit('paused');
   })
 
+  socket.on('data', function(data) {
+    socket.broadcast.emit('update', data);
+  });
+
   socket.on('onPlay', function(event){
     socket.broadcast.emit('onPlay', event);
   });
-
-  socket.on('paused', function (event) {
-    socket.broadcast.emit('paused', event);
-  })
 
   socket.on('stopped', function (event) {
     console.log('server song stopped!')

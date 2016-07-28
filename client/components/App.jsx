@@ -42,7 +42,7 @@ export default class App extends React.Component {
         }
       });
     });
-    
+
     socket.on('onPlay', function(event) {
       playSong(event);
     });
@@ -54,13 +54,11 @@ export default class App extends React.Component {
       stopSong(event);
     })
   }
+
   songClick(event) {
     var socket = io('http://localhost:8000');
-    socket.emit('songClicked', {id: event.target.textContent})
-    var playSong = this.songPlay.bind(this);
-    socket.on('onPlay', function(event){
-      playSong(event);
-    });
+    console.dir(event.target.textContent);
+    socket.emit('songClicked', {id: event.target.textContent});
   }
 
   onPlay(event) {
@@ -78,7 +76,6 @@ export default class App extends React.Component {
       karaoke.play();
     }
     this.setState({playSong: true});
-  }
   onPause(event) {
     var socket = io('http://localhost:8000');
     socket.emit('paused', event);

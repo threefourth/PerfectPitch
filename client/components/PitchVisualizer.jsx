@@ -431,6 +431,7 @@ export default class PitchVisualizer extends React.Component {
         .domain( [50, 120] )
         .range( [svgHeight, 0] );
 
+<<<<<<< 5aecae19322182dedaf58681b528835ebbef3593
       var notes = userPitchGraph.selectAll('ellipse')
         .data( data, function( d ) {
           return d.id;
