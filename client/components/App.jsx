@@ -42,6 +42,7 @@ export default class App extends React.Component {
         }
       });
     });
+    
     socket.on('onPlay', function(event) {
       playSong(event);
     });
