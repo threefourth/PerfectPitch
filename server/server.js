@@ -36,12 +36,11 @@ io.on('connection', function (socket) {
   console.log(socket.id + ' connected!')
 
   socket.on('songClicked', function (data) {
-    console.log('socket connected!')
     io.emit('songClick', data);
   });
 
-  socket.on('onPlay', function(event){
-    socket.broadcast.emit('onPlay', event);
+  socket.on('played', function(event){
+    socket.broadcast.emit('played', event);
   });
 
   socket.on('paused', function (event) {
