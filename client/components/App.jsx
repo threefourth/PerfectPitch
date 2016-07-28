@@ -20,7 +20,6 @@ export default class App extends React.Component {
     var that = this;
 
     socket.on('songClick', function(data) {
-      // this.onChooseSongClicks(data.id);
       var title = data.id;
       status.songs.forEach(function(song, index) {
         if (song.title === title) {
