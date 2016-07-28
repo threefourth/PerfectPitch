@@ -33,6 +33,8 @@ node_modules/
 bower_components/
 #client/compiled
 #client/lib
+client/lib/scoket.io
+client/lib/scoket.io-client
 
 # Floobits
 .floo

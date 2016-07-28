@@ -19,15 +19,16 @@ export default class SongPlayer extends React.Component {
           /></div>
       return (
         <div>
-          <PitchVisualizer selectedData={this.props.selectedData} 
-                          audioPlayer={audioPlayer} 
-                          score={this.props.score} 
-                          onPlay={this.props.onPlay} 
-                          onPause={this.props.onPause} 
+          <PitchVisualizer selectedData={this.props.selectedData}
+                          audioPlayer={audioPlayer}
+                          score={this.props.score}
+                          onPlay={this.props.onPlay}
+                          onPause={this.props.onPause}
                           onStop={this.props.onStop}
-                          onKaraokeVolumeChange={this.props.onKaraokeVolumeChange} 
-                          onVocalsVolumeChange={this.props.onVocalsVolumeChange} 
-                          playSong={this.props.playSong} />
+                          onKaraokeVolumeChange={this.props.onKaraokeVolumeChange}
+                          onVocalsVolumeChange={this.props.onVocalsVolumeChange}
+                          playSong={this.props.playSong}
+                          />
         </div>)
     } else {
       audioPlayer = <div><ReactAudioPlayer id={'karaoke'}
@@ -37,6 +38,6 @@ export default class SongPlayer extends React.Component {
         <div>
           <PitchVisualizer selectedData={this.props.selectedData} audioPlayer={audioPlayer} score={this.props.score} onPlay={this.props.onPlay} onPause={this.props.onPause} onStop={this.props.onStop} onKaraokeVolumeChange={this.props.onKaraokeVolumeChange} onVocalsVolumeChange={this.props.onVocalsVolumeChange}/>
         </div>)
-    }    
+    }
   }
 };

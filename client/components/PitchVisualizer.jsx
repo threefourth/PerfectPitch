@@ -7,7 +7,7 @@ export default class PitchVisualizer extends React.Component {
       score:0,
       perfect:0
     }
-    this.newScore = 0; 
+    this.newScore = 0;
     this.newPerfect = 0;
   }
 
@@ -23,7 +23,7 @@ export default class PitchVisualizer extends React.Component {
 
     // Initializes the variables that the pitch detector and visualizer
     // will need to use (see scripts/pitchDetector.js)
- 
+
     audioContext = new AudioContext();
 
     detectorElem = document.getElementById( 'detector' );
@@ -41,7 +41,7 @@ export default class PitchVisualizer extends React.Component {
     detuneElem = document.getElementById( 'detune' );
     detuneAmount = document.getElementById( 'detune_amt' );
 
-    // Draw the graphs for the first song 
+    // Draw the graphs for the first song
     pitchGraph = d3.select('.pitchGraph').append('svg')
       .attr('width', svgWidth)
       .attr('height', svgHeight)
@@ -124,7 +124,7 @@ export default class PitchVisualizer extends React.Component {
     if (localStream) {
       localStream.getAudioTracks()[0].stop( 0 );
     }
-    
+
     localStream = null;
 
     // End pitch detection/visualization processes
@@ -232,7 +232,7 @@ export default class PitchVisualizer extends React.Component {
         console.log(this.newScore);
       } else {
         this.newPerfect = 0;
-        console.log(this.newScore) 
+        console.log(this.newScore)
       }
       //this.setState({
         // score: newScore,
@@ -255,11 +255,11 @@ export default class PitchVisualizer extends React.Component {
 
     // var setScore = function(score, perfectCount) {
     //   this.setState({
-    //     score: score, 
+    //     score: score,
     //     perfect: perfectCount
     //   });
     // }.bind(this);
-    // Control interval of both note and wave 
+    // Control interval of both note and wave
     updatePitchID = setInterval(function() {
       updatePitch();
     }, 10000 / 60);
@@ -275,20 +275,24 @@ export default class PitchVisualizer extends React.Component {
   }
 
   render() {
-    if (this.props.playSong) { this.toggleLiveInput(); }
+    if (this.props.playSong) {
+      this.toggleLiveInput();
+    } else {
+      this.stopUserAudio.apply(this)
+    }
     return (
       <div id="pitchdetector">
-      
+
         <div className="row">
           <div className="col s12 l4">
             <div id="detector" className="vague">
               <div className="pitch"><span id="pitch">--</span>Hz</div>
-              <div className="note"><span id="note">--</span></div>   
+              <div className="note"><span id="note">--</span></div>
               <div id="detune"><span id="detune_amt">--</span><span id="flat">cents &#9837;</span><span id="sharp">cents &#9839;</span></div>
-            </div>       
+            </div>
           </div>
           <div className='col s12 l4 audioPlayer'>
-            <a className="btn-floating btn-large waves-effect waves-light teal" 
+            <a className="btn-floating btn-large waves-effect waves-light teal"
                 onClick= {() => {this.props.onPlay(); this.toggleLiveInput() }}>
               <i className="material-icons">play_arrow</i>
             </a>
@@ -309,7 +313,7 @@ export default class PitchVisualizer extends React.Component {
             </div>
           </div>
         </div>
-        
+
         <div className="row">
           <div className="col l4 s4 scoreboard offset-l3">
             <span>Score : { this.state.score }</span>

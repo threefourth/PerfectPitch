@@ -11,15 +11,18 @@ export default class App extends React.Component {
       selectedSong: window.songs[0],
       score: 100,
       userInput: false,
-      playSong: false
+      playSong: false,
+      socket: io('http://localhost:8000')
     };
   }
   componentDidMount() {
-    var socket = io('http://localhost:8000');
     var status = this.state;
     var that = this;
-    socket.on('songClick', function(data) {
-      // this.onChooseSongClicks(data.id);
+    var playSong = this.songPlay.bind(this);
+    var pauseSong = this.songPause.bind(this);
+    var stopSong = this.songStop.bind(this);
+
+    status.socket.on('songClick', function(data) {
       var title = data.id;
       status.songs.forEach(function(song, index) {
         if (song.title === title) {
@@ -39,20 +42,24 @@ export default class App extends React.Component {
         }
       });
     });
-    var playSong = this.songPlay.bind(this);
-    socket.on('onPlay', function(event){
+
+    status.socket.on('played', function(event) {
       playSong(event);
     });
+    status.socket.on('paused', function(event) {
+      pauseSong(event);
+    })
+    status.socket.on('stopped', function(event) {
+      stopSong(event);
+    })
   }
+
   songClick(event) {
-    var socket = io('http://localhost:8000');
-    console.dir(event.target.textContent);
-    socket.emit('songClicked', {id: event.target.textContent})
+    this.state.socket.emit('songClicked', {id: event.target.textContent})
   }
 
   onPlay(event) {
-    var socket = io('http://localhost:8000');
-    socket.emit('onPlay', event);
+    this.state.socket.emit('played', event);
     this.songPlay(event);
   }
 
@@ -68,6 +75,11 @@ export default class App extends React.Component {
   }
 
   onPause(event) {
+    this.state.socket.emit('paused', event);
+    this.songPause(event);
+  }
+
+  songPause(event) {
     var vocals = document.getElementById('vocals');
     var karaoke = document.getElementById('karaoke');
 
@@ -76,9 +88,15 @@ export default class App extends React.Component {
     } else {
       karaoke.pause();
     }
+    this.setState({playSong: false});
   }
 
   onStop(event) {
+    this.state.socket.emit('stopped', event);
+    this.songStop(event);
+  }
+
+  songStop(event) {
     var vocals = document.getElementById('vocals');
     var karaoke = document.getElementById('karaoke');
 
@@ -90,6 +108,7 @@ export default class App extends React.Component {
       karaoke.pause();
       karaoke.currentTime = 0;
     }
+    this.setState({playSong: false});
   }
 
   onKaraokeVolumeChange(event) {
@@ -112,15 +131,16 @@ export default class App extends React.Component {
           <PlayList songs={this.state.songs} onChooseSongClick={this.songClick.bind(this)} selectedSong={this.state.selectedSong}/>
         </div>
         <div className="col l10" style={{background: 'url(' + this.state.selectedSong.background + ') center / cover', height: '720px' }} >
-          <Main selectedSong={this.state.selectedSong} 
-                score={this.state.score} 
-                userInput={this.state.userInput} 
-                onPlay={this.onPlay.bind(this)} 
-                onPause={this.onPause.bind(this)} 
-                onStop={this.onStop.bind(this)} 
-                KaraokeVolumeChange={this.onKaraokeVolumeChange.bind(this)} 
+          <Main selectedSong={this.state.selectedSong}
+                score={this.state.score}
+                userInput={this.state.userInput}
+                onPlay={this.onPlay.bind(this)}
+                onPause={this.onPause.bind(this)}
+                onStop={this.onStop.bind(this)}
+                KaraokeVolumeChange={this.onKaraokeVolumeChange.bind(this)}
                 onVocalsVolumeChange={this.onVocalsVolumeChange}
-                playSong={this.state.playSong} />
+                playSong={this.state.playSong}
+                />
         </div>
       </div>
     );

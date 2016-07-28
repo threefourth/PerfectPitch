@@ -1,7 +1,8 @@
 var express = require('express');
 var http = require('http');
+// MongoDB connection
+var http = require('http');
 var db = require('./db/db');
-
 var app = express();
 var server = http.createServer(app);
 var io = require('socket.io').listen(server);
@@ -11,7 +12,6 @@ var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 
-// var io = require('socket.io')(app);
 
 // Middleware
 app.use(morgan('dev'));
@@ -27,22 +27,40 @@ app.use(session({
 // Routing
 require('./config/routes')(app, express);
 
+var clients = {};
+
+//Socket listeners
 io.on('connection', function (socket) {
-  console.log('socket connected!')
+  clients[socket.id] = socket;
+
+  console.log(socket.id + ' connected!')
+
   socket.on('songClicked', function (data) {
-    console.log('event-server recieved!')
     io.emit('songClick', data);
   });
-  socket.on('disconnect', function () {
-    io.emit('user disconnected');
+
+  socket.on('played', function(event){
+    socket.broadcast.emit('played', event);
   });
-  socket.on('onPlay', function(event){
-    socket.broadcast.emit('onPlay', event);
+
+  socket.on('paused', function (event) {
+    socket.broadcast.emit('paused', event);
+  })
+
+  socket.on('stopped', function (event) {
+    console.log('server song stopped!')
+    socket.broadcast.emit('stopped', event);
+  })
+
+  socket.on('data', function(data) {
+    socket.broadcast.emit('update', data);
   });
+
   socket.on('playerData', function (data) {
     io.emit('playerNote', data);
   });
+  socket.on('disconnect', function () {
+    io.emit('user disconnected');
+    delete clients[socket.id];
+  });
 });
-// app.listen(app.get('port'), function() {
-//   console.log('Server listening on port ', app.get('port'));
-// });
