@@ -13,8 +13,9 @@ export default class PitchVisualizer extends React.Component {
 
   componentDidMount() {
     var socket = io('http://localhost:8000');
+    var player = 'player2';
     socket.on('playerNote', function(data) {
-      this.createNotes(data.data, data.songData);
+      this.createNotes(data.data, data.songData, player);
     }.bind(this));
     var karaokeInput = document.getElementById('karaokeInput');
     karaokeInput.value = 1;
@@ -81,8 +82,9 @@ export default class PitchVisualizer extends React.Component {
     // ENTER
     notes.enter()
       .append('image')
-      .attr("xlink:href", "../note.svg")
+      .attr("xlink:href", "../baseNote.png")
       .attr("class", "music")
+      .style('opacity', 0.5)
       .attr('x', function(d, i) {
         return Math.floor(xScale(i));
       })
@@ -99,8 +101,9 @@ export default class PitchVisualizer extends React.Component {
     // UPDATE
     notes
       .transition()
-      .attr("xlink:href", "../note.svg")
+      .attr("xlink:href", "../baseNote.png")
       .attr("class", "music")
+      .style('opacity', 0.5)
       .attr('x', function(d, i) {
         return Math.floor(xScale(i));
       })
@@ -135,7 +138,7 @@ export default class PitchVisualizer extends React.Component {
     avgNoteArray = [];
   }
 
-  createNotes  (data, songData) {
+  createNotes  (data, songData, player) {
     var xScale = d3.scaleLinear()
       .domain( [0, this.props.selectedData.length] )
       .range( [0, svgWidth] );
@@ -163,7 +166,7 @@ export default class PitchVisualizer extends React.Component {
     notes
       .enter()
       .append('image')
-      .attr("xlink:href", "../note.svg")
+      .attr("xlink:href", "../" + player + "Note.png")
       .attr("class", "user")
       .attr('x', function(d) {
         return Math.floor(xScale(d.id) + (svgWidth / this.props.selectedData.length));
@@ -187,7 +190,7 @@ export default class PitchVisualizer extends React.Component {
     //   .attr("fill", "none")
     notes
       .transition()
-      .attr("xlink:href", "../note.svg")
+      .attr("xlink:href", "../" + player + "Note.png")
       .attr("class", "user")
       .attr('x', function(d) {
         return Math.floor(xScale(d.id) + (svgWidth / songData.length));
@@ -248,18 +251,12 @@ export default class PitchVisualizer extends React.Component {
     } else {
       this.stopUserAudio();
     }
-
+    var player = 'player1'
     var drawUserGraph = function( data, songData ) {
-      this.createNotes(data, songData);
+      this.createNotes(data, songData, player);
     }.bind(this);
 
-    // var setScore = function(score, perfectCount) {
-    //   this.setState({
-    //     score: score,
-    //     perfect: perfectCount
-    //   });
-    // }.bind(this);
-    // Control interval of both note and wave
+    // Control interval of both note and wave 
     updatePitchID = setInterval(function() {
       updatePitch();
     }, 10000 / 60);
