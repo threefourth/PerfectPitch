@@ -76,6 +76,8 @@ export default class App extends React.Component {
       karaoke.play();
     }
     this.setState({playSong: true});
+  }
+
   onPause(event) {
     var socket = io('http://localhost:8000');
     socket.emit('paused', event);
