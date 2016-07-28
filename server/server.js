@@ -40,6 +40,11 @@ io.on('connection', function (socket) {
     io.emit('songClick', data);
   });
 
+  socket.on('paused', function () {
+    console.log('Song Paused!');
+    io.emit('paused');
+  })
+
   socket.on('onPlay', function(event){
     socket.broadcast.emit('onPlay', event);
   });
