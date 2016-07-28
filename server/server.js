@@ -30,14 +30,17 @@ var clients = {};
 
 //Socket listeners
 io.on('connection', function (socket) {
-  socket.on('songClicked', function (data) {
-
   console.log(socket.id + ' connected!')
 
   socket.on('songClicked', function (data) {
-    console.log('event-server recieved!');
+    console.log('socket connected!')
     io.emit('songClick', data);
   });
+
+  socket.on('paused', function () {
+    console.log('Song Paused!');
+    io.emit('paused');
+  })
 
   socket.on('onPlay', function(event){
     socket.broadcast.emit('onPlay', event);
@@ -56,9 +59,6 @@ io.on('connection', function (socket) {
     io.emit('playerNote', data);
   });
 
-  socket.on('myClick', function (data) {
-        socket.broadcast.emit('myClick', data);
-    });
   socket.on('disconnect', function () {
     io.emit('user disconnected');
     delete clients[socket.id];
