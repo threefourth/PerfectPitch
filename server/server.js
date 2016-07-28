@@ -36,13 +36,11 @@ io.on('connection', function (socket) {
   socket.on('disconnect', function () {
     io.emit('user disconnected');
   });
-<<<<<<< HEAD
   socket.on('onPlay', function(event){
     socket.broadcast.emit('onPlay', event);
-=======
+  });
   socket.on('playerData', function (data) {
     io.emit('playerNote', data);
->>>>>>> Implemenet web socket to pass note to other clients.
   });
 });
 // app.listen(app.get('port'), function() {
