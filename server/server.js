@@ -30,6 +30,8 @@ var clients = {};
 
 //Socket listeners
 io.on('connection', function (socket) {
+  clients[socket.id] = socket;
+
   console.log(socket.id + ' connected!')
 
   socket.on('songClicked', function (data) {
@@ -37,11 +39,10 @@ io.on('connection', function (socket) {
     io.emit('songClick', data);
   });
 
-  socket.on('paused', function () {
-    console.log('Song Paused!');
-    io.emit('paused');
-  })
-
+  socket.on('disconnect', function () {
+    io.emit('user disconnected');
+    delete clients[socket.id];
+  });
   socket.on('onPlay', function(event){
     socket.broadcast.emit('onPlay', event);
   });
