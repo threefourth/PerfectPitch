@@ -36,6 +36,9 @@ io.on('connection', function (socket) {
   socket.on('disconnect', function () {
     io.emit('user disconnected');
   });
+  socket.on('onPlay', function(event){
+    socket.broadcast.emit('onPlay', event);
+  });
 });
 // app.listen(app.get('port'), function() {
 //   console.log('Server listening on port ', app.get('port'));

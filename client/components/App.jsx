@@ -10,7 +10,8 @@ export default class App extends React.Component {
       songs: window.songs,
       selectedSong: window.songs[0],
       score: 100,
-      userInput: false
+      userInput: false,
+      playSong: false
     };
   }
   componentDidMount() {
@@ -38,6 +39,10 @@ export default class App extends React.Component {
         }
       });
     });
+    var playSong = this.songPlay.bind(this);
+    socket.on('onPlay', function(event){
+      playSong(event);
+    });
   }
   songClick(event) {
     var socket = io('http://localhost:8000');
@@ -46,14 +51,20 @@ export default class App extends React.Component {
   }
 
   onPlay(event) {
+    var socket = io('http://localhost:8000');
+    socket.emit('onPlay', event);
+    this.songPlay(event);
+  }
+
+  songPlay(event) {
     var vocals = document.getElementById('vocals');
     var karaoke = document.getElementById('karaoke');
-
     if (vocals) {
       vocals.play(); karaoke.play();
     } else {
       karaoke.play();
     }
+    this.setState({playSong: true});
   }
 
   onPause(event) {
@@ -101,7 +112,15 @@ export default class App extends React.Component {
           <PlayList songs={this.state.songs} onChooseSongClick={this.songClick.bind(this)} selectedSong={this.state.selectedSong}/>
         </div>
         <div className="col l10" style={{background: 'url(' + this.state.selectedSong.background + ') center / cover', height: '720px' }} >
-          <Main selectedSong={this.state.selectedSong} score={this.state.score} userInput={this.state.userInput} onPlay={this.onPlay.bind(this)} onPause={this.onPause.bind(this)} onStop={this.onStop.bind(this)} onKaraokeVolumeChange={this.onKaraokeVolumeChange.bind(this)} onVocalsVolumeChange={this.onVocalsVolumeChange}/>
+          <Main selectedSong={this.state.selectedSong} 
+                score={this.state.score} 
+                userInput={this.state.userInput} 
+                onPlay={this.onPlay.bind(this)} 
+                onPause={this.onPause.bind(this)} 
+                onStop={this.onStop.bind(this)} 
+                KaraokeVolumeChange={this.onKaraokeVolumeChange.bind(this)} 
+                onVocalsVolumeChange={this.onVocalsVolumeChange}
+                playSong={this.state.playSong} />
         </div>
       </div>
     );

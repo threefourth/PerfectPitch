@@ -245,7 +245,9 @@ export default class PitchVisualizer extends React.Component {
 
   }
 
+
   render() {
+    if (this.props.playSong) { this.toggleLiveInput(); }
     return (
       <div id="pitchdetector">
       
@@ -258,7 +260,10 @@ export default class PitchVisualizer extends React.Component {
             </div>       
           </div>
           <div className='col s12 l4 audioPlayer'>
-            <a className="btn-floating btn-large waves-effect waves-light teal" onClick= {() => {this.props.onPlay(); this.toggleLiveInput() }}><i className="material-icons">play_arrow</i></a>
+            <a className="btn-floating btn-large waves-effect waves-light teal" 
+                onClick= {() => {this.props.onPlay(); this.toggleLiveInput() }}>
+              <i className="material-icons">play_arrow</i>
+            </a>
             <a className="btn-floating btn-large waves-effect waves-light teal" onClick={() => {this.props.onPause(); this.stopUserAudio.apply(this)}}><i className="material-icons">pause</i></a>
             <a className="btn-floating btn-large waves-effect waves-light teal" onClick={() => {this.props.onStop(); this.stopUserAudio.apply(this)}}><i className="material-icons">stop</i></a>
             {this.props.audioPlayer}
