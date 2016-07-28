@@ -4,6 +4,7 @@ import Artwork from './Artwork.jsx';
 
 var PlayList = (props) => {
   return (
+    <div style={{height:'720px', overflow: 'auto'}}>
     <table>
       <thead>
         <tr>
@@ -17,6 +18,7 @@ var PlayList = (props) => {
         <Artwork selectedSong={props.selectedSong}/>
       </tbody>
     </table>
+    </div>
   );
 }
 
