@@ -64,6 +64,10 @@ io.on('connection', function (socket) {
     socket.broadcast.emit('stopped', event);
   })
 
+  socket.on('data', function(data) {
+    socket.broadcast.emit('update', data);
+  });
+
   socket.on('disconnect', function () {
     io.emit('user disconnected');
     delete clients[socket.id];

@@ -56,6 +56,10 @@ export default class App extends React.Component {
   songClick(event) {
     var socket = io('http://localhost:8000');
     socket.emit('songClicked', {id: event.target.textContent})
+    var playSong = this.songPlay.bind(this);
+    socket.on('onPlay', function(event){
+      playSong(event);
+    });
   }
 
   onPlay(event) {
