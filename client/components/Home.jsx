@@ -81,7 +81,7 @@ export default class Home extends React.Component {
           <nav className="flow-text grey darken-3 ">
             <div className="nav-wrapper">
               &nbsp; &nbsp; &nbsp;
-              <Link to="/" >Perfect Pitch</Link>
+              <Link to="/" params={{ user: this.state.user }}>Perfect Pitch</Link>
               {toggleNavBar}
             </div>
           </nav>

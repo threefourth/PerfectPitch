@@ -52,7 +52,8 @@ io.on('connection', function (socket) {
     socket.broadcast.emit('paused', event);
   })
 
-  socket.on('stopped', function (event) {
+  socket.on('stopped', function (userObj) {
+    
     console.log('server song stopped!')
     socket.broadcast.emit('stopped', event);
   })

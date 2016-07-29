@@ -280,7 +280,6 @@ export default class PitchVisualizer extends React.Component {
   // Control interval of pitch graph
   updateScore(callback) {
     setInterval (function() {
-      console.log('in updateScore: ', this.percentage);
       var result = this.percentage;
       callback(result);
     }.bind(this), 2000);
@@ -308,13 +307,13 @@ export default class PitchVisualizer extends React.Component {
               <i className="material-icons">play_arrow</i>
             </a>
             <a className="btn-floating btn-large waves-effect waves-light teal" onClick={() => {this.props.onPause(); this.stopUserAudio.apply(this)}}><i className="material-icons">pause</i></a>
-            <a className="btn-floating btn-large waves-effect waves-light teal" onClick={() => {this.props.onStop(); this.stopUserAudio.apply(this)}}><i className="material-icons">stop</i></a>
+            <a className="btn-floating btn-large waves-effect waves-light teal" onClick={() => {this.props.onStop({score: this.percentage}); this.stopUserAudio.apply(this)}}><i className="material-icons">stop</i></a>
             {this.props.audioPlayer}
             <input type="range" id="karaokeInput" min="0" max="1" step="0.1" onChange={this.props.onKaraokeVolumeChange}/>
             <input type="range" id="vocalsInput" min="0" max="1" step="0.1" onChange={this.props.onVocalsVolumeChange}/>
           </div>
           <div className="col s12 l4">
-            <div id="remotesVideos" style={{width:'290px'}}></div>
+            <div id="remotesVideos" style={{width:'200px'}}></div>
           </div>
         </div>
 
