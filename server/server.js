@@ -7,7 +7,8 @@ var db = require('./db/db');
 var app = express();
 var server = http.createServer(app);
 var io = require('socket.io').listen(server);
-server.listen(8000);
+var port = (process.env.PORT || 8000);
+server.listen(port);
 
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
