@@ -299,8 +299,8 @@ export default class PitchVisualizer extends React.Component {
             <input type="range" id="karaokeInput" min="0" max="1" step="0.1" onChange={this.props.onKaraokeVolumeChange}/>
             <input type="range" id="vocalsInput" min="0" max="1" step="0.1" onChange={this.props.onVocalsVolumeChange}/>
           </div>
-          <div className="col s12 l4 overflow">
-            <canvas id="waveform" width="512" height="290"></canvas>
+          <div className="col s12 l4">
+            <div id="remotesVideos" style={{width:'290px'}}></div>
           </div>
         </div>
 

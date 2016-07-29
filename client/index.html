@@ -14,12 +14,30 @@
     <script src="/lib/socket.io-client/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+    <script src="https://simplewebrtc.com/latest-v2.js"></script> 
   <body>
     <div id="app"></div>
-    <script src="/videochat.js"></script>
+    <div id="remotesVideos"></div>
+    <!-- <video id="receiver" autoplay></video>
+    <canvas id="preview"></canvas>    
+    <video id="client" autoplay></video>
+    <script src="/videochat.js"></script> -->
     <script src="/media/placeHolderData.js"></script>
     <script src="/scripts/pitchDetector.js"></script>
     <script src="/compiled/components/ReactAudioPlayer.js"></script>
     <script src="/scripts/scripts.min.js"></script>
+    <script type="text/javascript">
+        var webrtc = new SimpleWebRTC({
+          // the id/element dom element that will hold "our" video
+          localVideoEl: 'localVideo',
+          // the id/element dom element that will hold remote videos
+          remoteVideosEl: 'remotesVideos',
+          // immediately ask for camera access
+          autoRequestMedia: true
+        });
+        webrtc.on('readyToCall', function () {
+          webrtc.joinRoom('Hien\'s awesome room');
+        });
+    </script>
   </body>
 </html>

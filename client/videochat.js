@@ -22,8 +22,9 @@ $(document).ready(function() {
   /**
    * Broadcast client
    */
+  navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
   if (navigator.getUserMedia) {
-      navigator.getUserMedia('video', function(stream) { video.src = stream; }, function(error) { log('Capture error ' + error); });
+      navigator.getUserMedia({video: true}, function(stream) { video.src = stream; }, function(error) { log('Capture error ' + error); });
       function draw(v, ctx, w, h) {
           ctx.drawImage(v, 0, 0, w, h);
           socket.emit('data', canvas.toDataURL("image/png"));
