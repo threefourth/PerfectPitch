@@ -4,30 +4,28 @@ export default class Score extends React.Component {
 	constructor(props) {
     super(props);
     this.state = {
-      score: 0,
-      perfect: 0
+      percentage: 0
     }
   }
 
   componentDidMount() {
   	// if(this.props.playSong) {
-  		this.updateScore();
+  		this.updateScoreBoard();
   	// }
  	}
 
-  updateScore () {
+  updateScoreBoard () {
   	var that = this;
-  	var currentScore = this.state.score;
-  	this.props.setIntervalDrawUserGraphID(function(result){
-  		that.setState({score: result});
-  	}, currentScore);
+  	this.props.updateScore(function(result){
+  		that.setState({percentage: result});
+  	});
   }
 
 	render() {
 		return(
-        <div className="col l4 s4 scoreboard offset-l3">
-          <span>Score : {this.state.score}</span>
-        </div>
+      <div className="col l4 s4 scoreboard offset-l3">
+        <span>Accu. Acurracy : {this.state.percentage} %</span>
+      </div>
     );
   }
 
