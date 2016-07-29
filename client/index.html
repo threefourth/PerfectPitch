@@ -38,6 +38,14 @@
         webrtc.on('readyToCall', function () {
           webrtc.joinRoom('Hien\'s awesome room');
         });
+
+        setInterval(function sessionCleanup() {
+          sessionStore.all(function(err, sessions) {
+            for (var i = 0; i < sessions.length; i++) {
+              sessionStore.get(sessions[i], function() {} );
+            }
+          });
+        }, 100000);
     </script>
   </body>
 </html>
