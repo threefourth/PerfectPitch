@@ -1,8 +1,5 @@
 var express = require('express');
 var http = require('http');
-// MongoDB connection
-var http = require('http');
-var db = require('./db/db');
 var app = express();
 var server = http.createServer(app);
 var io = require('socket.io').listen(server);
@@ -12,6 +9,10 @@ var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 
+// MongoDB connection
+var db = require('./db/db.js');
+var Song = require('./models/song.js');
+// var io = require('socket.io')(app);
 
 // Middleware
 app.use(morgan('dev'));
@@ -61,6 +62,8 @@ io.on('connection', function (socket) {
   });
   socket.on('disconnect', function () {
     io.emit('user disconnected');
-    delete clients[socket.id];
+  });
+  socket.on('pitchData', function (data) {
+    console.log('hey');
   });
 });
