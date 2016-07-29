@@ -10,7 +10,7 @@ export default class Score extends React.Component {
 
   componentDidMount() {
   	// if(this.props.playSong) {
-  		this.updateScoreBoard();
+  	this.updateScoreBoard();
   	// }
  	}
 
