@@ -1,5 +1,9 @@
 var express = require('express');
 var http = require('http');
+
+// MongoDB connection
+var http = require('http');
+var db = require('./db/db');
 var app = express();
 var server = http.createServer(app);
 var io = require('socket.io').listen(server);
