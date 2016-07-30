@@ -88,12 +88,9 @@ io.on('connection', function (socket) {
   });
 
   socket.on('playerData', function (data) {
-    io.emit('playerNote', data);
+    socket.broadcast.emit('playerNote', data);
   });
   socket.on('disconnect', function () {
     io.emit('user disconnected');
-  });
-  socket.on('pitchData', function (data) {
-    console.log('hey');
   });
 });

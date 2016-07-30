@@ -3,8 +3,8 @@ import PitchVisualizer from './PitchVisualizer.jsx';
 import ReactAudioPlayer from './ReactAudioPlayer.jsx';
 
 export default class SongPlayer extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
   }
 
   render() {
