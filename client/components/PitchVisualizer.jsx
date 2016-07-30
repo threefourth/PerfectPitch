@@ -12,7 +12,8 @@ export default class PitchVisualizer extends React.Component {
     this.score = 0; 
     this.newPerfect = 0;
     this.max = 0;
-    this.percentage;  
+    this.percentage; 
+    this.opponentPercentage; 
   }
 
   componentDidMount() {
@@ -20,6 +21,7 @@ export default class PitchVisualizer extends React.Component {
     socket.on('playerNote', function(data) {
       var player = 'player2';
       this.createNotes(data.data, data.songData, player);
+      this.opponentPercentage = data.percentage;
     }.bind(this));
     var karaokeInput = document.getElementById('karaokeInput');
     karaokeInput.value = 1;
@@ -269,7 +271,7 @@ export default class PitchVisualizer extends React.Component {
     drawUserGraphID = setInterval(function() {
       var socket = io('http://localhost:8000');
       getAvgNote( noteArray );
-      socket.emit('playerData', {data: avgNoteArray, songData:this.props.selectedData});
+      socket.emit('playerData', {data: avgNoteArray, songData:this.props.selectedData, percentage: this.percentage});
       drawUserGraph( avgNoteArray, this.props.selectedData );
       this.updateScoreBoard(avgNoteArray, this.props.selectedData);
     }.bind(this), 2000);
@@ -278,7 +280,10 @@ export default class PitchVisualizer extends React.Component {
   // Control interval of pitch graph
   updateScore(callback) {
     setInterval (function() {
-      var result = this.percentage;
+      var result = {
+        percentage: this.percentage,
+        opponentPercentage: this.opponentPercentage
+      }
       callback(result);
     }.bind(this), 2000);
   }
@@ -322,7 +327,7 @@ export default class PitchVisualizer extends React.Component {
           </div>
         </div>
         <div className="row">
-          <Score updateScore={this.updateScore.bind(this)} score={this.percentage} />
+          <Score updateScore={this.updateScore.bind(this)} score={this.percentage} opponentScore={this.opponentPercentage} />
         </div>
       </div>
     );
