@@ -150,37 +150,39 @@ export default class PitchVisualizer extends React.Component {
       .domain( [50, 120] )
       .range( [svgHeight, 0] );
 
-    var notes = d3.select('.songGraph').selectAll('image ' + player)
+    var notes = d3.select('.songGraph').selectAll('image.' + player)
       .data( data, function( d ) {
         return d.id;
       });
 
-    // var text = d3.select('.songGraph').selectAll('text')
-    //   .data([data[data.length - 1]]);
-    // text
-    //   .enter()
-    //   .append('text')
-    //   .text('hi')
-    //   .attr('x', function(d) {
-    //     return Math.floor(xScale(d.id) + (svgWidth / this.props.selectedData.length));
-    //   }.bind(this))
-    //   .attr('y', function(d) {
-    //     return yScale(d.value);
-    //   });
+    var text = d3.select('.songGraph').selectAll('image.mario')
+      .data([data[data.length - 1]]);
 
-    // text
-    //   .data([]);
+    text
+      .enter()
+      .append('image')
+      .attr('class', 'mario')
+      .attr("xlink:href", "../mario.gif")
+      .style('opacity', 1.0)
+      .attr('x', function(d) {
+        return Math.floor(xScale(d.id) + (svgWidth / this.props.selectedData.length));
+      }.bind(this))
+      .attr('y', function(d) {
+        return yScale(d.value);
+      });
 
-    // text
-    //   .exit()
-    //   .remove();
+    text
+      .transition()
+      .duration(1500)
+      .style("opacity", 0)
+      .remove();
 
     // ENTER
     notes
       .enter()
       .append('image')
+      .attr("class", player)
       .attr("xlink:href", "../" + player + "Note.png")
-      .attr("class", "user")
       .style('opacity', 0.8)
       .attr('x', function(d) {
         return Math.floor(xScale(d.id) + (svgWidth / this.props.selectedData.length));
@@ -197,8 +199,8 @@ export default class PitchVisualizer extends React.Component {
     // UPDATE
     notes
       .transition()
+      .attr("class", player)
       .attr("xlink:href", "../" + player + "Note.png")
-      .attr("class", "user")
       .style('opacity', 0.8)
       .attr('x', function(d) {
         return Math.floor(xScale(d.id) + (svgWidth / songData.length));
