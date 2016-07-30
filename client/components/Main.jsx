@@ -18,7 +18,8 @@ export default class Main extends React.Component {
 	    						onStop={this.props.onStop}
 	    						onKaraokeVolumeChange={this.props.onKaraokeVolumeChange}
 	    						onVocalsVolumeChange={this.props.onVocalsVolumeChange}
-	    						playSong={this.props.playSong} 
+	    						playSong={this.props.playSong}
+                  socket={this.props.socket} 
                   />
 	    </div>
 	  );

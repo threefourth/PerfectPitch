@@ -28,6 +28,7 @@ export default class SongPlayer extends React.Component {
                           onKaraokeVolumeChange={this.props.onKaraokeVolumeChange}
                           onVocalsVolumeChange={this.props.onVocalsVolumeChange}
                           playSong={this.props.playSong}
+                          socket={this.props.socket}
                           />
         </div>)
     } else {
