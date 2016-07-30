@@ -17,8 +17,8 @@ export default class PitchVisualizer extends React.Component {
 
   componentDidMount() {
     var socket = io('http://localhost:8000');
-    var player = 'player2';
     socket.on('playerNote', function(data) {
+      var player = 'player2';
       this.createNotes(data.data, data.songData, player);
     }.bind(this));
     var karaokeInput = document.getElementById('karaokeInput');
@@ -150,10 +150,30 @@ export default class PitchVisualizer extends React.Component {
       .domain( [50, 120] )
       .range( [svgHeight, 0] );
 
-    var notes = d3.select('.songGraph').selectAll('image .user')
+    var notes = d3.select('.songGraph').selectAll('image ' + player)
       .data( data, function( d ) {
         return d.id;
       });
+
+    // var text = d3.select('.songGraph').selectAll('text')
+    //   .data([data[data.length - 1]]);
+    // text
+    //   .enter()
+    //   .append('text')
+    //   .text('hi')
+    //   .attr('x', function(d) {
+    //     return Math.floor(xScale(d.id) + (svgWidth / this.props.selectedData.length));
+    //   }.bind(this))
+    //   .attr('y', function(d) {
+    //     return yScale(d.value);
+    //   });
+
+    // text
+    //   .data([]);
+
+    // text
+    //   .exit()
+    //   .remove();
 
     // ENTER
     notes
@@ -232,8 +252,8 @@ export default class PitchVisualizer extends React.Component {
     } else {
       this.stopUserAudio();
     }
-    var player = 'player1'
     var drawUserGraph = function( data, songData ) {
+      var player = 'player1'
       this.createNotes(data, songData, player);
     }.bind(this);
 
@@ -287,7 +307,7 @@ export default class PitchVisualizer extends React.Component {
             <input type="range" id="vocalsInput" min="0" max="1" step="0.1" onChange={this.props.onVocalsVolumeChange}/>
           </div>
           <div className="col s12 l4">
-            <div id="remotesVideos" style={{width:'200px'}}></div>
+            <div id="remotesVideos"></div>
           </div>
         </div>
 
