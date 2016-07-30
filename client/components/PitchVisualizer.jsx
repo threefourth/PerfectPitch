@@ -95,8 +95,8 @@ export default class PitchVisualizer extends React.Component {
       .attr('y', function(d) {
         return yScale(d.value);
       })
-      .attr('width', 50)
-      .attr('height', 50)
+      .attr('width', 25)
+      .attr('height', 25)
       .attr('fill', '#4DB6AC')
       .attr('id', function(d) {
         return d.id;
@@ -114,8 +114,8 @@ export default class PitchVisualizer extends React.Component {
       .attr('y', function(d) {
         return yScale(d.value);
       })
-      .attr('width', 50)
-      .attr('height', 50)
+      .attr('width', 25)
+      .attr('height', 25)
       .attr('fill', '#4DB6AC')
       .attr('id', function(d) {
         return d.id;
@@ -155,58 +155,39 @@ export default class PitchVisualizer extends React.Component {
         return d.id;
       });
 
-    // var lineFunction = d3.svg.line()
-    //  .x(function(d) { return xScale(d.id) + (svgWidth / that.props.selectedData.length); })
-    //  .y(function(d) { return yScale(d.value); })
-    //  .interpolate("linear");
-
     // ENTER
-    // userPitchGraph
-    //   .append('path')
-    //   .attr("d", lineFunction(data))
-    //   .attr("stroke", "blue")
-    //   .attr("stroke-width", 2)
-    //   .attr("fill", "none")
     notes
       .enter()
       .append('image')
       .attr("xlink:href", "../" + player + "Note.png")
       .attr("class", "user")
+      .style('opacity', 0.8)
       .attr('x', function(d) {
         return Math.floor(xScale(d.id) + (svgWidth / this.props.selectedData.length));
       }.bind(this))
       .attr('y', function(d) {
         return yScale(d.value);
       })
-      // .attr('rx', (svgWidth / that.props.selectedData.length) * 1.5)
-      // .attr('r', 5)
-      // .attr('fill', 'yellow')
-      .attr('height', 50)
-      .attr('width', 50)
+      .attr('height', 25)
+      .attr('width', 25)
       .attr('id', function(d) {
         return d.id;
       });
 
     // UPDATE
-    //   .attr("d", lineFunction(d))
-    //   .attr("stroke", "blue")
-    //   .attr("stroke-width", 2)
-    //   .attr("fill", "none")
     notes
       .transition()
       .attr("xlink:href", "../" + player + "Note.png")
       .attr("class", "user")
+      .style('opacity', 0.8)
       .attr('x', function(d) {
         return Math.floor(xScale(d.id) + (svgWidth / songData.length));
       })
       .attr('y', function(d) {
         return yScale(d.value);
       })
-      .attr('height', 50)
-      .attr('width', 50)
-      // .attr('rx', (svgWidth / that.props.selectedData.length) * 1.5)
-      // .attr('r', 5)
-      // .attr('fill', 'red')
+      .attr('height', 25)
+      .attr('width', 25)
       .attr('id', function(d) {
         return d.id;
       });
@@ -234,14 +215,9 @@ export default class PitchVisualizer extends React.Component {
       var difference = Math.abs(otherNote.attr('y') - yScale(data[data.length - 1].value));
       this.max += 3;
       if ( difference < 30 ) {
-        // console.log('Perfect');
         this.score += 3;
-        // this.newPerfect++;
-        // console.log(this.score);
       } else  if (difference < 50) {
-        // this.newPerfect = 0;
-        this.score += 2; 
-        // console.log(this.score) 
+        this.score += 2;  
       } else if (difference < 70) {
         this.score ++; 
       }
