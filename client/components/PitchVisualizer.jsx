@@ -86,7 +86,7 @@ export default class PitchVisualizer extends React.Component {
     // ENTER
     notes.enter()
       .append('image')
-      .attr("xlink:href", "../baseNote.png")
+      .attr("xlink:href", "../assets/baseNote.png")
       .attr("class", "music")
       .style('opacity', 0.5)
       .attr('x', function(d, i) {
@@ -105,7 +105,7 @@ export default class PitchVisualizer extends React.Component {
     // UPDATE
     notes
       .transition()
-      .attr("xlink:href", "../baseNote.png")
+      .attr("xlink:href", "../assets/baseNote.png")
       .attr("class", "music")
       .style('opacity', 0.5)
       .attr('x', function(d, i) {
@@ -155,25 +155,27 @@ export default class PitchVisualizer extends React.Component {
         return d.id;
       });
 
-    var text = d3.select('.songGraph').selectAll('image.mario')
+    var picture = d3.select('.songGraph').selectAll('image.mario')
       .data([data[data.length - 1]]);
 
-    text
+    picture
       .enter()
       .append('image')
       .attr('class', 'mario')
-      .attr("xlink:href", "../mario.gif")
+      .attr("xlink:href", "../assets/mario.gif")
       .style('opacity', 1.0)
       .attr('x', function(d) {
-        return Math.floor(xScale(d.id) + (svgWidth / this.props.selectedData.length));
+        return Math.floor(xScale(d.id) + (svgWidth / this.props.selectedData.length) - 5);
       }.bind(this))
       .attr('y', function(d) {
-        return yScale(d.value);
-      });
+        return yScale(d.value) - 40;
+      })
+      .attr('height', 50)
+      .attr('width', 50);
 
-    text
+    picture
       .transition()
-      .duration(1500)
+      .duration(600)
       .style("opacity", 0)
       .remove();
 
@@ -182,7 +184,7 @@ export default class PitchVisualizer extends React.Component {
       .enter()
       .append('image')
       .attr("class", player)
-      .attr("xlink:href", "../" + player + "Note.png")
+      .attr("xlink:href", "../assets/" + player + "Note.png")
       .style('opacity', 0.8)
       .attr('x', function(d) {
         return Math.floor(xScale(d.id) + (svgWidth / this.props.selectedData.length));
@@ -200,7 +202,7 @@ export default class PitchVisualizer extends React.Component {
     notes
       .transition()
       .attr("class", player)
-      .attr("xlink:href", "../" + player + "Note.png")
+      .attr("xlink:href", "../assets/" + player + "Note.png")
       .style('opacity', 0.8)
       .attr('x', function(d) {
         return Math.floor(xScale(d.id) + (svgWidth / songData.length));
