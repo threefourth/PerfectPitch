@@ -245,9 +245,7 @@ export default class PitchVisualizer extends React.Component {
       } else if (difference < 70) {
         this.score ++; 
       }
-      console.log("inside updateScore");
       this.percentage = Math.floor(this.score / this.max * 100); 
-      console.log(this.percentage);
     }
   }
 

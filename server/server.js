@@ -13,6 +13,8 @@ var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 
+var User = require('./models/user');
+
 // MongoDB connection
 var db = require('./db/db.js');
 var Song = require('./models/song.js');
@@ -53,9 +55,32 @@ io.on('connection', function (socket) {
   })
 
   socket.on('stopped', function (userObj) {
-    
+    console.log(userObj);
     console.log('server song stopped!')
-    socket.broadcast.emit('stopped', event);
+    socket.broadcast.emit('stopped', userObj);
+
+    User.findOne({username: userObj.username})
+      .then(function(result) {
+        var notFind = true; 
+        for (var i = 0; i < result.scores.length; i++) {
+          if (result.scores[i].title === userObj.title) {
+            result.scores[i].score = Math.max(userObj.score, result.scores[i].score);     
+            notFind = false;      
+          }
+        }
+        if (notFind) {
+          result.scores.push({
+            title: userObj.title, 
+            score: userObj.score
+          });
+        }
+        result.save(function(err, doc) {
+          if (err) {
+            console.log(err);
+          }
+          console.log(doc);
+        });
+      });
   })
 
   socket.on('data', function(data) {

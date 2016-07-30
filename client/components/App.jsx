@@ -94,12 +94,17 @@ export default class App extends React.Component {
   }
 
   onStop(event) {
-    if (this.props.user.username) {
-      event.username = this.props.user.username;
-      event.title = this.state.selectedSong.title;
+    console.log('in onStop ', event.score);
+    if (this.props.user) {
+      var userObj = {
+        username: this.props.user.username,
+        title: this.state.selectedSong.title,
+        score: event.score
+      }
     }
+    var target = userObj || {};
     console.log('here in onStop: ', event);
-    this.state.socket.emit('stopped', event);
+    this.state.socket.emit('stopped', target);
     this.songStop(event);
   }
 
