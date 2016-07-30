@@ -16,6 +16,7 @@ export default class App extends React.Component {
     };
   }
   componentDidMount() {
+    console.log('this is user: ', this.props.user);
     var status = this.state;
     var that = this;
     var playSong = this.songPlay.bind(this);
@@ -55,10 +56,11 @@ export default class App extends React.Component {
   }
 
   songClick(event) {
-    this.state.socket.emit('songClicked', {id: event.target.textContent})
+    this.state.socket.emit('songClicked', {id: event.target.textContent});
   }
 
   onPlay(event) {
+    console.log('onPlay is called');
     this.state.socket.emit('played', event);
     this.songPlay(event);
   }
@@ -92,7 +94,17 @@ export default class App extends React.Component {
   }
 
   onStop(event) {
-    this.state.socket.emit('stopped', event);
+    console.log('in onStop ', event.score);
+    if (this.props.user) {
+      var userObj = {
+        username: this.props.user.username,
+        title: this.state.selectedSong.title,
+        score: event.score
+      }
+    }
+    var target = userObj || {};
+    console.log('here in onStop: ', event);
+    this.state.socket.emit('stopped', target);
     this.songStop(event);
   }
 

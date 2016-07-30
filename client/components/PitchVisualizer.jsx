@@ -1,14 +1,18 @@
 import React from 'react';
+import Score from './Score.jsx';
 
 export default class PitchVisualizer extends React.Component {
   constructor() {
     super();
     this.state = {
       score:0,
-      perfect:0
+      perfect:0,
+      playing: false
     }
-    this.newScore = 0;
+    this.score = 0; 
     this.newPerfect = 0;
+    this.max = 0;
+    this.percentage;  
   }
 
   componentDidMount() {
@@ -226,26 +230,27 @@ export default class PitchVisualizer extends React.Component {
       .filter(function(d) {
         return Math.floor(xScale(d.id) + (svgWidth / this.props.selectedData.length)) === currentX;
       }.bind(this));
-    if( otherNote.size() ) {
+    if( otherNote.attr('y') < 430 ) {
       var difference = Math.abs(otherNote.attr('y') - yScale(data[data.length - 1].value));
+      this.max += 3;
       if ( difference < 30 ) {
-        console.log('Perfect');
-        this.newScore += 3 + this.newPerfect * 1;
-        this.newPerfect++;
-        console.log(this.newScore);
-      } else {
-        this.newPerfect = 0;
-        console.log(this.newScore)
+        // console.log('Perfect');
+        this.score += 3;
+        // this.newPerfect++;
+        // console.log(this.score);
+      } else  if (difference < 50) {
+        // this.newPerfect = 0;
+        this.score += 2; 
+        // console.log(this.score) 
+      } else if (difference < 70) {
+        this.score ++; 
       }
-      //this.setState({
-        // score: newScore,
-        // perfect: newPerfect
-      // })
+      this.percentage = Math.floor(this.score / this.max * 100); 
     }
   }
 
   toggleLiveInput() {
-
+    console.log('toggleLiveInput is called');
     if (localStream === null) {
       getUserAudio();
     } else {
@@ -256,18 +261,25 @@ export default class PitchVisualizer extends React.Component {
       this.createNotes(data, songData, player);
     }.bind(this);
 
-    // Control interval of both note and wave 
     updatePitchID = setInterval(function() {
       updatePitch();
     }, 10000 / 60);
-
-    // Control interval of pitch graph
+    
+    // Control interval of both note and wave 
     drawUserGraphID = setInterval(function() {
       var socket = io('http://localhost:8000');
       getAvgNote( noteArray );
       socket.emit('playerData', {data: avgNoteArray, songData:this.props.selectedData});
       drawUserGraph( avgNoteArray, this.props.selectedData );
       this.updateScoreBoard(avgNoteArray, this.props.selectedData);
+    }.bind(this), 2000);
+  }
+
+  // Control interval of pitch graph
+  updateScore(callback) {
+    setInterval (function() {
+      var result = this.percentage;
+      callback(result);
     }.bind(this), 2000);
   }
 
@@ -279,7 +291,6 @@ export default class PitchVisualizer extends React.Component {
     }
     return (
       <div id="pitchdetector">
-
         <div className="row">
           <div className="col s12 l4">
             <div id="detector" className="vague">
@@ -289,18 +300,18 @@ export default class PitchVisualizer extends React.Component {
             </div>
           </div>
           <div className='col s12 l4 audioPlayer'>
-            <a className="btn-floating btn-large waves-effect waves-light teal"
-                onClick= {() => {this.props.onPlay(); this.toggleLiveInput() }}>
+            <a className="btn-floating btn-large waves-effect waves-light teal" 
+                onClick= {() => {this.props.onPlay(); this.toggleLiveInput()}}>
               <i className="material-icons">play_arrow</i>
             </a>
             <a className="btn-floating btn-large waves-effect waves-light teal" onClick={() => {this.props.onPause(); this.stopUserAudio.apply(this)}}><i className="material-icons">pause</i></a>
-            <a className="btn-floating btn-large waves-effect waves-light teal" onClick={() => {this.props.onStop(); this.stopUserAudio.apply(this)}}><i className="material-icons">stop</i></a>
+            <a className="btn-floating btn-large waves-effect waves-light teal" onClick={() => {this.props.onStop({score: this.percentage}); this.stopUserAudio.apply(this)}}><i className="material-icons">stop</i></a>
             {this.props.audioPlayer}
             <input type="range" id="karaokeInput" min="0" max="1" step="0.1" onChange={this.props.onKaraokeVolumeChange}/>
             <input type="range" id="vocalsInput" min="0" max="1" step="0.1" onChange={this.props.onVocalsVolumeChange}/>
           </div>
           <div className="col s12 l4">
-            <div id="remotesVideos" style={{width:'290px'}}></div>
+            <div id="remotesVideos" style={{width:'200px'}}></div>
           </div>
         </div>
 
@@ -310,14 +321,10 @@ export default class PitchVisualizer extends React.Component {
             </div>
           </div>
         </div>
-
         <div className="row">
-          <div className="col l4 s4 scoreboard offset-l3">
-            <span>Score : { this.state.score }</span>
-          </div>
+          <Score updateScore={this.updateScore.bind(this)} score={this.percentage} />
         </div>
-
       </div>
     );
   }
-};
+}
