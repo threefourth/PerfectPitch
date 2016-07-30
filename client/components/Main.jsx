@@ -2,8 +2,8 @@ import React from 'react';
 import SongPlayer from './SongPlayer.jsx';
 
 export default class Main extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
   }
 
   render() {
