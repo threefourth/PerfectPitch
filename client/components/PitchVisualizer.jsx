@@ -17,8 +17,7 @@ export default class PitchVisualizer extends React.Component {
   }
 
   componentDidMount() {
-    var socket = io('http://localhost:8000');
-    socket.on('playerNote', function(data) {
+    this.props.socket.on('playerNote', function(data) {
       var player = 'player2';
       this.createNotes(data.data, data.songData, player);
       this.opponentPercentage = data.percentage;
@@ -157,14 +156,14 @@ export default class PitchVisualizer extends React.Component {
         return d.id;
       });
 
-    var picture = d3.select('.songGraph').selectAll('image.mario')
+    var picture = d3.select('.songGraph').selectAll('image.' + player + 'pic')
       .data([data[data.length - 1]]);
 
     picture
       .enter()
       .append('image')
-      .attr('class', 'mario')
-      .attr("xlink:href", "../assets/mario.gif")
+      .attr('class', player + 'pic')
+      .attr("xlink:href", "../assets/" + player + ".gif")
       .style('opacity', 1.0)
       .attr('x', function(d) {
         return Math.floor(xScale(d.id) + (svgWidth / this.props.selectedData.length) - 5);
@@ -177,7 +176,7 @@ export default class PitchVisualizer extends React.Component {
 
     picture
       .transition()
-      .duration(600)
+      .duration(500)
       .style("opacity", 0)
       .remove();
 
@@ -269,9 +268,8 @@ export default class PitchVisualizer extends React.Component {
     
     // Control interval of both note and wave 
     drawUserGraphID = setInterval(function() {
-      var socket = io('http://localhost:8000');
       getAvgNote( noteArray );
-      socket.emit('playerData', {data: avgNoteArray, songData:this.props.selectedData, percentage: this.percentage});
+      this.props.socket.emit('playerData', {data: avgNoteArray, songData:this.props.selectedData});
       drawUserGraph( avgNoteArray, this.props.selectedData );
       this.updateScoreBoard(avgNoteArray, this.props.selectedData);
     }.bind(this), 2000);

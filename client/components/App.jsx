@@ -152,6 +152,7 @@ export default class App extends React.Component {
                 KaraokeVolumeChange={this.onKaraokeVolumeChange.bind(this)}
                 onVocalsVolumeChange={this.onVocalsVolumeChange}
                 playSong={this.state.playSong}
+                socket={this.state.socket}
                 />
         </div>
       </div>
