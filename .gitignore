@@ -33,9 +33,14 @@ node_modules/
 bower_components/
 #client/compiled
 #client/lib
+client/lib/scoket.io
+client/lib/scoket.io-client
 
 # Floobits
 .floo
 .floobit
 .floo
 .flooignore
+
+# script.min.js
+client/scripts/scripts.min.js

@@ -80,3 +80,7 @@ nav ul a {
 h3, h5 {
   text-align: center;
 }
+
+video {
+  width: 100%;
+}

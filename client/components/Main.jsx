@@ -1,9 +1,30 @@
-var Main = (props) => {
-  return (
-    <div>
-    <SongPlayer selectedAudio={props.selectedSong.audio} selectedVocals={props.selectedSong.vocals} selectedData={props.selectedSong.data} score={props.score} onPlay={props.onPlay} onPause={props.onPause} onStop={props.onStop} onKaraokeVolumeChange={props.onKaraokeVolumeChange} onVocalsVolumeChange={props.onVocalsVolumeChange} />
-    </div>
-  );
+import React from 'react';
+import SongPlayer from './SongPlayer.jsx';
+
+export default class Main extends React.Component {
+  constructor() {
+    super();
+  }
+
+  render() {
+	  return (
+	    <div>
+	    <SongPlayer selectedAudio={this.props.selectedSong.audio}
+	    						selectedVocals={this.props.selectedSong.vocals}
+	    						selectedData={this.props.selectedSong.data}
+	    						score={this.props.score}
+	    						onPlay={this.props.onPlay}
+	    						onPause={this.props.onPause}
+	    						onStop={this.props.onStop}
+	    						onKaraokeVolumeChange={this.props.onKaraokeVolumeChange}
+	    						onVocalsVolumeChange={this.props.onVocalsVolumeChange}
+	    						playSong={this.props.playSong}
+                  socket={this.props.socket} 
+                  />
+	    </div>
+	  );
+	}
 };
 
-window.Main = Main;
+//export default Main;
+// window.Main = Main;

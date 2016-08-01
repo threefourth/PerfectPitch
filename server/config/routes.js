@@ -60,5 +60,35 @@ module.exports = function(app, express) {
   app.get('*', function(req, res) {
     res.sendFile(path.join(__dirname, '../../client/index.html'));
   });
+
+
+  app.post('/updateScore', function(req, res) {
+    var user = req.body;
+    var query = {username: user.username};
+    User.findOne(query)
+      .then(function(result) {
+        var notFind = true; 
+        for (var i = 0; i < result.scores.length; i++) {
+          if (result.scores[i].title === user.title) {
+            result.scores[i].score = user.score;     
+            notFind = false;      
+          }
+        }
+        if (notFind) {
+          result.scores.push({
+            title: user.title, 
+            score: user.score
+          });
+        }
+        result.save(function(err, doc) {
+          if (err) {
+            res.status(500);
+            console.log(err);
+          }
+          console.log(doc);
+        });
+      });
+  });
+
 };
 

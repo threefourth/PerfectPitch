@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Promise = require('bluebird');
 
 mongoose.Promise = Promise;
-mongoose.connect('mongodb://threefourth:34awesomebullets@ds029725.mlab.com:29725/threefourth');
+mongoose.connect('mongodb://localhost:27017/threefourth');
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error: '));

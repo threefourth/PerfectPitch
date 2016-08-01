@@ -1,7 +1,27 @@
-class PitchVisualizer extends React.Component {
+import React from 'react';
+import Score from './Score.jsx';
+
+export default class PitchVisualizer extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      score:0,
+      perfect:0,
+      playing: false
+    }
+    this.score = 0; 
+    this.newPerfect = 0;
+    this.max = 0;
+    this.percentage; 
+    this.opponentPercentage; 
+  }
 
   componentDidMount() {
-
+    this.props.socket.on('playerNote', function(data) {
+      var player = 'player2';
+      this.createNotes(data.data, data.songData, player);
+      this.opponentPercentage = data.percentage;
+    }.bind(this));
     var karaokeInput = document.getElementById('karaokeInput');
     karaokeInput.value = 1;
     var vocalsInput = document.getElementById('vocalsInput');
@@ -9,7 +29,7 @@ class PitchVisualizer extends React.Component {
 
     // Initializes the variables that the pitch detector and visualizer
     // will need to use (see scripts/pitchDetector.js)
- 
+
     audioContext = new AudioContext();
 
     detectorElem = document.getElementById( 'detector' );
@@ -27,7 +47,7 @@ class PitchVisualizer extends React.Component {
     detuneElem = document.getElementById( 'detune' );
     detuneAmount = document.getElementById( 'detune_amt' );
 
-    // Draw the graphs for the first song 
+    // Draw the graphs for the first song
     pitchGraph = d3.select('.pitchGraph').append('svg')
       .attr('width', svgWidth)
       .attr('height', svgHeight)
@@ -66,15 +86,18 @@ class PitchVisualizer extends React.Component {
 
     // ENTER
     notes.enter()
-      .append('rect')
+      .append('image')
+      .attr("xlink:href", "../assets/baseNote.png")
+      .attr("class", "music")
+      .style('opacity', 0.5)
       .attr('x', function(d, i) {
-        return xScale(i);
+        return Math.floor(xScale(i));
       })
       .attr('y', function(d) {
         return yScale(d.value);
       })
-      .attr('width', (svgWidth / data.length) * 3)
-      .attr('height', 4)
+      .attr('width', 25)
+      .attr('height', 25)
       .attr('fill', '#4DB6AC')
       .attr('id', function(d) {
         return d.id;
@@ -83,14 +106,17 @@ class PitchVisualizer extends React.Component {
     // UPDATE
     notes
       .transition()
+      .attr("xlink:href", "../assets/baseNote.png")
+      .attr("class", "music")
+      .style('opacity', 0.5)
       .attr('x', function(d, i) {
-        return xScale(i);
+        return Math.floor(xScale(i));
       })
       .attr('y', function(d) {
         return yScale(d.value);
       })
-      .attr('width', (svgWidth / data.length) * 3)
-      .attr('height', 4)
+      .attr('width', 25)
+      .attr('height', 25)
       .attr('fill', '#4DB6AC')
       .attr('id', function(d) {
         return d.id;
@@ -106,7 +132,7 @@ class PitchVisualizer extends React.Component {
     if (localStream) {
       localStream.getAudioTracks()[0].stop( 0 );
     }
-    
+
     localStream = null;
 
     // End pitch detection/visualization processes
@@ -117,103 +143,178 @@ class PitchVisualizer extends React.Component {
     avgNoteArray = [];
   }
 
-  toggleLiveInput() {
+  createNotes  (data, songData, player) {
+    var xScale = d3.scaleLinear()
+      .domain( [0, this.props.selectedData.length] )
+      .range( [0, svgWidth] );
+    var yScale = d3.scaleLinear()
+      .domain( [50, 120] )
+      .range( [svgHeight, 0] );
 
+    var notes = d3.select('.songGraph').selectAll('image.' + player)
+      .data( data, function( d ) {
+        return d.id;
+      });
+
+    var picture = d3.select('.songGraph').selectAll('image.' + player + 'pic')
+      .data([data[data.length - 1]]);
+
+    picture
+      .enter()
+      .append('image')
+      .attr('class', player + 'pic')
+      .attr("xlink:href", "../assets/" + player + ".gif")
+      .style('opacity', 1.0)
+      .attr('x', function(d) {
+        return Math.floor(xScale(d.id) + (svgWidth / this.props.selectedData.length) - 5);
+      }.bind(this))
+      .attr('y', function(d) {
+        return yScale(d.value) - 40;
+      })
+      .attr('height', 50)
+      .attr('width', 50);
+
+    picture
+      .transition()
+      .duration(500)
+      .style("opacity", 0)
+      .remove();
+
+    // ENTER
+    notes
+      .enter()
+      .append('image')
+      .attr("class", player)
+      .attr("xlink:href", "../assets/" + player + "Note.png")
+      .style('opacity', 0.8)
+      .attr('x', function(d) {
+        return Math.floor(xScale(d.id) + (svgWidth / this.props.selectedData.length));
+      }.bind(this))
+      .attr('y', function(d) {
+        return yScale(d.value);
+      })
+      .attr('height', 25)
+      .attr('width', 25)
+      .attr('id', function(d) {
+        return d.id;
+      });
+
+    // UPDATE
+    notes
+      .transition()
+      .attr("class", player)
+      .attr("xlink:href", "../assets/" + player + "Note.png")
+      .style('opacity', 0.8)
+      .attr('x', function(d) {
+        return Math.floor(xScale(d.id) + (svgWidth / songData.length));
+      })
+      .attr('y', function(d) {
+        return yScale(d.value);
+      })
+      .attr('height', 25)
+      .attr('width', 25)
+      .attr('id', function(d) {
+        return d.id;
+      });
+
+    // EXIT
+    notes
+      .exit()
+      .remove();
+  }
+
+  updateScoreBoard(data, songData) {
+    var xScale = d3.scaleLinear()
+      .domain( [0, this.props.selectedData.length] )
+      .range( [0, svgWidth] );
+    var yScale = d3.scaleLinear()
+      .domain( [50, 120] )
+      .range( [svgHeight, 0] );
+
+    var currentX = Math.floor(xScale(data[data.length - 1].id) + (svgWidth / this.props.selectedData.length));
+    var otherNote = d3.select('.songGraph').selectAll('image')
+      .filter(function(d) {
+        return Math.floor(xScale(d.id) + (svgWidth / this.props.selectedData.length)) === currentX;
+      }.bind(this));
+    if( otherNote.attr('y') < 430 ) {
+      var difference = Math.abs(otherNote.attr('y') - yScale(data[data.length - 1].value));
+      this.max += 3;
+      if ( difference < 30 ) {
+        this.score += 3;
+      } else  if (difference < 50) {
+        this.score += 2;  
+      } else if (difference < 70) {
+        this.score ++; 
+      }
+      this.percentage = Math.floor(this.score / this.max * 100); 
+    }
+  }
+
+  toggleLiveInput() {
+    console.log('toggleLiveInput is called');
     if (localStream === null) {
       getUserAudio();
     } else {
       this.stopUserAudio();
     }
-
-    var userPitchGraph = d3.select('.songGraph');
-
     var drawUserGraph = function( data, songData ) {
-
-      var xScale = d3.scaleLinear()
-        .domain( [0, that.props.selectedData.length] )
-        .range( [0, svgWidth] );
-      var yScale = d3.scaleLinear()
-        .domain( [50, 120] )
-        .range( [svgHeight, 0] );
-
-      var notes = userPitchGraph.selectAll('ellipse')
-        .data( data, function( d ) {
-          return d.id;
-        });
-
-      // ENTER
-      notes.enter()
-        .append('ellipse')
-        .attr('cx', function(d) {
-          return xScale(d.id) + (svgWidth / that.props.selectedData.length);
-        })
-        .attr('cy', function(d) {
-          return yScale(d.value);
-        })
-        .attr('rx', (svgWidth / that.props.selectedData.length) * 1.5)
-        .attr('ry', 2)
-        .attr('fill', 'yellow')
-        .attr('id', function(d) {
-          return d.id;
-        });
-
-      // UPDATE
-      notes
-        .transition()
-        .attr('cx', function(d) {
-          return xScale(d.id) + (svgWidth / songData.length);
-        })
-        .attr('cy', function(d) {
-          return yScale(d.value);
-        })
-        .attr('rx', (svgWidth / that.props.selectedData.length) * 1.5)
-        .attr('ry', 2)
-        .attr('fill', 'red')
-        .attr('id', function(d) {
-          return d.id;
-        });
-
-      // EXIT
-      notes
-        .exit()
-        .remove();
-    };
-    
-    var that = this;
+      var player = 'player1'
+      this.createNotes(data, songData, player);
+    }.bind(this);
 
     updatePitchID = setInterval(function() {
       updatePitch();
-    }, 1000 / 60);
-
+    }, 10000 / 60);
+    
+    // Control interval of both note and wave 
     drawUserGraphID = setInterval(function() {
       getAvgNote( noteArray );
-      drawUserGraph( avgNoteArray, that.props.selectedData );
-    }, 1000);
+      this.props.socket.emit('playerData', {data: avgNoteArray, songData:this.props.selectedData});
+      drawUserGraph( avgNoteArray, this.props.selectedData );
+      this.updateScoreBoard(avgNoteArray, this.props.selectedData);
+    }.bind(this), 2000);
+  }
 
+  // Control interval of pitch graph
+  updateScore(callback) {
+    setInterval (function() {
+      var result = {
+        percentage: this.percentage,
+        opponentPercentage: this.opponentPercentage
+      }
+      callback(result);
+    }.bind(this), 2000);
   }
 
   render() {
+    if (this.props.playSong) {
+      this.toggleLiveInput();
+    } else {
+      this.stopUserAudio.apply(this)
+    }
     return (
       <div id="pitchdetector">
-      
         <div className="row">
           <div className="col s12 l4">
             <div id="detector" className="vague">
               <div className="pitch"><span id="pitch">--</span>Hz</div>
-              <div className="note"><span id="note">--</span></div>   
+              <div className="note"><span id="note">--</span></div>
               <div id="detune"><span id="detune_amt">--</span><span id="flat">cents &#9837;</span><span id="sharp">cents &#9839;</span></div>
-            </div>       
+            </div>
           </div>
           <div className='col s12 l4 audioPlayer'>
-            <a className="btn-floating btn-large waves-effect waves-light teal" onClick= {() => {this.props.onPlay(); this.toggleLiveInput() }}><i className="material-icons">play_arrow</i></a>
+            <a className="btn-floating btn-large waves-effect waves-light teal" 
+                onClick= {() => {this.props.onPlay(); this.toggleLiveInput()}}>
+              <i className="material-icons">play_arrow</i>
+            </a>
             <a className="btn-floating btn-large waves-effect waves-light teal" onClick={() => {this.props.onPause(); this.stopUserAudio.apply(this)}}><i className="material-icons">pause</i></a>
-            <a className="btn-floating btn-large waves-effect waves-light teal" onClick={() => {this.props.onStop(); this.stopUserAudio.apply(this)}}><i className="material-icons">stop</i></a>
+            <a className="btn-floating btn-large waves-effect waves-light teal" onClick={() => {this.props.onStop({score: this.percentage}); this.stopUserAudio.apply(this)}}><i className="material-icons">stop</i></a>
             {this.props.audioPlayer}
             <input type="range" id="karaokeInput" min="0" max="1" step="0.1" onChange={this.props.onKaraokeVolumeChange}/>
             <input type="range" id="vocalsInput" min="0" max="1" step="0.1" onChange={this.props.onVocalsVolumeChange}/>
           </div>
-          <div className="col s12 l4 overflow">
-            <canvas id="waveform" width="512" height="290"></canvas>
+          <div className="col s12 l4">
+            <div id="remotesVideos"></div>
           </div>
         </div>
 
@@ -223,17 +324,10 @@ class PitchVisualizer extends React.Component {
             </div>
           </div>
         </div>
-        
         <div className="row">
-          <div className="col l4 s4 scoreboard offset-l3">
-            <span>Score : {this.props.score}</span>
-          </div>
+          <Score updateScore={this.updateScore.bind(this)} score={this.percentage} opponentScore={this.opponentPercentage} />
         </div>
-
       </div>
     );
   }
-};
-
-window.PitchVisualizer = PitchVisualizer;
-
+}

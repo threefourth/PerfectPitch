@@ -47,6 +47,7 @@ UserSchema.pre('save', function(next) {
   });
 });
 
+
 var User = mongoose.model('User', UserSchema);
 
 // initialize user collection with one instance

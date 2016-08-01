@@ -1,3 +1,5 @@
+import React from 'react';
+
 var Artwork = (props) => (
   <tr>
     <td>
@@ -6,4 +8,5 @@ var Artwork = (props) => (
   </tr>
 );
 
-window.Artwork = Artwork;
+export default Artwork;
+// window.Artwork = Artwork;

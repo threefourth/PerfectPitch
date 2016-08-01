@@ -1,9 +1,19 @@
-window.Router = window.ReactRouter.Router;
-window.Route = window.ReactRouter.Route;
-window.Link = window.ReactRouter.Link;
-window.browserHistory = window.ReactRouter.browserHistory;
-window.IndexRoute = window.ReactRouter.IndexRoute;
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Router, Route, IndexRoute, browserHistory } from "react-router";
 
+import Home from './components/Home.jsx';
+import App from './components/App.jsx';
+import Login from './components/Login.jsx';
+import Signup from './components/Signup.jsx';
+import Progress from './components/Progress.jsx';
+import NoMatch from './components/NoMatch.jsx';
+
+// window.Router = window.ReactRouter.Router;
+// window.Route = window.ReactRouter.Route;
+// window.Link = window.ReactRouter.Link;
+// window.browserHistory = window.ReactRouter.browserHistory;
+// window.IndexRoute = window.ReactRouter.IndexRoute;
 
 ReactDOM.render((
   <Router history={browserHistory}>
