@@ -1,4 +1,7 @@
-class Home extends React.Component {
+import React from 'react';
+import { Link } from 'react-router';
+
+export default class Home extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
@@ -10,7 +13,7 @@ class Home extends React.Component {
   componentDidMount() {
     var that = this;
     $.ajax({
-      url: '/checkUser', 
+      url: '/checkUser',
       type: 'GET',
       dataType: 'json',
       success: function(data) {
@@ -30,7 +33,7 @@ class Home extends React.Component {
   handleSignOut() {
     var that = this;
     $.ajax({
-      url: '/signoutUser', 
+      url: '/signoutUser',
       type: 'GET',
       dataType: 'json',
       success: function(data) {
@@ -59,13 +62,13 @@ class Home extends React.Component {
 
     var toggleNavBar;
     if (this.state.isLoggedIn) {
-      toggleNavBar = 
+      toggleNavBar =
         <ul className="right hide-on-med-and-down">
           <Link to="/progress">{this.state.user.username}'s Progress</Link>
           <a onClick={this.handleSignOut.bind(this)}>Logout</a>
         </ul>
     } else {
-      toggleNavBar = 
+      toggleNavBar =
         <ul className="right hide-on-med-and-down">
           <Link to="/login">Login</Link>
           <Link to="/signup">Sign Up</Link>
@@ -78,7 +81,7 @@ class Home extends React.Component {
           <nav className="flow-text grey darken-3 ">
             <div className="nav-wrapper">
               &nbsp; &nbsp; &nbsp;
-              <Link to="/">Perfect Pitch</Link>
+              <Link to="/" params={{ user: this.state.user }}>Perfect Pitch</Link>
               {toggleNavBar}
             </div>
           </nav>
@@ -91,5 +94,4 @@ class Home extends React.Component {
   }
 }
 
-window.Home = Home;
-
+// window.Home = Home;

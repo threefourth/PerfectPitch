@@ -1,6 +1,10 @@
-class SongPlayer extends React.Component {
-  constructor(props) {
-    super(props);
+import React from 'react';
+import PitchVisualizer from './PitchVisualizer.jsx';
+import ReactAudioPlayer from './ReactAudioPlayer.jsx';
+
+export default class SongPlayer extends React.Component {
+  constructor() {
+    super();
   }
 
   render() {
@@ -15,7 +19,17 @@ class SongPlayer extends React.Component {
           /></div>
       return (
         <div>
-          <PitchVisualizer selectedData={this.props.selectedData} audioPlayer={audioPlayer} score={this.props.score} onPlay={this.props.onPlay} onPause={this.props.onPause} onStop={this.props.onStop} onKaraokeVolumeChange={this.props.onKaraokeVolumeChange} onVocalsVolumeChange={this.props.onVocalsVolumeChange}/>
+          <PitchVisualizer selectedData={this.props.selectedData}
+                          audioPlayer={audioPlayer}
+                          score={this.props.score}
+                          onPlay={this.props.onPlay}
+                          onPause={this.props.onPause}
+                          onStop={this.props.onStop}
+                          onKaraokeVolumeChange={this.props.onKaraokeVolumeChange}
+                          onVocalsVolumeChange={this.props.onVocalsVolumeChange}
+                          playSong={this.props.playSong}
+                          socket={this.props.socket}
+                          />
         </div>)
     } else {
       audioPlayer = <div><ReactAudioPlayer id={'karaoke'}
@@ -25,8 +39,6 @@ class SongPlayer extends React.Component {
         <div>
           <PitchVisualizer selectedData={this.props.selectedData} audioPlayer={audioPlayer} score={this.props.score} onPlay={this.props.onPlay} onPause={this.props.onPause} onStop={this.props.onStop} onKaraokeVolumeChange={this.props.onKaraokeVolumeChange} onVocalsVolumeChange={this.props.onVocalsVolumeChange}/>
         </div>)
-    }    
+    }
   }
 };
-
-window.SongPlayer = SongPlayer;

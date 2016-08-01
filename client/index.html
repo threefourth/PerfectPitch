@@ -10,28 +10,34 @@
     <script src="/lib/react/react.js"></script>
     <script src="/lib/react/react-dom.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.1.1/d3.min.js"></script>
-    <script src="/node_modules/react-rangeslider/lib/umd/ReactRangeslider.min.js"></script>
     <script src="https://npmcdn.com/react-router/umd/ReactRouter.min.js"></script>
-    <script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+    <script src="/lib/socket.io-client/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+    <script src="https://simplewebrtc.com/latest-v2.js"></script> 
   <body>
     <div id="app"></div>
+    <div id="remotesVideos"></div>
+    <!-- <video id="receiver" autoplay></video>
+    <canvas id="preview"></canvas>    
+    <video id="client" autoplay></video>
+    <script src="/videochat.js"></script> -->
     <script src="/media/placeHolderData.js"></script>
-    <script src="/compiled/components/Scoreboard.js"></script>
-    <script src="/compiled/components/ReactAudioPlayer.js"></script>
-    <script src="/compiled/components/SongPlayer.js"></script>
     <script src="/scripts/pitchDetector.js"></script>
-    <script src="/compiled/components/PitchVisualizer.js"></script>
-    <script src="/compiled/components/Artwork.js"></script>
-    <script src="/compiled/components/PlayListEntry.js"></script>
-    <script src="/compiled/components/PlayList.js"></script>
-    <script src="/compiled/components/Main.js"></script>
-    <script src="/compiled/components/App.js"></script>
-    <script src="/compiled/components/Signup.js"></script>
-    <script src="/compiled/components/Login.js"></script>
-    <script src="/compiled/components/Progress.js"></script>
-    <script src="/compiled/components/NoMatch.js"></script>
-    <script src="/compiled/components/Home.js"></script>
-    <script src="/compiled/index.js"></script>
+    <script src="/compiled/components/ReactAudioPlayer.js"></script>
+    <script src="/scripts/scripts.min.js"></script>
+    <script type="text/javascript">
+        var webrtc = new SimpleWebRTC({
+          // the id/element dom element that will hold "our" video
+          localVideoEl: 'localVideo',
+          // the id/element dom element that will hold remote videos
+          remoteVideosEl: 'remotesVideos',
+          // immediately ask for camera access
+          autoRequestMedia: true
+        });
+        webrtc.on('readyToCall', function () {
+          webrtc.joinRoom('Hien\'s awesome room');
+        });
+    </script>
   </body>
 </html>
